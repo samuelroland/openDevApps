@@ -22,4 +22,6 @@ This is a very little project, only **to take in hand web extensions building**.
 
 ## Ressources that helped me:
 - [Your first extension - MDN](https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension)
+- [Your second extension - MDN](https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Your_second_WebExtension)
 - [Extension workshop](https://extensionworkshop.com/)
+- https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions
