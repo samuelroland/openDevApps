@@ -1,4 +1,5 @@
 # openDevD
+![icon](icon.png)  
 My first web extension, that is able to visit the local dev or prod instance of [DevDashboard](https://github.com/samuelroland/DevDashboard).
 
 ## Features
