@@ -1,8 +1,9 @@
 # openDevD
-![icon](icon.png)  
-#### My first web extension, to create a list of favorite sites hosted on Internet or on local, with additionnal information and alternatives URLs for local apps.
+![icon](icon.png)
 
-`Planned model:`
+### Create and access to a list of favorite links for dev, with additionnal support for local apps.  
+
+`Planned model:`  
 ![model](docs/main-model.png)
 
 ## Goals of the app
@@ -18,8 +19,10 @@
 1. Visit the manual to learn how configurations works.
 1. Automatic alert when a new version is available/released on GitHub or on AMO (addons.mozilla.org).
 
+--- 
 ## Goals of the project
 This is a very little project, only **to take in hand web extensions building**.
+- **Make a first web extension** with a bit of challenge and follow guides for the building from A to Z (
 - **Discover and learn WebExtension programming**, by practice ad by reading the Mozilla documentations
 - **Understand how extensions are built** (structure of files, possibilities and API availables, ...)
 - Build a very little tool that **will be useful for me** (and that can be useful for other local apps, just by changing URL).
@@ -32,3 +35,4 @@ This is a very little project, only **to take in hand web extensions building**.
 - [Your second extension - MDN](https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Your_second_WebExtension)
 - [Extension workshop](https://extensionworkshop.com/)
 - https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions
+- https://github.com/mdn/webextensions-examples
