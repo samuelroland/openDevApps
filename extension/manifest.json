@@ -1,0 +1,13 @@
+{
+    "manifest_version": 2,
+    "name": "openDevD",
+    "version": "0.1",
+    "description": "Create and access to a list of favorite links for dev, with additionnal support for local apps.",
+    "icons": {
+        "48": "icons/border-48.png",
+        "96": "icons/border-96.png"
+    },
+    "permissions": [
+        "activeTab"
+    ]
+}
