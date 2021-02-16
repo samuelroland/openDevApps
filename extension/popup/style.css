@@ -5,4 +5,26 @@ body {
   color: rgb(6, 78, 30);
   padding: 8px;
   margin: 0;
+  padding-right: 20px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+li {
+  padding: 2px;
+  border-radius: 2px;
+  background-color: lightgreen;
+  margin: 3px 0px;
+  cursor: pointer;
+  min-width: 200px;
+}
+li:hover {
+  background-color: darkseagreen;
+}
+
+img {
+  height: 20px;
 }
