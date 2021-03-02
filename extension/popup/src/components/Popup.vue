@@ -11,18 +11,22 @@
         ><img
           src="icons/code.svg"
           class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
-          alt=""/>
+          alt="code icon"
+          title="Let me checkout the code!"
+          @click="goToSourceCode"/>
         <img
           src="icons/help.svg"
-          alt=""
+          alt="help icon"
+          title="I need help!"
           class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
+          @click="goToManual"
       /></span>
     </div>
     <ul class="list-none">
       <li
         v-for="item in items"
         :key="item.id"
-        class="text-base flex hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+        class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
       >
         <a
           :href="'http://' + item.link"
@@ -33,12 +37,13 @@
             <img
               src="icons/home.svg"
               class="w-4 mx-1 inline"
-              alt=""
+              title="Local"
               v-if="item.local"
             />
             <img
               src="icons/arrow-circle-up.svg"
               class="w-4 inline"
+              title="Website up"
               alt=""
             /> </span
         ></a>
@@ -67,6 +72,17 @@ export default {
         { id: 3, name: "KanFF.org", link: "kanff.org", local: false },
       ],
     };
+  },
+  methods: {
+    goToSourceCode() {
+      window.open("https://github.com/samuelroland/openDevD", "_blank");
+    },
+    goToManual() {
+      window.open(
+        "https://github.com/samuelroland/openDevD/blob/develop/manual.md",
+        "_blank"
+      );
+    },
   },
 };
 </script>
