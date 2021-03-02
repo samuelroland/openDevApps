@@ -1,10 +1,8 @@
 <template>
   <div>
     <div class="flex">
-      <div style=" display: flex;">
-        <h3
-          style="display: flex;flex-direction: row;align-items: center; margin:0;"
-        >
+      <div class="flex">
+        <h3 class="flex flex-row items-center m-0">
           open<img src="icons/icon-48.png" alt="" />evD
         </h3>
         <span>v0.1</span>
@@ -13,7 +11,10 @@
         ><img src="icons/code.svg" alt=""/> <img src="icons/help.svg" alt=""
       /></span>
     </div>
-    <ul>
+    <ul class="list-none pl-5">
+      <li v-for="item in items" :key="item.id">
+        <a :href="item.link">{{ item.name }}</a>
+      </li>
       <li>
         DevDashboard
         <span
@@ -22,9 +23,6 @@
             alt=""
         /></span>
       </li>
-      <li>E-commerce in dev</li>
-      <li>localhost:8085</li>
-      <li>GitHub Profile</li>
     </ul>
   </div>
 </template>
@@ -34,6 +32,16 @@ export default {
   name: "Popup",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      items: [
+        { id: 1, name: "DevDashboard", link: "localhost:8008", local: true },
+        { id: 2, name: "GitHub Profile", link: "github.com", local: false },
+        { id: 3, name: "KanFF", link: "localhost:8084", local: true },
+        { id: 3, name: "KanFF.org", link: "kanff.org", local: false },
+      ],
+    };
   },
 };
 </script>
