@@ -19,7 +19,13 @@
           alt="help icon"
           title="I need help!"
           class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
-          @click="goToManual"
+          @click="goToManual"/>
+        <img
+          src="icons/help.svg"
+          alt="help icon"
+          title="try to store!"
+          class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
+          @click="tryToStore"
       /></span>
     </div>
     <ul class="list-none">
@@ -82,6 +88,10 @@ export default {
         "https://github.com/samuelroland/openDevD/blob/develop/manual.md",
         "_blank"
       );
+    },
+    tryToStore() {
+      browser.storage.sync.set({ test: "salut" });
+      console.log(browser.storage.sync);
     },
   },
 };
