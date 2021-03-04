@@ -21,11 +21,11 @@
           class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
           @click="goToManual"/>
         <img
-          src="icons/help.svg"
-          alt="help icon"
-          title="try to store!"
+          src="icons/settings.svg"
+          alt="settings icon"
+          title="Settings"
           class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
-          @click="tryToStore"
+          @click="openSettings"
       /></span>
     </div>
     <ul class="list-none">
@@ -54,6 +54,29 @@
             /> </span
         ></a>
       </li>
+      <li
+        v-if="addingElementInRun"
+        class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+      >
+        <input
+          type="text"
+          v-model="newLink"
+          placeholder="Link+Enter"
+          @keyup="nextStepOfLinkAdding"
+          class="w-full"
+        />
+      </li>
+      <li
+        v-if="settingsEnabled && !addingElementInRun"
+        class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+      >
+        <button
+          class="border border-gray-600 border-solid"
+          @click="addingElementInRun = true"
+        >
+          Add
+        </button>
+      </li>
     </ul>
   </div>
 </template>
@@ -66,17 +89,10 @@ export default {
   },
   data() {
     return {
-      items: [
-        { id: 1, name: "DevDashboard", link: "localhost:8008", local: true },
-        {
-          id: 2,
-          name: "GitHub Profile",
-          link: "github.com/samuelroland",
-          local: false,
-        },
-        { id: 3, name: "KanFF", link: "localhost:8084/index.php", local: true },
-        { id: 3, name: "KanFF.org", link: "kanff.org", local: false },
-      ],
+      settingsEnabled: false,
+      addingElementInRun: false,
+      newLink: "",
+      items: [],
     };
   },
   methods: {
@@ -89,10 +105,62 @@ export default {
         "_blank"
       );
     },
-    tryToStore() {
-      browser.storage.sync.set({ test: "salut" });
-      console.log(browser.storage.sync);
+    openSettings() {
+      this.settingsEnabled = !this.settingsEnabled;
     },
+    nextStepOfLinkAdding(e) {
+      console.log("nextStepOfLinkAdding");
+      var key = e.key;
+      console.log(key);
+      if (key == "Enter" && this.newLink != "") {
+        this.items.push({
+          id: this.items.length + 1,
+          name: "XXAA",
+          link: this.newLink,
+          local: true,
+        });
+        this.saveItemsInStorage();
+        console.log(this.items);
+      }
+    },
+    saveItemsInStorage() {
+      console.log("saveItemsInStorage");
+      browser.storage.local.set({ arr: this.items });
+      console.log(this.getItemsFromStorage());
+    },
+    getItemsFromStorage() {
+      console.log("getItemsInStorage");
+      browser.storage.local.get().then((raw) => {
+        return raw;
+      });
+    },
+    loadItemsFromStorage() {
+      browser.storage.local.get().then((raw) => {
+        if (raw != {}) {
+          this.items = raw.arr;
+        }
+      });
+    },
+  },
+  mounted() {
+    window.onload = function() {
+      console.log("onload" + Date());
+      this.loadItemsFromStorage();
+    };
+    browser.storage.local.set({
+      arr: [
+        { id: 1, name: "DevDashboard", link: "localhost:8008", local: true },
+        {
+          id: 2,
+          name: "GitHub Profile",
+          link: "github.com/samuelroland",
+          local: false,
+        },
+        { id: 3, name: "KanFF", link: "localhost:8084/index.php", local: true },
+        { id: 3, name: "KanFF.org", link: "kanff.org", local: false },
+      ],
+    });
+    this.loadItemsFromStorage();
   },
 };
 </script>

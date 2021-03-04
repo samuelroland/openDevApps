@@ -15,5 +15,11 @@
         "default_icon": "popup/dist/icons/icon-48.png",
         "default_title": "Show links of openDevD",
         "default_popup": "popup/dist/index.html"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "addon@example.com",
+            "strict_min_version": "42.0"
+        }
     }
 }
