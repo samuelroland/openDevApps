@@ -1,14 +1,15 @@
 # openDevD
 ![icon](icon.png)
 
-### Create and access to a list of favorite links for dev, with additionnal support for local apps.  
+### Open quickly in the browser some local or remote dev apps.
 
-`Planned model:`  
+`Model of the design planned:`  
 ![model](docs/main-model.png)
 
 ## Goals of the app
 - Open quickly a local server (without typing `localhost:8056` by hand, and changing ports numbers between servers, ...)
-- Open quickly a web page visited regularly.
+- Open quickly links on remote apps (like GitHub repos, tasks management software, blogs, ...)
+- Separate links by projects to keep the list short and not off-topic.
 
 ## Features
 1. **Open a local app**:
