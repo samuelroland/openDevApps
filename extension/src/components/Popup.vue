@@ -33,11 +33,11 @@
       <li
         v-for="link in links"
         :key="link.id"
-        class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+        class="flex"
       >
         <a
           :href="'http://' + link.link"
-          class="hover:text-white w-full block flex px-1"
+          class="hover:text-white flex-1  block flex px-1 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
         >
           <span class=" flex-1">{{ link.name }}</span>
           <span>
@@ -54,29 +54,21 @@
               alt=""
             /> </span
         ></a>
+        <img v-if="settingsEnabled" class="hover:bg-blue-400 ml-1 w-8 p-1" src="icons/trash.svg" alt="trash icon">
       </li>
+
       <li
-        v-if="addingElementInRun"
+        v-if="settingsEnabled"
         class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
       >
         <input
           type="text"
           v-model="newLink"
-          placeholder="Link+Enter"
+          placeholder="New Link + Enter"
           @keyup="nextStepOfLinkAdding"
-          class="w-full"
+          class="w-full px-1"
+          ref="newLinkInput"
         />
-      </li>
-      <li
-        v-if="settingsEnabled && !addingElementInRun"
-        class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
-      >
-        <button
-          class="border border-gray-600 border-solid"
-          @click="addingElementInRun = true"
-        >
-          Add
-        </button>
       </li>
     </ul>
   </div>
@@ -94,6 +86,7 @@ export default {
       addingElementInRun: false,
       newLink: "",
       links: null,
+      setFocus: false
     };
   },
   methods: {
@@ -108,6 +101,9 @@ export default {
     },
     openSettings() {
       this.settingsEnabled = !this.settingsEnabled;
+      if (this.settingsEnabled == true){
+        setTimeout( ()=>{this.$refs.newLinkInput.focus()}, 50)  //leave the component the time to load before focus
+      }
     },
     nextStepOfLinkAdding(e) {
       var key = e.key;
@@ -119,6 +115,7 @@ export default {
           link: this.newLink,
           local: true,
         });
+        this.newLink = ""
         this.saveItemsInStorage();
       }
     },
