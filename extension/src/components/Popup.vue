@@ -63,11 +63,11 @@
       >
         <input
           type="text"
-          v-model="newLink"
-          :placeholder="newLinkPlaceholder"
+          v-model="inpCreate"
+          :placeholder="inpCreatePlaceholder"
           @keyup="nextStepOfLinkAdding"
           class="w-full px-1"
-          ref="newLinkInput"
+          ref="inpCreateInput"
         />
       </li>
     </ul>
@@ -84,11 +84,11 @@ export default {
     return {
       settingsEnabled: false,
       addingElementInRun: false,
-      newLink: "",
+      inpCreate: "",
       links: null,
       setFocus: false,
-      newLinkPlaceholder: "New Link + Enter",
-      newLinkStep: 0,
+      inpCreatePlaceholder: "New Link + Enter",
+      inpCreateStep: 0,
       newLinkData: {}
     };
   },
@@ -105,40 +105,40 @@ export default {
     openSettings() {
       this.settingsEnabled = !this.settingsEnabled;
       if (this.settingsEnabled == true){
-        setTimeout( ()=>{this.$refs.newLinkInput.focus()}, 50)  //leave the component the time to load before focus
-        this.newLinkStep = 1
+        setTimeout( ()=>{this.$refs.inpCreateInput.focus()}, 50)  //leave the component the time to load before focus
+        this.inpCreateStep = 1
       }
     },
     nextStepOfLinkAdding(e) {
       var key = e.key;
       console.log(key);
-      console.log(this.newLinkStep)
-      if (key == "Enter" && (this.newLink != "" || this.newLinkStep == 3)) {
+      console.log(this.inpCreateStep)
+      if (key == "Enter" && (this.inpCreate != "" || this.inpCreateStep == 3)) {
 
         //Depending on the step of the link creation, change placeholder, save value and go to next step
-        switch (this.newLinkStep){
+        switch (this.inpCreateStep){
           case 1: //link is entered
             this.newLinkData.id = this.links.length + 1
-            this.newLinkData.link = this.newLink
-            this.newLinkPlaceholder = "Placeholder + Enter"
-            this.newLink = ""
+            this.newLinkData.link = this.inpCreate
+            this.inpCreatePlaceholder = "Name + Enter"
+            this.inpCreate = ""
           break;
             case 2: //placeholder is entered
-              this.newLinkData.name = this.newLink
-              this.newLink = ""
-              this.newLinkPlaceholder = "local ? default true"
+              this.newLinkData.name = this.inpCreate
+              this.inpCreate = ""
+              this.inpCreatePlaceholder = "local ? default true"
           break;
           case 3: //local or not is given
-            this.newLinkData.local = this.newLink === ""
-            this.newLink = ""
+            this.newLinkData.local = this.inpCreate === ""
+            this.inpCreate = ""
             this.links.push(this.newLinkData);
             this.saveItemsInStorage();
-            this.newLinkPlaceholder = "New Link + Enter"
+            this.inpCreatePlaceholder = "New Link + Enter"
               this.newLinkData = Object.assign({}, {});
-              this.newLinkStep = 0  //0+1=1
+              this.inpCreateStep = 0  //0+1=1
                 break;
         }
-        this.newLinkStep++
+        this.inpCreateStep++
       }
     },
     saveItemsInStorage() {
