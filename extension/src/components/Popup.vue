@@ -19,32 +19,33 @@
           alt="help icon"
           title="I need help!"
           class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
-          @click="goToManual"/>
+          @click="loadFirstTime"/>
         <img
-          src="icons/settings.svg"
-          alt="settings icon"
-          title="Settings"
-          class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
-          @click="openSettings"
-      /></span>
+            src="icons/settings.svg"
+            alt="settings icon"
+            title="Settings"
+            class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
+            @click="openSettings"
+        />
+      </span>
     </div>
-    <ul class="list-none">
+    <ul class="list-none" v-if="links != null">
       <li
-        v-for="item in items"
-        :key="item.id"
+        v-for="link in links"
+        :key="link.id"
         class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
       >
         <a
-          :href="'http://' + item.link"
+          :href="'http://' + link.link"
           class="hover:text-white w-full block flex px-1"
         >
-          <span class=" flex-1">{{ item.name }}</span>
+          <span class=" flex-1">{{ link.name }}</span>
           <span>
             <img
               src="icons/home.svg"
               class="w-4 mx-1 inline"
               title="Local"
-              v-if="item.local"
+              v-if="link.local"
             />
             <img
               src="icons/arrow-circle-up.svg"
@@ -92,7 +93,7 @@ export default {
       settingsEnabled: false,
       addingElementInRun: false,
       newLink: "",
-      items: [],
+      links: null,
     };
   },
   methods: {
@@ -109,58 +110,56 @@ export default {
       this.settingsEnabled = !this.settingsEnabled;
     },
     nextStepOfLinkAdding(e) {
-      console.log("nextStepOfLinkAdding");
       var key = e.key;
       console.log(key);
       if (key == "Enter" && this.newLink != "") {
-        this.items.push({
-          id: this.items.length + 1,
-          name: "XXAA",
+        this.links.push({
+          id: this.links.length + 1,
+          name: this.newLink,
           link: this.newLink,
           local: true,
         });
         this.saveItemsInStorage();
-        console.log(this.items);
       }
     },
     saveItemsInStorage() {
-      console.log("saveItemsInStorage");
-      browser.storage.local.set({ arr: this.items });
-      console.log(this.getItemsFromStorage());
+      browser.storage.local.set({
+        links: JSON.parse(JSON.stringify(this.links)),  //Stringify and parse to have a new independant object
+      }).then(()=> {
+        this.getItemsFromStorage()
+      })
     },
     getItemsFromStorage() {
-      console.log("getItemsInStorage");
       browser.storage.local.get().then((raw) => {
-        return raw;
+        return raw.links;
       });
     },
     loadItemsFromStorage() {
       browser.storage.local.get().then((raw) => {
         if (raw != {}) {
-          this.items = raw.arr;
+          this.links = raw.links;
         }
       });
     },
+    loadFirstTime(){
+        browser.storage.local.set({
+          links: [
+          { id: 1, name: "DevDashboard", link: "localhost:8008", local: true },
+          {
+            id: 2,
+            name: "GitHub Profile",
+            link: "github.com/samuelroland",
+            local: false,
+          },
+          { id: 3, name: "KanFF", link: "localhost:8084/index.php", local: true },
+          { id: 4, name: "KanFF.org", link: "kanff.org", local: false },
+        ],
+      });
+        console.log(this.getItemsFromStorage())
+    }
   },
   mounted() {
-    window.onload = function() {
-      console.log("onload" + Date());
-      this.loadItemsFromStorage();
-    };
-    browser.storage.local.set({
-      arr: [
-        { id: 1, name: "DevDashboard", link: "localhost:8008", local: true },
-        {
-          id: 2,
-          name: "GitHub Profile",
-          link: "github.com/samuelroland",
-          local: false,
-        },
-        { id: 3, name: "KanFF", link: "localhost:8084/index.php", local: true },
-        { id: 3, name: "KanFF.org", link: "kanff.org", local: false },
-      ],
-    });
-    this.loadItemsFromStorage();
+    this.loadItemsFromStorage();  //when open extension, load saved links
   },
 };
 </script>
