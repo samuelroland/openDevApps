@@ -10,8 +10,3 @@ export default {
   components: { Popup }
 }
 </script>
-
-<style>
-html {
-}
-</style>
