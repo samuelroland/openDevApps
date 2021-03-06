@@ -1,6 +1,5 @@
 <template>
   <div>
-    asdfasfd
     <p>{{ defaultText }}</p>
   </div>
 </template>

@@ -1,5 +1,4 @@
 <template>
-  Hey great reload !
   <hello-world />
 </template>
 
@@ -14,7 +13,5 @@ export default {
 
 <style>
 html {
-  width: 400px;
-  height: 400px;
 }
 </style>
