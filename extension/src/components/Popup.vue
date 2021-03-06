@@ -36,7 +36,7 @@
         class="flex"
       >
         <a
-          :href="'http://' + link.link"
+          :href="'https://' + link.link"
           class="hover:text-white flex-1  block flex px-1 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
         >
           <span class=" flex-1">{{ link.name }}</span>
@@ -64,7 +64,7 @@
         <input
           type="text"
           v-model="newLink"
-          placeholder="New Link + Enter"
+          :placeholder="newLinkPlaceholder"
           @keyup="nextStepOfLinkAdding"
           class="w-full px-1"
           ref="newLinkInput"
@@ -86,7 +86,10 @@ export default {
       addingElementInRun: false,
       newLink: "",
       links: null,
-      setFocus: false
+      setFocus: false,
+      newLinkPlaceholder: "New Link + Enter",
+      newLinkStep: 0,
+      newLinkData: {}
     };
   },
   methods: {
@@ -103,20 +106,39 @@ export default {
       this.settingsEnabled = !this.settingsEnabled;
       if (this.settingsEnabled == true){
         setTimeout( ()=>{this.$refs.newLinkInput.focus()}, 50)  //leave the component the time to load before focus
+        this.newLinkStep = 1
       }
     },
     nextStepOfLinkAdding(e) {
       var key = e.key;
       console.log(key);
-      if (key == "Enter" && this.newLink != "") {
-        this.links.push({
-          id: this.links.length + 1,
-          name: this.newLink,
-          link: this.newLink,
-          local: true,
-        });
-        this.newLink = ""
-        this.saveItemsInStorage();
+      console.log(this.newLinkStep)
+      if (key == "Enter" && (this.newLink != "" || this.newLinkStep == 3)) {
+
+        //Depending on the step of the link creation, change placeholder, save value and go to next step
+        switch (this.newLinkStep){
+          case 1: //link is entered
+            this.newLinkData.id = this.links.length + 1
+            this.newLinkData.link = this.newLink
+            this.newLinkPlaceholder = "Placeholder + Enter"
+            this.newLink = ""
+          break;
+            case 2: //placeholder is entered
+              this.newLinkData.name = this.newLink
+              this.newLink = ""
+              this.newLinkPlaceholder = "local ? default true"
+          break;
+          case 3: //local or not is given
+            this.newLinkData.local = this.newLink === ""
+            this.newLink = ""
+            this.links.push(this.newLinkData);
+            this.saveItemsInStorage();
+            this.newLinkPlaceholder = "New Link + Enter"
+              this.newLinkData = Object.assign({}, {});
+              this.newLinkStep = 0  //0+1=1
+                break;
+        }
+        this.newLinkStep++
       }
     },
     saveItemsInStorage() {
