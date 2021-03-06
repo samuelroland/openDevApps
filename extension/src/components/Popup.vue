@@ -13,28 +13,26 @@
           class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
           alt="code icon"
           title="Let me checkout the code!"
-          @click="goToSourceCode"/>
+          @click="goToSourceCode"
+        />
         <img
           src="icons/help.svg"
           alt="help icon"
           title="I need help!"
           class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
-          @click="loadFirstTime"/>
+          @click="loadFirstTime"
+        />
         <img
-            src="icons/settings.svg"
-            alt="settings icon"
-            title="Settings"
-            class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
-            @click="openSettings"
+          src="icons/settings.svg"
+          alt="settings icon"
+          title="Settings"
+          class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
+          @click="openSettings"
         />
       </span>
     </div>
     <ul class="list-none" v-if="links != null">
-      <li
-        v-for="link in links"
-        :key="link.id"
-        class="flex"
-      >
+      <li v-for="link in links" :key="link.id" class="flex">
         <a
           :href="'https://' + link.link"
           class="hover:text-white flex-1  block flex px-1 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
@@ -54,7 +52,12 @@
               alt=""
             /> </span
         ></a>
-        <img v-if="settingsEnabled" class="hover:bg-blue-400 ml-1 w-8 p-1" src="icons/trash.svg" alt="trash icon">
+        <img
+          v-if="settingsEnabled"
+          class="hover:bg-blue-400 ml-1 w-8 p-1"
+          src="icons/trash.svg"
+          alt="trash icon"
+        />
       </li>
 
       <li
@@ -89,7 +92,7 @@ export default {
       setFocus: false,
       inpCreatePlaceholder: "New Link + Enter",
       inpCreateStep: 0,
-      newLinkData: {}
+      newLinkData: {},
     };
   },
   methods: {
@@ -104,49 +107,52 @@ export default {
     },
     openSettings() {
       this.settingsEnabled = !this.settingsEnabled;
-      if (this.settingsEnabled == true){
-        setTimeout( ()=>{this.$refs.inpCreateInput.focus()}, 50)  //leave the component the time to load before focus
-        this.inpCreateStep = 1
+      if (this.settingsEnabled == true) {
+        setTimeout(() => {
+          this.$refs.inpCreateInput.focus();
+        }, 50); //leave the component the time to load before focus
+        this.inpCreateStep = 1;
       }
     },
     nextStepOfLinkAdding(e) {
       var key = e.key;
       console.log(key);
-      console.log(this.inpCreateStep)
+      console.log(this.inpCreateStep);
       if (key == "Enter" && (this.inpCreate != "" || this.inpCreateStep == 3)) {
-
         //Depending on the step of the link creation, change placeholder, save value and go to next step
-        switch (this.inpCreateStep){
+        switch (this.inpCreateStep) {
           case 1: //link is entered
-            this.newLinkData.id = this.links.length + 1
-            this.newLinkData.link = this.inpCreate
-            this.inpCreatePlaceholder = "Name + Enter"
-            this.inpCreate = ""
-          break;
-            case 2: //placeholder is entered
-              this.newLinkData.name = this.inpCreate
-              this.inpCreate = ""
-              this.inpCreatePlaceholder = "local ? default true"
-          break;
+            this.newLinkData.id = this.links.length + 1;
+            this.newLinkData.link = this.inpCreate;
+            this.inpCreatePlaceholder = "Name + Enter";
+            this.inpCreate = "";
+            break;
+          case 2: //placeholder is entered
+            this.newLinkData.name = this.inpCreate;
+            this.inpCreate = "";
+            this.inpCreatePlaceholder = "local ? default true";
+            break;
           case 3: //local or not is given
-            this.newLinkData.local = this.inpCreate === ""
-            this.inpCreate = ""
+            this.newLinkData.local = this.inpCreate === "";
+            this.inpCreate = "";
             this.links.push(this.newLinkData);
             this.saveItemsInStorage();
-            this.inpCreatePlaceholder = "New Link + Enter"
-              this.newLinkData = Object.assign({}, {});
-              this.inpCreateStep = 0  //0+1=1
-                break;
+            this.inpCreatePlaceholder = "New Link + Enter";
+            this.newLinkData = Object.assign({}, {});
+            this.inpCreateStep = 0; //0+1=1
+            break;
         }
-        this.inpCreateStep++
+        this.inpCreateStep++;
       }
     },
     saveItemsInStorage() {
-      browser.storage.local.set({
-        links: JSON.parse(JSON.stringify(this.links)),  //Stringify and parse to have a new independant object
-      }).then(()=> {
-        this.getItemsFromStorage()
-      })
+      browser.storage.local
+        .set({
+          links: JSON.parse(JSON.stringify(this.links)), //Stringify and parse to have a new independant object
+        })
+        .then(() => {
+          this.getItemsFromStorage();
+        });
     },
     getItemsFromStorage() {
       browser.storage.local.get().then((raw) => {
@@ -160,9 +166,10 @@ export default {
         }
       });
     },
-    loadFirstTime(){
-        browser.storage.local.set({
-          links: [
+    loadFirstTime() {
+      //for debug only
+      browser.storage.local.set({
+        links: [
           { id: 1, name: "DevDashboard", link: "localhost:8008", local: true },
           {
             id: 2,
@@ -170,15 +177,20 @@ export default {
             link: "github.com/samuelroland",
             local: false,
           },
-          { id: 3, name: "KanFF", link: "localhost:8084/index.php", local: true },
+          {
+            id: 3,
+            name: "KanFF",
+            link: "localhost:8084/index.php",
+            local: true,
+          },
           { id: 4, name: "KanFF.org", link: "kanff.org", local: false },
         ],
       });
-        console.log(this.getItemsFromStorage())
-    }
+      console.log(this.getItemsFromStorage());
+    },
   },
   mounted() {
-    this.loadItemsFromStorage();  //when open extension, load saved links
+    this.loadItemsFromStorage(); //when open extension, load saved links
   },
 };
 </script>

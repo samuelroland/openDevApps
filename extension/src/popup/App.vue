@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import Popup from '@/components/Popup.vue'
+import Popup from "@/components/Popup.vue";
 
 export default {
-  name: 'App',
-  components: { Popup }
-}
+  name: "App",
+  components: { Popup },
+};
 </script>
