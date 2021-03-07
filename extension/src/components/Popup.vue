@@ -57,6 +57,7 @@
           class="hover:bg-blue-400 ml-1 w-8 p-1"
           src="icons/trash.svg"
           alt="trash icon"
+          @click="deleteALink(link.id)"
         />
       </li>
 
@@ -188,6 +189,14 @@ export default {
       });
       console.log(this.getItemsFromStorage());
     },
+    //Delete a link given by id
+    deleteALink(id) {
+      console.log("delete item at id " + id)
+      this.links = this.links.filter(function(item) {
+        return item.id !== id
+      })
+      this.saveItemsInStorage()
+    }
   },
   mounted() {
     this.loadItemsFromStorage(); //when open extension, load saved links
