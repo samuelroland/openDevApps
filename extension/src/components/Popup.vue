@@ -34,6 +34,7 @@
     <ul class="list-none" v-if="links != null">
       <li v-for="link in links" :key="link.id" class="flex">
         <a
+            @click="this.redTrashId = null"
           :href="'https://' + link.link"
           class="hover:text-white flex-1  block flex px-1 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
         >
@@ -54,7 +55,8 @@
         ></a>
         <img
           v-if="settingsEnabled"
-          class="hover:bg-blue-400 ml-1 w-8 p-1"
+          class=" ml-1 w-8 p-1"
+          :class="{'bg-red-300': redTrashId == link.id, 'hover:bg-red-400': redTrashId === link.id, 'hover:bg-blue-400':  ! redTrashId === link.id}"
           src="icons/trash.svg"
           alt="trash icon"
           @click="deleteALink(link.id)"
@@ -72,6 +74,7 @@
           @keyup="nextStepOfLinkAdding"
           class="w-full px-1"
           ref="inpCreateInput"
+          @click="this.redTrashId = null"
         />
       </li>
     </ul>
@@ -94,6 +97,7 @@ export default {
       inpCreatePlaceholder: "New Link + Enter",
       inpCreateStep: 0,
       newLinkData: {},
+      redTrashId: null
     };
   },
   methods: {
@@ -107,6 +111,7 @@ export default {
       );
     },
     openSettings() {
+      this.redTrashId = null
       this.settingsEnabled = !this.settingsEnabled;
       if (this.settingsEnabled == true) {
         setTimeout(() => {
@@ -192,10 +197,16 @@ export default {
     //Delete a link given by id
     deleteALink(id) {
       console.log("delete item at id " + id)
-      this.links = this.links.filter(function(item) {
-        return item.id !== id
-      })
-      this.saveItemsInStorage()
+      if (this.redTrashId != id){
+        this.redTrashId = id  //put the current trash red
+      } else {  //if equal, the red trash is already red (so this is the second click)
+        //Delete the link by filtering the list
+        this.links = this.links.filter(function(item) {
+          return item.id !== id
+        })
+        this.saveItemsInStorage()
+      }
+
     }
   },
   mounted() {
