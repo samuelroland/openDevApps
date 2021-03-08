@@ -52,6 +52,7 @@
         <a
           @click="this.redTrashId = null"
           :href="'https://' + link.link"
+          :title="link.link"
           class="hover:text-white flex-1 w-full block flex px-1 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
         >
           <span class="flex-1 overflow-hidden overflow-ellipsis">{{
@@ -82,7 +83,16 @@
           }"
           src="icons/trash.svg"
           alt="trash icon"
+          title="Delete permanently the link."
           @click="deleteALink(link.id)"
+        />
+        <img
+            v-if="settingsEnabled && currentProject != null"
+            class="w-8 p-1"
+            src="icons/removelink.svg"
+            alt="trash icon"
+            title="Remove the link from this project."
+            @click="removeALinkFromCurrentProject(link.id)"
         />
       </li>
     </ul>
@@ -92,6 +102,26 @@
       </li>
     </ul>
     <ul class="list-none" :hidden="!settingsEnabled">
+      <li
+          v-if="settingsEnabled && currentProject != null"
+          class="text-base flex rounded-sm my-1 "
+      >
+        <select
+            name="sltAddLink"
+            class="rounded-sm flex-1"
+            ref="inpCreateInput"
+            @click="this.redTrashId = null"
+            v-model="linkToAdd"
+        >
+          <option :value="null">Add a link...</option>
+          <option v-for="link in linksNotInCurrentProject" :value="link.id" :key="link.id">{{ link.name }}</option>
+        </select>
+
+        <button
+            class="px-1 border-solid border border-blue-100 mx-1 rounded-sm"
+            @click="addALinkToCurrentProject(linkToAdd)"
+        >Add</button>
+      </li>
       <li
         v-if="links.length < 10"
         class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
@@ -128,6 +158,7 @@ export default {
       addingElementInRun: false,
       currentProject: null,
       inpCreate: "",
+      linkToAdd: null,
       links: [],
       projects: [],
       inpCreatePlaceholder: "New Link + Enter",
@@ -137,8 +168,20 @@ export default {
     };
   },
   computed: {
+    linksNotInCurrentProject(){
+      return this.getLinksNotInCurrentProject()
+    },
+    linksForCurrentProject(){
+      return this.getLinksForCurrentProject()
+    }
+  },
+  methods: {
+    getLinksNotInCurrentProject(){
+      var linksIn = this.getLinksForCurrentProject()
+      return this.links.filter(link => linksIn.indexOf(link) == -1)
+    },
     //Get the array of the links that will be displayed, depending on the current selected project
-    linksForCurrentProject() {
+    getLinksForCurrentProject() {
       if (this.currentProject == null) {  //"All" option is selected
         return this.links
       }
@@ -151,9 +194,7 @@ export default {
         return this.links.filter(link => project.links.indexOf(link.id) != -1)  //return all the links that are present in the project.links list of ids
       }
       return [] //else, no links will be shown
-    }
-  },
-  methods: {
+    },
     goToSourceCode() {
       window.open("https://github.com/samuelroland/openDevD", "_blank");
     },
@@ -273,6 +314,7 @@ export default {
         ],
       });
       console.log(this.getItemsFromStorage());
+      this.loadItemsFromStorage()
     },
     //Delete a link given by id
     deleteALink(id) {
@@ -288,6 +330,25 @@ export default {
         this.saveItemsInStorage();
       }
     },
+    //Add a link to a project
+    addALinkToCurrentProject(id){
+      if (id != null) {
+        console.log("add a link " + id + " at project " + this.currentProject)
+        var project = this.projects.filter(proj => proj.id == this.currentProject)[0]
+        console.log(project.links)
+        project.links.push(id)
+        this.saveItemsInStorage()
+        this.linkToAdd = null //set again to "Add a link..." because the item has disappear
+      }
+    },
+    //Remove a link from a project
+    removeALinkFromCurrentProject(id){
+      console.log("delete a link " + id + " at project " + this.currentProject)
+      var project = this.projects.filter(proj => proj.id == this.currentProject)[0]
+      console.log(project.links)
+      delete project.links[project.links.indexOf(id)]
+      this.saveItemsInStorage()
+    }
   },
   mounted() {
     this.loadItemsFromStorage(); //when open extension, load saved links
