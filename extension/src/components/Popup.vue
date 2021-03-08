@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-blue-300 w-64 h-auto p-1">
+  <div class="bg-blue-300 w-64 overflow-hidden overscroll-none p-1" style="min-height: 75px">
     <div class="flex w-full">
       <div class="flex flex-1">
-        <h3 class="flex flex-row items-center m-0 text-lg">
-          open <img src="icons/D.png" class="w-4 " alt="" />evD
+        <h3 class="flex flex-row items-center m-0 text-lg" title="Open quickly in the browser some local or remote dev apps.">
+          open <img src="icons/D.png" class="w-4 " alt="D" />evD
         </h3>
         <span class="text-xs italic flex items-end ml-1">{{ version }}</span>
       </div>
@@ -12,7 +12,7 @@
           src="icons/code.svg"
           class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
           alt="code icon"
-          title="Checkout the code, it's opensource !"
+          title="Checkout the code on GitHub, it's opensource !"
           @click="goToSourceCode"
         />
         <img
@@ -31,27 +31,28 @@
         />
       </span>
     </div>
-    <ul class="list-none" v-if="links != null">
+    <ul class="list-none" v-if="links.length != 0">
       <li v-for="link in links" :key="link.id" class="flex">
         <a
             @click="this.redTrashId = null"
           :href="'https://' + link.link"
-          class="hover:text-white flex-1  block flex px-1 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+          class="hover:text-white flex-1 w-full block flex px-1 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
         >
-          <span class=" flex-1">{{ link.name }}</span>
+          <span class="flex-1 overflow-hidden overflow-ellipsis">{{ link.name }}</span>
           <span>
             <img
               src="icons/home.svg"
               class="w-4 mx-1 inline"
-              title="Local"
+              title="Hosted in local."
               v-if="link.local"
             />
-            <img
+            <!--<img
               src="icons/arrow-circle-up.svg"
               class="w-4 inline"
               title="Website up"
               alt=""
-            /> </span
+            />-->
+          </span
         ></a>
         <img
           v-if="settingsEnabled"
@@ -62,20 +63,32 @@
           @click="deleteALink(link.id)"
         />
       </li>
-
+    </ul>
+    <ul class="list-none" :hidden="!(this.links.length === 0)">
       <li
-        v-if="settingsEnabled"
-        class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+          class="text-base rounded-sm my-1 text-center italic text-gray-500"
+      > No links<span class="text-xs"> -> Add in settings</span>
+      </li>
+    </ul>
+    <ul class="list-none" :hidden="!settingsEnabled">
+      <li v-if="links.length < 10"
+          class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
       >
         <input
-          type="text"
-          v-model="inpCreate"
-          :placeholder="inpCreatePlaceholder"
-          @keyup="nextStepOfLinkAdding"
-          class="w-full px-1"
-          ref="inpCreateInput"
-          @click="this.redTrashId = null"
+
+            type="text"
+            v-model="inpCreate"
+            :placeholder="inpCreatePlaceholder"
+            @keyup="nextStepOfLinkAdding"
+            class="w-full px-1 rounded-sm"
+            ref="inpCreateInput"
+            @click="this.redTrashId = null"
         />
+      </li>
+      <li
+          v-if="links.length >= 10"
+          class="text-base rounded-sm my-1 text-center italic text-gray-500"
+      > <span class="text-xs">10 links is the maximum</span>
       </li>
     </ul>
   </div>
@@ -92,8 +105,7 @@ export default {
       settingsEnabled: false,
       addingElementInRun: false,
       inpCreate: "",
-      links: null,
-      setFocus: false,
+      links: [],
       inpCreatePlaceholder: "New Link + Enter",
       inpCreateStep: 0,
       newLinkData: {},
@@ -112,12 +124,12 @@ export default {
     },
     openSettings() {
       this.redTrashId = null
-      this.settingsEnabled = !this.settingsEnabled;
-      if (this.settingsEnabled == true) {
+      this.settingsEnabled = !this.settingsEnabled; //invert settings status
+      if (this.settingsEnabled === true && this.links.length < 10) {  //can focus the field only if displayed
         setTimeout(() => {
-          this.$refs.inpCreateInput.focus();
+         this.$refs.inpCreateInput.focus();
         }, 50); //leave the component the time to load before focus
-        this.inpCreateStep = 1;
+        this.inpCreateStep = 1; //set the creation step to 1
       }
     },
     nextStepOfLinkAdding(e) {
@@ -130,7 +142,7 @@ export default {
           case 1: //link is entered
             this.newLinkData.id = this.links.length + 1;
             this.newLinkData.link = this.inpCreate;
-            this.inpCreatePlaceholder = "Name + Enter";
+            this.inpCreatePlaceholder = "Set a name + Enter";
             this.inpCreate = "";
             break;
           case 2: //placeholder is entered
@@ -154,7 +166,7 @@ export default {
     saveItemsInStorage() {
       browser.storage.local
         .set({
-          links: JSON.parse(JSON.stringify(this.links)), //Stringify and parse to have a new independant object
+          links: JSON.parse(JSON.stringify(this.links)), //Stringify and parse to have a new independent object
         })
         .then(() => {
           this.getItemsFromStorage();
@@ -167,9 +179,12 @@ export default {
     },
     loadItemsFromStorage() {
       browser.storage.local.get().then((raw) => {
-        if (raw != {}) {
+        if (raw.links != null) {
           this.links = raw.links;
+        }else{
+          this.links = []
         }
+        console.log(this.links)
       });
     },
     loadFirstTime() {
