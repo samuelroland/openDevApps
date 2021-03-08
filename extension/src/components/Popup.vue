@@ -1,8 +1,14 @@
 <template>
-  <div class="bg-blue-300 w-64 overflow-hidden overscroll-none p-1" style="min-height: 75px">
+  <div
+    class="bg-blue-300 w-64 overflow-hidden overscroll-none p-1"
+    style="min-height: 75px"
+  >
     <div class="flex w-full">
       <div class="flex flex-1">
-        <h3 class="flex flex-row items-center m-0 text-lg" title="Open quickly in the browser some local or remote dev apps.">
+        <h3
+          class="flex flex-row items-center m-0 text-lg"
+          title="Open quickly in the browser some local or remote dev apps."
+        >
           open <img src="icons/D.png" class="w-4 " alt="D" />evD
         </h3>
         <span class="text-xs italic flex items-end ml-1">{{ version }}</span>
@@ -34,11 +40,13 @@
     <ul class="list-none" v-if="links.length != 0">
       <li v-for="link in links" :key="link.id" class="flex">
         <a
-            @click="this.redTrashId = null"
+          @click="this.redTrashId = null"
           :href="'https://' + link.link"
           class="hover:text-white flex-1 w-full block flex px-1 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
         >
-          <span class="flex-1 overflow-hidden overflow-ellipsis">{{ link.name }}</span>
+          <span class="flex-1 overflow-hidden overflow-ellipsis">{{
+            link.name
+          }}</span>
           <span>
             <img
               src="icons/home.svg"
@@ -52,12 +60,16 @@
               title="Website up"
               alt=""
             />-->
-          </span
-        ></a>
+          </span></a
+        >
         <img
           v-if="settingsEnabled"
           class=" ml-1 w-8 p-1"
-          :class="{'bg-red-300': redTrashId == link.id, 'hover:bg-red-400': redTrashId === link.id, 'hover:bg-blue-400':  ! redTrashId === link.id}"
+          :class="{
+            'bg-red-300': redTrashId == link.id,
+            'hover:bg-red-400': redTrashId === link.id,
+            'hover:bg-blue-400': !redTrashId === link.id,
+          }"
           src="icons/trash.svg"
           alt="trash icon"
           @click="deleteALink(link.id)"
@@ -65,30 +77,30 @@
       </li>
     </ul>
     <ul class="list-none" :hidden="!(this.links.length === 0)">
-      <li
-          class="text-base rounded-sm my-1 text-center italic text-gray-500"
-      > No links<span class="text-xs"> -> Add in settings</span>
+      <li class="text-base rounded-sm my-1 text-center italic text-gray-500">
+        No links<span class="text-xs"> -> Add in settings</span>
       </li>
     </ul>
     <ul class="list-none" :hidden="!settingsEnabled">
-      <li v-if="links.length < 10"
-          class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+      <li
+        v-if="links.length < 10"
+        class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
       >
         <input
-
-            type="text"
-            v-model="inpCreate"
-            :placeholder="inpCreatePlaceholder"
-            @keyup="nextStepOfLinkAdding"
-            class="w-full px-1 rounded-sm"
-            ref="inpCreateInput"
-            @click="this.redTrashId = null"
+          type="text"
+          v-model="inpCreate"
+          :placeholder="inpCreatePlaceholder"
+          @keyup="nextStepOfLinkAdding"
+          class="w-full px-1 rounded-sm"
+          ref="inpCreateInput"
+          @click="this.redTrashId = null"
         />
       </li>
       <li
-          v-if="links.length >= 10"
-          class="text-base rounded-sm my-1 text-center italic text-gray-500"
-      > <span class="text-xs">10 links is the maximum</span>
+        v-if="links.length >= 10"
+        class="text-base rounded-sm my-1 text-center italic text-gray-500"
+      >
+        <span class="text-xs">10 links is the maximum</span>
       </li>
     </ul>
   </div>
@@ -98,7 +110,7 @@
 export default {
   name: "Popup",
   props: {
-    version: String
+    version: String,
   },
   data() {
     return {
@@ -109,7 +121,7 @@ export default {
       inpCreatePlaceholder: "New Link + Enter",
       inpCreateStep: 0,
       newLinkData: {},
-      redTrashId: null
+      redTrashId: null,
     };
   },
   methods: {
@@ -123,11 +135,12 @@ export default {
       );
     },
     openSettings() {
-      this.redTrashId = null
+      this.redTrashId = null;
       this.settingsEnabled = !this.settingsEnabled; //invert settings status
-      if (this.settingsEnabled === true && this.links.length < 10) {  //can focus the field only if displayed
+      if (this.settingsEnabled === true && this.links.length < 10) {
+        //can focus the field only if displayed
         setTimeout(() => {
-         this.$refs.inpCreateInput.focus();
+          this.$refs.inpCreateInput.focus();
         }, 50); //leave the component the time to load before focus
         this.inpCreateStep = 1; //set the creation step to 1
       }
@@ -181,10 +194,10 @@ export default {
       browser.storage.local.get().then((raw) => {
         if (raw.links != null) {
           this.links = raw.links;
-        }else{
-          this.links = []
+        } else {
+          this.links = [];
         }
-        console.log(this.links)
+        console.log(this.links);
       });
     },
     loadFirstTime() {
@@ -211,18 +224,18 @@ export default {
     },
     //Delete a link given by id
     deleteALink(id) {
-      console.log("delete item at id " + id)
-      if (this.redTrashId != id){
-        this.redTrashId = id  //put the current trash red
-      } else {  //if equal, the red trash is already red (so this is the second click)
+      console.log("delete item at id " + id);
+      if (this.redTrashId != id) {
+        this.redTrashId = id; //put the current trash red
+      } else {
+        //if equal, the red trash is already red (so this is the second click)
         //Delete the link by filtering the list
         this.links = this.links.filter(function(item) {
-          return item.id !== id
-        })
-        this.saveItemsInStorage()
+          return item.id !== id;
+        });
+        this.saveItemsInStorage();
       }
-
-    }
+    },
   },
   mounted() {
     this.loadItemsFromStorage(); //when open extension, load saved links
