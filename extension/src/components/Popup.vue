@@ -37,8 +37,18 @@
         />
       </span>
     </div>
+    <ul class="list-none">
+      <li class="text-base rounded-sm my-1">
+        <select name="project" id="sltProject" ref="sltProject" class="rounded-sm" v-model="currentProject" @change="saveItemsInStorage" title="Choose a project or All.">
+          <option :value="null">All</option>
+          <option v-for="project in projects" :value="project.id" :key="project.id">
+            {{ project.name }}
+          </option>
+        </select>
+      </li>
+    </ul>
     <ul class="list-none" v-if="links.length != 0">
-      <li v-for="link in links" :key="link.id" class="flex">
+      <li v-for="link in linksForCurrentProject" :key="link.id" class="flex">
         <a
           @click="this.redTrashId = null"
           :href="'https://' + link.link"
@@ -116,13 +126,32 @@ export default {
     return {
       settingsEnabled: false,
       addingElementInRun: false,
+      currentProject: null,
       inpCreate: "",
       links: [],
+      projects: [],
       inpCreatePlaceholder: "New Link + Enter",
       inpCreateStep: 0,
       newLinkData: {},
       redTrashId: null,
     };
+  },
+  computed: {
+    //Get the array of the links that will be displayed, depending on the current selected project
+    linksForCurrentProject() {
+      if (this.currentProject == null) {  //"All" option is selected
+        return this.links
+      }
+
+      //Get the project with id in sltProject value
+      var projectId = this.currentProject
+      var project = this.projects.filter(proj => proj.id == projectId)[0] //filter the array and take the alone element
+
+      if (project != undefined) { //if there is a bug with project
+        return this.links.filter(link => project.links.indexOf(link.id) != -1)  //return all the links that are present in the project.links list of ids
+      }
+      return [] //else, no links will be shown
+    }
   },
   methods: {
     goToSourceCode() {
@@ -180,6 +209,10 @@ export default {
       browser.storage.local
         .set({
           links: JSON.parse(JSON.stringify(this.links)), //Stringify and parse to have a new independent object
+          projects: {
+            current: this.currentProject,
+            list: JSON.parse(JSON.stringify(this.projects))
+          }
         })
         .then(() => {
           this.getItemsFromStorage();
@@ -187,22 +220,34 @@ export default {
     },
     getItemsFromStorage() {
       browser.storage.local.get().then((raw) => {
-        return raw.links;
+        return raw.projects.list;
       });
     },
     loadItemsFromStorage() {
       browser.storage.local.get().then((raw) => {
         if (raw.links != null) {
           this.links = raw.links;
+          this.projects = raw.projects.list
+          this.currentProject = raw.projects.current
         } else {
           this.links = [];
+          this.projects = []
+          this.currentProject = null
         }
         console.log(this.links);
+        console.log(this.projects);
+        console.log(this.currentProject);
       });
     },
     loadFirstTime() {
       //for debug only
       browser.storage.local.set({
+        projects: {
+            current: 2,
+            list: [
+                {id: 1, name: "KanFF", links: [1, 3, 5, 8]},
+                {id: 2, name: "School", links: [2, 8]}
+        ]},
         links: [
           { id: 1, name: "DevDashboard", link: "localhost:8008", local: true },
           {
@@ -217,7 +262,14 @@ export default {
             link: "localhost:8084/index.php",
             local: true,
           },
-          { id: 4, name: "KanFF.org", link: "kanff.org", local: false },
+          { id: 4, name: "test.org", link: "test.org", local: false },
+          { id: 5, name: "test2.org", link: "test2.org", local: false },
+          { id: 6, name: "test3.org", link: "test3.org", local: false },
+          { id: 7, name: "test4.org", link: "test4.org", local: false },
+          { id: 8, name: "test5.org", link: "test5.org", local: false },
+          { id: 9, name: "test6.org", link: "test6.org", local: false },
+          { id: 10, name: "test7.org", link: "test7.org", local: false },
+          { id: 11, name: "test8.org", link: "test8.org", local: false },
         ],
       });
       console.log(this.getItemsFromStorage());
