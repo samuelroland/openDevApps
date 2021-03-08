@@ -2,17 +2,17 @@
   <div class="bg-blue-300 w-64 h-auto p-1">
     <div class="flex w-full">
       <div class="flex flex-1">
-        <h3 class="flex flex-row items-center m-0 text-xl">
-          open <img src="icons/48.png" class="w-4 " alt="" />evD
+        <h3 class="flex flex-row items-center m-0 text-lg">
+          open <img src="icons/D.png" class="w-4 " alt="" />evD
         </h3>
-        <span class="text-sm italic flex items-end ml-1">v0.1</span>
+        <span class="text-xs italic flex items-end ml-1">{{ version }}</span>
       </div>
       <span class="flex"
         ><img
           src="icons/code.svg"
           class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
           alt="code icon"
-          title="Let me checkout the code!"
+          title="Checkout the code, it's opensource !"
           @click="goToSourceCode"
         />
         <img
@@ -85,7 +85,7 @@
 export default {
   name: "Popup",
   props: {
-    msg: String,
+    version: String
   },
   data() {
     return {
