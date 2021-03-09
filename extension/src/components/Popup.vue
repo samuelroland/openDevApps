@@ -46,6 +46,21 @@
           </option>
         </select>
       </li>
+      <!-- Input to create a new project -->
+      <li
+          v-if="settingsEnabled"
+          class="mb-4 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+      >
+        <input
+            type="text"
+            v-model="inpCreateProject"
+            :placeholder="inpCreateProjectPlaceholder"
+            @keyup="createProject($event.key)"
+            class="w-full px-1 rounded-sm"
+            ref="inpCreateProject"
+            @click="this.redTrashId = null"
+        />
+      </li>
     </ul>
     <ul class="list-none" v-if="links.length != 0">
       <li v-for="link in linksForCurrentProject" :key="link.id" class="flex">
@@ -157,10 +172,12 @@ export default {
       settingsEnabled: false,
       addingElementInRun: false,
       currentProject: null,
+      inpCreateProject: "",
       inpCreate: "",
       linkToAdd: null,
       links: [],
       projects: [],
+      inpCreateProjectPlaceholder: "New Project + Enter",
       inpCreatePlaceholder: "New Link + Enter",
       inpCreateStep: 0,
       newLinkData: {},
@@ -244,6 +261,20 @@ export default {
             break;
         }
         this.inpCreateStep++;
+      }
+    },
+    //Create a new project
+    createProject(key) {
+      console.log(key)
+      console.log( this.inpCreateProject.trim())
+      if (key == "Enter" && this.inpCreateProject.trim() != ""){
+        var newId = 10  //get the next id
+        var newProject = {id:10, name: this.inpCreateProject, links: []}
+        this.projects.push(newProject)
+
+        this.inpCreateProject = ""  //empty the field
+        this.currentProject = newId //select the created project
+        this.saveItemsInStorage()
       }
     },
     saveItemsInStorage() {
