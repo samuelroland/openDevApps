@@ -9,7 +9,7 @@
           class="flex flex-row items-center m-0 text-lg"
           title="Open quickly in the browser some local or remote dev apps."
         >
-          open <img src="icons/D.png" class="w-4 " alt="D" />evD
+          open <img src="icons/D.png" class="w-4" alt="D" />evD
         </h3>
         <span class="text-xs italic flex items-end ml-1">{{ version }}</span>
       </div>
@@ -39,26 +39,38 @@
     </div>
     <ul class="list-none">
       <li class="text-base rounded-sm my-1">
-        <select name="project" id="sltProject" ref="sltProject" class="rounded-sm" v-model="currentProject" @change="saveItemsInStorage" title="Choose a project or All.">
+        <select
+          name="project"
+          id="sltProject"
+          ref="sltProject"
+          class="rounded-sm"
+          v-model="currentProject"
+          @change="saveItemsInStorage"
+          title="Choose a project or All."
+        >
           <option :value="null">All</option>
-          <option v-for="project in projects" :value="project.id" :key="project.id">
+          <option
+            v-for="project in projects"
+            :value="project.id"
+            :key="project.id"
+          >
             {{ project.name }}
           </option>
         </select>
       </li>
       <!-- Input to create a new project -->
       <li
-          v-if="settingsEnabled"
-          class="mb-4 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+        v-if="settingsEnabled"
+        class="mb-4 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
       >
         <input
-            type="text"
-            v-model="inpCreateProject"
-            :placeholder="inpCreateProjectPlaceholder"
-            @keyup="createProject($event.key)"
-            class="w-full px-1 rounded-sm"
-            ref="inpCreateProject"
-            @click="this.redTrashId = null"
+          type="text"
+          v-model="inpCreateProject"
+          :placeholder="inpCreateProjectPlaceholder"
+          @keyup="createProject($event.key)"
+          class="w-full px-1 rounded-sm"
+          ref="inpCreateProject"
+          @click="this.redTrashId = null"
         />
       </li>
     </ul>
@@ -90,7 +102,7 @@
         >
         <img
           v-if="settingsEnabled"
-          class=" ml-1 w-8 p-1"
+          class="ml-1 w-8 p-1"
           :class="{
             'bg-red-300': redTrashId == link.id,
             'hover:bg-red-400': redTrashId === link.id,
@@ -102,12 +114,12 @@
           @click="deleteALink(link.id)"
         />
         <img
-            v-if="settingsEnabled && currentProject != null"
-            class="w-8 p-1"
-            src="icons/removelink.svg"
-            alt="trash icon"
-            title="Remove the link from this project."
-            @click="removeALinkFromCurrentProject(link.id)"
+          v-if="settingsEnabled && currentProject != null"
+          class="w-8 p-1"
+          src="icons/removelink.svg"
+          alt="trash icon"
+          title="Remove the link from this project."
+          @click="removeALinkFromCurrentProject(link.id)"
         />
       </li>
     </ul>
@@ -118,24 +130,32 @@
     </ul>
     <ul class="list-none" :hidden="!settingsEnabled">
       <li
-          v-if="settingsEnabled && currentProject != null"
-          class="text-base flex rounded-sm my-1 "
+        v-if="settingsEnabled && currentProject != null"
+        class="text-base flex rounded-sm my-1"
       >
         <select
-            name="sltAddLink"
-            class="rounded-sm flex-1"
-            ref="inpCreateInput"
-            @click="this.redTrashId = null"
-            v-model="linkToAdd"
+          name="sltAddLink"
+          class="rounded-sm flex-1"
+          ref="inpCreateInput"
+          @click="this.redTrashId = null"
+          v-model="linkToAdd"
         >
           <option :value="null">Add a link...</option>
-          <option v-for="link in linksNotInCurrentProject" :value="link.id" :key="link.id">{{ link.name }}</option>
+          <option
+            v-for="link in linksNotInCurrentProject"
+            :value="link.id"
+            :key="link.id"
+          >
+            {{ link.name }}
+          </option>
         </select>
 
         <button
-            class="px-1 border-solid border border-blue-100 mx-1 rounded-sm"
-            @click="addALinkToCurrentProject(linkToAdd)"
-        >Add</button>
+          class="px-1 border-solid border border-blue-100 mx-1 rounded-sm"
+          @click="addALinkToCurrentProject(linkToAdd)"
+        >
+          Add
+        </button>
       </li>
       <li
         v-if="links.length < 10"
@@ -165,7 +185,7 @@
 export default {
   name: "Popup",
   props: {
-    version: String,
+    version: String
   },
   data() {
     return {
@@ -181,36 +201,38 @@ export default {
       inpCreatePlaceholder: "New Link + Enter",
       inpCreateStep: 0,
       newLinkData: {},
-      redTrashId: null,
+      redTrashId: null
     };
   },
   computed: {
-    linksNotInCurrentProject(){
-      return this.getLinksNotInCurrentProject()
+    linksNotInCurrentProject() {
+      return this.getLinksNotInCurrentProject();
     },
-    linksForCurrentProject(){
-      return this.getLinksForCurrentProject()
+    linksForCurrentProject() {
+      return this.getLinksForCurrentProject();
     }
   },
   methods: {
-    getLinksNotInCurrentProject(){
-      var linksIn = this.getLinksForCurrentProject()
-      return this.links.filter(link => linksIn.indexOf(link) == -1)
+    getLinksNotInCurrentProject() {
+      var linksIn = this.getLinksForCurrentProject();
+      return this.links.filter(link => linksIn.indexOf(link) == -1);
     },
     //Get the array of the links that will be displayed, depending on the current selected project
     getLinksForCurrentProject() {
-      if (this.currentProject == null) {  //"All" option is selected
-        return this.links
+      if (this.currentProject == null) {
+        //"All" option is selected
+        return this.links;
       }
 
       //Get the project with id in sltProject value
-      var projectId = this.currentProject
-      var project = this.projects.filter(proj => proj.id == projectId)[0] //filter the array and take the alone element
+      var projectId = this.currentProject;
+      var project = this.projects.filter(proj => proj.id == projectId)[0]; //filter the array and take the alone element
 
-      if (project != undefined) { //if there is a bug with project
-        return this.links.filter(link => project.links.indexOf(link.id) != -1)  //return all the links that are present in the project.links list of ids
+      if (project != undefined) {
+        //if there is a bug with project
+        return this.links.filter(link => project.links.indexOf(link.id) != -1); //return all the links that are present in the project.links list of ids
       }
-      return [] //else, no links will be shown
+      return []; //else, no links will be shown
     },
     goToSourceCode() {
       window.open("https://github.com/samuelroland/openDevD", "_blank");
@@ -265,16 +287,16 @@ export default {
     },
     //Create a new project
     createProject(key) {
-      console.log(key)
-      console.log( this.inpCreateProject.trim())
-      if (key == "Enter" && this.inpCreateProject.trim() != ""){
-        var newId = 10  //get the next id
-        var newProject = {id:10, name: this.inpCreateProject, links: []}
-        this.projects.push(newProject)
+      console.log(key);
+      console.log(this.inpCreateProject.trim());
+      if (key == "Enter" && this.inpCreateProject.trim() != "") {
+        var newId = 10; //get the next id
+        var newProject = { id: 10, name: this.inpCreateProject, links: [] };
+        this.projects.push(newProject);
 
-        this.inpCreateProject = ""  //empty the field
-        this.currentProject = newId //select the created project
-        this.saveItemsInStorage()
+        this.inpCreateProject = ""; //empty the field
+        this.currentProject = newId; //select the created project
+        this.saveItemsInStorage();
       }
     },
     saveItemsInStorage() {
@@ -291,20 +313,20 @@ export default {
         });
     },
     getItemsFromStorage() {
-      browser.storage.local.get().then((raw) => {
+      browser.storage.local.get().then(raw => {
         return raw.projects.list;
       });
     },
     loadItemsFromStorage() {
-      browser.storage.local.get().then((raw) => {
+      browser.storage.local.get().then(raw => {
         if (raw.links != null) {
           this.links = raw.links;
-          this.projects = raw.projects.list
-          this.currentProject = raw.projects.current
+          this.projects = raw.projects.list;
+          this.currentProject = raw.projects.current;
         } else {
           this.links = [];
-          this.projects = []
-          this.currentProject = null
+          this.projects = [];
+          this.currentProject = null;
         }
         console.log(this.links);
         console.log(this.projects);
@@ -315,24 +337,25 @@ export default {
       //for debug only
       browser.storage.local.set({
         projects: {
-            current: 2,
-            list: [
-                {id: 1, name: "KanFF", links: [1, 3, 5, 8]},
-                {id: 2, name: "School", links: [2, 8]}
-        ]},
+          current: 2,
+          list: [
+            { id: 1, name: "KanFF", links: [1, 3, 5, 8] },
+            { id: 2, name: "School", links: [2, 8] }
+          ]
+        },
         links: [
           { id: 1, name: "DevDashboard", link: "localhost:8008", local: true },
           {
             id: 2,
             name: "GitHub Profile",
             link: "github.com/samuelroland",
-            local: false,
+            local: false
           },
           {
             id: 3,
             name: "KanFF",
             link: "localhost:8084/index.php",
-            local: true,
+            local: true
           },
           { id: 4, name: "test.org", link: "test.org", local: false },
           { id: 5, name: "test2.org", link: "test2.org", local: false },
@@ -341,11 +364,11 @@ export default {
           { id: 8, name: "test5.org", link: "test5.org", local: false },
           { id: 9, name: "test6.org", link: "test6.org", local: false },
           { id: 10, name: "test7.org", link: "test7.org", local: false },
-          { id: 11, name: "test8.org", link: "test8.org", local: false },
-        ],
+          { id: 11, name: "test8.org", link: "test8.org", local: false }
+        ]
       });
       console.log(this.getItemsFromStorage());
-      this.loadItemsFromStorage()
+      this.loadItemsFromStorage();
     },
     //Delete a link given by id
     deleteALink(id) {
@@ -362,27 +385,31 @@ export default {
       }
     },
     //Add a link to a project
-    addALinkToCurrentProject(id){
+    addALinkToCurrentProject(id) {
       if (id != null) {
-        console.log("add a link " + id + " at project " + this.currentProject)
-        var project = this.projects.filter(proj => proj.id == this.currentProject)[0]
-        console.log(project.links)
-        project.links.push(id)
-        this.saveItemsInStorage()
-        this.linkToAdd = null //set again to "Add a link..." because the item has disappear
+        console.log("add a link " + id + " at project " + this.currentProject);
+        var project = this.projects.filter(
+          proj => proj.id == this.currentProject
+        )[0];
+        console.log(project.links);
+        project.links.push(id);
+        this.saveItemsInStorage();
+        this.linkToAdd = null; //set again to "Add a link..." because the item has disappear
       }
     },
     //Remove a link from a project
-    removeALinkFromCurrentProject(id){
-      console.log("delete a link " + id + " at project " + this.currentProject)
-      var project = this.projects.filter(proj => proj.id == this.currentProject)[0]
-      console.log(project.links)
-      delete project.links[project.links.indexOf(id)]
-      this.saveItemsInStorage()
+    removeALinkFromCurrentProject(id) {
+      console.log("delete a link " + id + " at project " + this.currentProject);
+      var project = this.projects.filter(
+        proj => proj.id == this.currentProject
+      )[0];
+      console.log(project.links);
+      delete project.links[project.links.indexOf(id)];
+      this.saveItemsInStorage();
     }
   },
   mounted() {
     this.loadItemsFromStorage(); //when open extension, load saved links
-  },
+  }
 };
 </script>
