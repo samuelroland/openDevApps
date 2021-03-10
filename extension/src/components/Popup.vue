@@ -219,6 +219,7 @@ export default {
       newLinkData: {},
       redTrashId: null,
       config: {
+        lang: "en",
         lastLinkInsertedId: 0,
         lastCategoryInsertedId: 0
       }
@@ -282,7 +283,8 @@ export default {
         //Depending on the step of the link creation, change placeholder, save value and go to next step
         switch (this.inpCreateStep) {
           case 1: //link is entered
-            this.newLinkData.id = this.links.length + 1;
+            this.newLinkData.id = this.config.lastLinkInsertedId + 1;
+
             this.newLinkData.link = this.inpCreate;
             this.inpCreatePlaceholder = "Set a name + Enter";
             this.inpCreate = "";
@@ -296,6 +298,8 @@ export default {
             this.newLinkData.local = this.inpCreate === "";
             this.inpCreate = "";
             this.links.push(this.newLinkData);
+            console.log(this.newLinkData);
+            this.config.lastLinkInsertedId++
             this.saveItemsInStorage();
             this.inpCreatePlaceholder = "New Link + Enter";
             this.newLinkData = Object.assign({}, {});
@@ -310,9 +314,11 @@ export default {
       console.log(key);
       console.log(this.inpCreateCategory.trim());
       if (key == "Enter" && this.inpCreateCategory.trim() != "") {
-        var newId = this.categories.length + 1; //get the next id
-        var newCategory = { id: 10, name: this.inpCreateCategory, links: [] };
+        var newId = this.config.lastCategoryInsertedId + 1; //get the next id
+        var newCategory = { id: newId, name: this.inpCreateCategory, links: [] };
         this.categories.push(newCategory);
+        this.config.lastCategoryInsertedId++
+        console.log(newCategory)
 
         this.inpCreateCategory = ""; //empty the field
         this.currentCategory = newId; //select the created category
@@ -338,6 +344,7 @@ export default {
     saveItemsInStorage() {
       browser.storage.local
         .set({
+          config: this.config,
           links: JSON.parse(JSON.stringify(this.links)), //Stringify and parse to have a new independent object
           categories: {
             current: this.currentCategory,
@@ -355,24 +362,32 @@ export default {
     },
     loadItemsFromStorage() {
       browser.storage.local.get().then(raw => {
-        if (raw.links != null) {
+        if (raw.links != null && raw.categories != null && raw.config != null) {
           this.links = raw.links;
           this.categories = raw.categories.list;
           this.currentCategory = raw.categories.current;
+          this.config = raw.config
         } else {
           this.links = [];
           this.categories = [];
           this.currentCategory = null;
+          this.config = {
+            lang: "en",
+            lastLinkInsertedId: 0,
+            lastCategoryInsertedId: 0
+          }
         }
         console.log(this.links);
         console.log(this.categories);
         console.log(this.currentCategory);
+        console.log(this.config);
       });
     },
     loadFirstTime() {
       //for debug only
       browser.storage.local.set({
-        info: {
+        config: {
+          lang: "en",
           lastLinkInsertedId: 11,
           lastCategoryInsertedId: 2
         },
@@ -450,7 +465,7 @@ export default {
     }
   },
   mounted() {
-    this.loadItemsFromStorage(); //when open extension, load saved links
+    this.loadItemsFromStorage(); //when open extension, load saved data
   }
 };
 </script>
