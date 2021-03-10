@@ -45,7 +45,7 @@
           ref="sltProject"
           class="rounded-sm"
           v-model="currentProject"
-          @change="saveItemsInStorage"
+          @change="saveItemsInStorage(); stepIndexForProjectDeletion = 0; redTrashId = null"
           title="Choose a project or All."
         >
           <option :value="null">All</option>
@@ -58,10 +58,18 @@
           </option>
         </select>
         <img
-          src="icons/settings.svg"
-          alt="settings icon"
-          title="Settings"
-          class="inline w-8 hover:bg-blue-500 rounded hover:text-white px-1"
+            v-if="settingsEnabled && currentProject != null"
+          :class="{
+            'hover:bg-red-300': redTrashId === stepIndexForProjectDeletion == 0,
+            'bg-red-300': redTrashId == 'project-'+ currentProject && stepIndexForProjectDeletion == 1,
+            'hover:bg-red-400': redTrashId === 'project-'+ currentProject && stepIndexForProjectDeletion == 1,
+            'bg-red-400': (redTrashId === 'project-'+ currentProject && stepIndexForProjectDeletion == 2),
+            'hover:bg-red-500': redTrashId === 'project-'+ currentProject && stepIndexForProjectDeletion == 2,
+          }"
+          src="icons/trash.svg"
+          alt="trash icon"
+          title="Delete permanently the project (2 confirmations)."
+          class="inline-block max-w-6 mx-1 rounded hover:text-white"
           @click="deleteProject(currentProject)"
         />
       </li>
@@ -87,7 +95,7 @@
           @click="this.redTrashId = null"
           :href="'https://' + link.link"
           :title="link.link"
-          class="hover:text-white flex-1 w-full block flex px-1 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+          class="hover:text-white flex-1 w-full block flex px-1 text-base hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
         >
           <span class="flex-1 overflow-hidden overflow-ellipsis">{{
             link.name
@@ -109,20 +117,20 @@
         >
         <img
           v-if="settingsEnabled"
-          class="ml-1 w-8 p-1"
+          class="ml-1 w-8 p-1 cursor-pointer"
           :class="{
-            'bg-red-300': redTrashId == link.id,
-            'hover:bg-red-400': redTrashId === link.id,
-            'hover:bg-blue-400': !redTrashId === link.id,
+            'bg-red-300': redTrashId == 'link-'+ link.id,
+            'hover:bg-red-400': redTrashId === 'link-'+ link.id,
+            'hover:bg-red-300': !(redTrashId === 'link-'+ link.id),
           }"
           src="icons/trash.svg"
           alt="trash icon"
-          title="Delete permanently the link."
+          title="Delete permanently the link (1 confirmation)."
           @click="deleteALink(link.id)"
         />
         <img
           v-if="settingsEnabled && currentProject != null"
-          class="w-8 p-1"
+          class="w-8 p-1 cursor-pointer hover:bg-red-300"
           src="icons/removelink.svg"
           alt="trash icon"
           title="Remove the link from this project."
@@ -158,7 +166,7 @@
         </select>
 
         <button
-          class="px-1 border-solid border border-blue-100 mx-1 rounded-sm"
+          class="px-1 border-solid border border-blue-100 mx-1 rounded-sm hover:border-blue-800 hover:bg-blue-400 border-solid border-blue-600"
           @click="addALinkToCurrentProject(linkToAdd)"
         >
           Add
@@ -207,6 +215,7 @@ export default {
       inpCreateProjectPlaceholder: "New Project + Enter",
       inpCreatePlaceholder: "New Link + Enter",
       inpCreateStep: 0,
+      stepIndexForProjectDeletion: 0,
       newLinkData: {},
       redTrashId: null,
       config: {
@@ -311,17 +320,20 @@ export default {
         this.$refs.inpCreateProject.blur();
       }
     },
+    //Delete a project
     deleteProject(id) {
-      var indexOfProject;
-      Array.prototype.forEach.call(this.projects, (proj, index) => {
-        if (proj.id == id) {
-          indexOfProject = index;
-        }
-      });
-      console.log(this.projects);
-      console.log(indexOfProject);
-      delete this.projects[indexOfProject];
-      this.currentProject;
+      this.redTrashId = "project-" + id
+      if (this.stepIndexForProjectDeletion < 2) { //increase step index for deletion (move from 0 to 2 = 2 confirmations)
+        this.stepIndexForProjectDeletion++
+      } else {  //delete the project after the 2 confirmations
+        this.projects = this.projects.filter(function(proj) {
+          return proj.id !== id;
+        }); //deletion by filtering projects to exclude the project to delete
+        this.currentProject = null;
+        this.saveItemsInStorage()
+        this.stepIndexForProjectDeletion = 0
+        this.redTrashId = null
+      }
     },
     saveItemsInStorage() {
       browser.storage.local
@@ -402,15 +414,15 @@ export default {
     //Delete a link given by id
     deleteALink(id) {
       console.log("delete item at id " + id);
-      if (this.redTrashId != id) {
-        this.redTrashId = id; //put the current trash red
+      if (this.redTrashId != 'link-' + id) {
+        this.redTrashId = 'link-'+ id; //put the current trash red
       } else {
-        //if equal, the red trash is already red (so this is the second click)
-        //Delete the link by filtering the list
+        //if equal, the red trash is already red (so this is the confirmation click/second time)
         this.links = this.links.filter(function(item) {
           return item.id !== id;
-        });
+        });//Delete the link by filtering the list
         this.saveItemsInStorage();
+        this.redTrashId = null
       }
     },
     //Add a link to a project
