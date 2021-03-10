@@ -40,57 +40,57 @@
     <ul class="list-none">
       <li class="text-base rounded-sm my-1">
         <select
-          name="project"
-          id="sltProject"
-          ref="sltProject"
+          name="category"
+          id="sltCategory"
+          ref="sltCategory"
           class="rounded-sm"
-          v-model="currentProject"
-          @change="saveItemsInStorage(); stepIndexForProjectDeletion = 0; redTrashId = null"
-          title="Choose a project or All."
+          v-model="currentCategory"
+          @change="saveItemsInStorage(); stepIndexForCategoryDeletion = 0; redTrashId = null"
+          title="Choose a category or All."
         >
           <option :value="null">All</option>
           <option
-            v-for="project in projects"
-            :value="project.id"
-            :key="project.id"
+            v-for="category in categories"
+            :value="category.id"
+            :key="category.id"
           >
-            {{ project.name }}
+            {{ category.name }}
           </option>
         </select>
         <img
-            v-if="settingsEnabled && currentProject != null"
+            v-if="settingsEnabled && currentCategory != null"
           :class="{
-            'hover:bg-red-300': redTrashId === stepIndexForProjectDeletion == 0,
-            'bg-red-300': redTrashId == 'project-'+ currentProject && stepIndexForProjectDeletion == 1,
-            'hover:bg-red-400': redTrashId === 'project-'+ currentProject && stepIndexForProjectDeletion == 1,
-            'bg-red-400': (redTrashId === 'project-'+ currentProject && stepIndexForProjectDeletion == 2),
-            'hover:bg-red-500': redTrashId === 'project-'+ currentProject && stepIndexForProjectDeletion == 2,
+            'hover:bg-red-300': redTrashId === stepIndexForCategoryDeletion == 0,
+            'bg-red-300': redTrashId == 'category-'+ currentCategory && stepIndexForCategoryDeletion == 1,
+            'hover:bg-red-400': redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 1,
+            'bg-red-400': (redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 2),
+            'hover:bg-red-500': redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 2,
           }"
           src="icons/trash.svg"
           alt="trash icon"
-          title="Delete permanently the project (2 confirmations)."
+          title="Delete permanently the category (2 confirmations)."
           class="inline-block max-w-6 mx-1 rounded hover:text-white"
-          @click="deleteProject(currentProject)"
+          @click="deleteCategory(currentCategory)"
         />
       </li>
-      <!-- Input to create a new project -->
+      <!-- Input to create a new category -->
       <li
         v-if="settingsEnabled"
         class="mb-4 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
       >
         <input
           type="text"
-          v-model="inpCreateProject"
-          :placeholder="inpCreateProjectPlaceholder"
-          @keyup="createProject($event.key)"
+          v-model="inpCreateCategory"
+          :placeholder="inpCreateCategoryPlaceholder"
+          @keyup="createCategory($event.key)"
           class="w-full px-1 rounded-sm"
-          ref="inpCreateProject"
+          ref="inpCreateCategory"
           @click="this.redTrashId = null"
         />
       </li>
     </ul>
     <ul class="list-none" v-if="links.length != 0">
-      <li v-for="link in linksForCurrentProject" :key="link.id" class="flex">
+      <li v-for="link in linksForCurrentCategory" :key="link.id" class="flex">
         <a
           @click="this.redTrashId = null"
           :href="'https://' + link.link"
@@ -129,12 +129,12 @@
           @click="deleteALink(link.id)"
         />
         <img
-          v-if="settingsEnabled && currentProject != null"
+          v-if="settingsEnabled && currentCategory != null"
           class="w-8 p-1 cursor-pointer hover:bg-red-300"
           src="icons/removelink.svg"
           alt="trash icon"
-          title="Remove the link from this project."
-          @click="removeALinkFromCurrentProject(link.id)"
+          title="Remove the link from this category."
+          @click="removeALinkFromCurrentCategory(link.id)"
         />
       </li>
     </ul>
@@ -145,7 +145,7 @@
     </ul>
     <ul class="list-none" :hidden="!settingsEnabled">
       <li
-        v-if="settingsEnabled && currentProject != null"
+        v-if="settingsEnabled && currentCategory != null"
         class="text-base flex rounded-sm my-1"
       >
         <select
@@ -157,7 +157,7 @@
         >
           <option :value="null">Add a link...</option>
           <option
-            v-for="link in linksNotInCurrentProject"
+            v-for="link in linksNotInCurrentCategory"
             :value="link.id"
             :key="link.id"
           >
@@ -167,7 +167,7 @@
 
         <button
           class="px-1 border-solid border border-blue-100 mx-1 rounded-sm hover:border-blue-800 hover:bg-blue-400 border-solid border-blue-600"
-          @click="addALinkToCurrentProject(linkToAdd)"
+          @click="addALinkToCurrentCategory(linkToAdd)"
         >
           Add
         </button>
@@ -206,51 +206,51 @@ export default {
     return {
       settingsEnabled: false,
       addingElementInRun: false,
-      currentProject: null,
-      inpCreateProject: "",
+      currentCategory: null,
+      inpCreateCategory: "",
       inpCreate: "",
       linkToAdd: null,
       links: [],
-      projects: [],
-      inpCreateProjectPlaceholder: "New Project + Enter",
+      categories: [],
+      inpCreateCategoryPlaceholder: "New Category + Enter",
       inpCreatePlaceholder: "New Link + Enter",
       inpCreateStep: 0,
-      stepIndexForProjectDeletion: 0,
+      stepIndexForCategoryDeletion: 0,
       newLinkData: {},
       redTrashId: null,
       config: {
         lastLinkInsertedId: 0,
-        lastProjectInsertedId: 0
+        lastCategoryInsertedId: 0
       }
     };
   },
   computed: {
-    linksNotInCurrentProject() {
-      return this.getLinksNotInCurrentProject();
+    linksNotInCurrentCategory() {
+      return this.getLinksNotInCurrentCategory();
     },
-    linksForCurrentProject() {
-      return this.getLinksForCurrentProject();
+    linksForCurrentCategory() {
+      return this.getLinksForCurrentCategory();
     }
   },
   methods: {
-    getLinksNotInCurrentProject() {
-      var linksIn = this.getLinksForCurrentProject();
+    getLinksNotInCurrentCategory() {
+      var linksIn = this.getLinksForCurrentCategory();
       return this.links.filter(link => linksIn.indexOf(link) == -1);
     },
-    //Get the array of the links that will be displayed, depending on the current selected project
-    getLinksForCurrentProject() {
-      if (this.currentProject == null) {
+    //Get the array of the links that will be displayed, depending on the current selected category
+    getLinksForCurrentCategory() {
+      if (this.currentCategory == null) {
         //"All" option is selected
         return this.links;
       }
 
-      //Get the project with id in sltProject value
-      var projectId = this.currentProject;
-      var project = this.projects.filter(proj => proj.id == projectId)[0]; //filter the array and take the alone element
+      //Get the category with id in sltCategory value
+      var categoryId = this.currentCategory;
+      var category = this.categories.filter(cat => cat.id == categoryId)[0]; //filter the array and take the alone element
 
-      if (project != undefined) {
-        //if there is a bug with project
-        return this.links.filter(link => project.links.indexOf(link.id) != -1); //return all the links that are present in the project.links list of ids
+      if (category != undefined) {
+        //if there is a bug with category
+        return this.links.filter(link => category.links.indexOf(link.id) != -1); //return all the links that are present in the category.links list of ids
       }
       return []; //else, no links will be shown
     },
@@ -305,33 +305,33 @@ export default {
         this.inpCreateStep++;
       }
     },
-    //Create a new project
-    createProject(key) {
+    //Create a new category
+    createCategory(key) {
       console.log(key);
-      console.log(this.inpCreateProject.trim());
-      if (key == "Enter" && this.inpCreateProject.trim() != "") {
-        var newId = this.projects.length + 1; //get the next id
-        var newProject = { id: 10, name: this.inpCreateProject, links: [] };
-        this.projects.push(newProject);
+      console.log(this.inpCreateCategory.trim());
+      if (key == "Enter" && this.inpCreateCategory.trim() != "") {
+        var newId = this.categories.length + 1; //get the next id
+        var newCategory = { id: 10, name: this.inpCreateCategory, links: [] };
+        this.categories.push(newCategory);
 
-        this.inpCreateProject = ""; //empty the field
-        this.currentProject = newId; //select the created project
+        this.inpCreateCategory = ""; //empty the field
+        this.currentCategory = newId; //select the created category
         this.saveItemsInStorage();
-        this.$refs.inpCreateProject.blur();
+        this.$refs.inpCreateCategory.blur();
       }
     },
-    //Delete a project
-    deleteProject(id) {
-      this.redTrashId = "project-" + id
-      if (this.stepIndexForProjectDeletion < 2) { //increase step index for deletion (move from 0 to 2 = 2 confirmations)
-        this.stepIndexForProjectDeletion++
-      } else {  //delete the project after the 2 confirmations
-        this.projects = this.projects.filter(function(proj) {
-          return proj.id !== id;
-        }); //deletion by filtering projects to exclude the project to delete
-        this.currentProject = null;
+    //Delete a category
+    deleteCategory(id) {
+      this.redTrashId = "category-" + id
+      if (this.stepIndexForCategoryDeletion < 2) { //increase step index for deletion (move from 0 to 2 = 2 confirmations)
+        this.stepIndexForCategoryDeletion++
+      } else {  //delete the category after the 2 confirmations
+        this.categories = this.categories.filter(function(cat) {
+          return cat.id !== id;
+        }); //deletion by filtering categories to exclude the category to delete
+        this.currentCategory = null;
         this.saveItemsInStorage()
-        this.stepIndexForProjectDeletion = 0
+        this.stepIndexForCategoryDeletion = 0
         this.redTrashId = null
       }
     },
@@ -339,9 +339,9 @@ export default {
       browser.storage.local
         .set({
           links: JSON.parse(JSON.stringify(this.links)), //Stringify and parse to have a new independent object
-          projects: {
-            current: this.currentProject,
-            list: JSON.parse(JSON.stringify(this.projects))
+          categories: {
+            current: this.currentCategory,
+            list: JSON.parse(JSON.stringify(this.categories))
           }
         })
         .then(() => {
@@ -350,23 +350,23 @@ export default {
     },
     getItemsFromStorage() {
       browser.storage.local.get().then(raw => {
-        return raw.projects.list;
+        return raw.categories.list;
       });
     },
     loadItemsFromStorage() {
       browser.storage.local.get().then(raw => {
         if (raw.links != null) {
           this.links = raw.links;
-          this.projects = raw.projects.list;
-          this.currentProject = raw.projects.current;
+          this.categories = raw.categories.list;
+          this.currentCategory = raw.categories.current;
         } else {
           this.links = [];
-          this.projects = [];
-          this.currentProject = null;
+          this.categories = [];
+          this.currentCategory = null;
         }
         console.log(this.links);
-        console.log(this.projects);
-        console.log(this.currentProject);
+        console.log(this.categories);
+        console.log(this.currentCategory);
       });
     },
     loadFirstTime() {
@@ -374,9 +374,9 @@ export default {
       browser.storage.local.set({
         info: {
           lastLinkInsertedId: 11,
-          lastProjectInsertedId: 2
+          lastCategoryInsertedId: 2
         },
-        projects: {
+        categories: {
           current: 2,
           list: [
             { id: 1, name: "KanFF", links: [1, 3, 5, 8] },
@@ -425,27 +425,27 @@ export default {
         this.redTrashId = null
       }
     },
-    //Add a link to a project
-    addALinkToCurrentProject(id) {
+    //Add a link to a category
+    addALinkToCurrentCategory(id) {
       if (id != null) {
-        console.log("add a link " + id + " at project " + this.currentProject);
-        var project = this.projects.filter(
-          proj => proj.id == this.currentProject
+        console.log("add a link " + id + " at category " + this.currentCategory);
+        var category = this.categories.filter(
+          cat => cat.id == this.currentCategory
         )[0];
-        console.log(project.links);
-        project.links.push(id);
+        console.log(category.links);
+        category.links.push(id);
         this.saveItemsInStorage();
         this.linkToAdd = null; //set again to "Add a link..." because the item has disappear
       }
     },
-    //Remove a link from a project
-    removeALinkFromCurrentProject(id) {
-      console.log("delete a link " + id + " at project " + this.currentProject);
-      var project = this.projects.filter(
-        proj => proj.id == this.currentProject
+    //Remove a link from a category
+    removeALinkFromCurrentCategory(id) {
+      console.log("delete a link " + id + " at category " + this.currentCategory);
+      var category = this.categories.filter(
+        cat => cat.id == this.currentCategory
       )[0];
-      console.log(project.links);
-      delete project.links[project.links.indexOf(id)];
+      console.log(category.links);
+      delete category.links[category.links.indexOf(id)];
       this.saveItemsInStorage();
     }
   },
