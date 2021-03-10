@@ -38,14 +38,29 @@
       </span>
     </div>
     <ul class="list-none">
-      <li class="text-base rounded-sm my-1">
+      <li class="text-base rounded-sm my-1 flex justify-end">
+        <img
+            v-if="settingsEnabled && currentCategory != null"
+            :class="{
+            'hover:bg-red-300': redTrashId === stepIndexForCategoryDeletion == 0,
+            'bg-red-300': redTrashId == 'category-'+ currentCategory && stepIndexForCategoryDeletion == 1,
+            'hover:bg-red-400': redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 1,
+            'bg-red-400': (redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 2),
+            'hover:bg-red-500': redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 2,
+          }"
+            src="icons/trash.svg"
+            alt="trash icon"
+            title="Delete permanently the category (2 confirmations)."
+            class="inline-block max-w-6 mx-1 rounded hover:text-white"
+            @click="deleteCategory(currentCategory)"
+        />
         <select
           name="category"
           id="sltCategory"
           ref="sltCategory"
           class="rounded-sm"
           v-model="currentCategory"
-          @change="saveItemsInStorage(); stepIndexForCategoryDeletion = 0; redTrashId = null"
+          @change="saveItemsInStorage(); resetTrashData();"
           title="Choose a category or All."
         >
           <option :value="null">All</option>
@@ -57,21 +72,7 @@
             {{ category.name }}
           </option>
         </select>
-        <img
-            v-if="settingsEnabled && currentCategory != null"
-          :class="{
-            'hover:bg-red-300': redTrashId === stepIndexForCategoryDeletion == 0,
-            'bg-red-300': redTrashId == 'category-'+ currentCategory && stepIndexForCategoryDeletion == 1,
-            'hover:bg-red-400': redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 1,
-            'bg-red-400': (redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 2),
-            'hover:bg-red-500': redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 2,
-          }"
-          src="icons/trash.svg"
-          alt="trash icon"
-          title="Delete permanently the category (2 confirmations)."
-          class="inline-block max-w-6 mx-1 rounded hover:text-white"
-          @click="deleteCategory(currentCategory)"
-        />
+
       </li>
       <!-- Input to create a new category -->
       <li
@@ -85,14 +86,14 @@
           @keyup="createCategory($event.key)"
           class="w-full px-1 rounded-sm"
           ref="inpCreateCategory"
-          @click="this.redTrashId = null"
+          @click="resetTrashData"
         />
       </li>
     </ul>
     <ul class="list-none" v-if="links.length != 0">
       <li v-for="link in linksForCurrentCategory" :key="link.id" class="flex">
         <a
-          @click="this.redTrashId = null"
+          @click="resetTrashData"
           :href="'https://' + link.link"
           :title="link.link"
           class="hover:text-white flex-1 w-full block flex px-1 text-base hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
@@ -152,7 +153,7 @@
           name="sltAddLink"
           class="rounded-sm flex-1"
           ref="inpCreateInput"
-          @click="this.redTrashId = null"
+          @click="resetTrashData"
           v-model="linkToAdd"
         >
           <option :value="null">Add a link...</option>
@@ -183,7 +184,7 @@
           @keyup="nextStepOfLinkAdding"
           class="w-full px-1 rounded-sm"
           ref="inpCreateInput"
-          @click="this.redTrashId = null"
+          @click="resetTrashData"
         />
       </li>
       <li
@@ -234,6 +235,11 @@ export default {
     }
   },
   methods: {
+    //reset all data concerning trash (id and steps):
+    resetTrashData(){
+      this.redTrashId = null
+      this.stepIndexForCategoryDeletion = 0
+    },
     getLinksNotInCurrentCategory() {
       var linksIn = this.getLinksForCurrentCategory();
       return this.links.filter(link => linksIn.indexOf(link) == -1);
@@ -265,7 +271,7 @@ export default {
       );
     },
     openSettings() {
-      this.redTrashId = null;
+      this.resetTrashData()
       this.settingsEnabled = !this.settingsEnabled; //invert settings status
       if (this.settingsEnabled === true && this.links.length < 10) {
         //can focus the field only if displayed
@@ -337,8 +343,7 @@ export default {
         }); //deletion by filtering categories to exclude the category to delete
         this.currentCategory = null;
         this.saveItemsInStorage()
-        this.stepIndexForCategoryDeletion = 0
-        this.redTrashId = null
+        this.resetTrashData()
       }
     },
     saveItemsInStorage() {
@@ -437,7 +442,7 @@ export default {
           return item.id !== id;
         });//Delete the link by filtering the list
         this.saveItemsInStorage();
-        this.redTrashId = null
+        this.resetTrashData()
       }
     },
     //Add a link to a category
