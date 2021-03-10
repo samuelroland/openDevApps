@@ -344,7 +344,7 @@ export default {
     saveItemsInStorage() {
       browser.storage.local
         .set({
-          config: this.config,
+          config: JSON.parse(JSON.stringify(this.config)),
           links: JSON.parse(JSON.stringify(this.links)), //Stringify and parse to have a new independent object
           categories: {
             current: this.currentCategory,
@@ -371,11 +371,11 @@ export default {
           this.links = [];
           this.categories = [];
           this.currentCategory = null;
-          this.config = {
+          this.config = JSON.parse(JSON.stringify({
             lang: "en",
             lastLinkInsertedId: 0,
             lastCategoryInsertedId: 0
-          }
+          }))
         }
         console.log(this.links);
         console.log(this.categories);
