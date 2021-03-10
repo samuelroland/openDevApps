@@ -57,6 +57,13 @@
             {{ project.name }}
           </option>
         </select>
+        <img
+          src="icons/settings.svg"
+          alt="settings icon"
+          title="Settings"
+          class="inline w-8 hover:bg-blue-500 rounded hover:text-white px-1"
+          @click="deleteProject(currentProject)"
+        />
       </li>
       <!-- Input to create a new project -->
       <li
@@ -201,7 +208,11 @@ export default {
       inpCreatePlaceholder: "New Link + Enter",
       inpCreateStep: 0,
       newLinkData: {},
-      redTrashId: null
+      redTrashId: null,
+      config: {
+        lastLinkInsertedId: 0,
+        lastProjectInsertedId: 0
+      }
     };
   },
   computed: {
@@ -290,14 +301,27 @@ export default {
       console.log(key);
       console.log(this.inpCreateProject.trim());
       if (key == "Enter" && this.inpCreateProject.trim() != "") {
-        var newId = 10; //get the next id
+        var newId = this.projects.length + 1; //get the next id
         var newProject = { id: 10, name: this.inpCreateProject, links: [] };
         this.projects.push(newProject);
 
         this.inpCreateProject = ""; //empty the field
         this.currentProject = newId; //select the created project
         this.saveItemsInStorage();
+        this.$refs.inpCreateProject.blur();
       }
+    },
+    deleteProject(id) {
+      var indexOfProject;
+      Array.prototype.forEach.call(this.projects, (proj, index) => {
+        if (proj.id == id) {
+          indexOfProject = index;
+        }
+      });
+      console.log(this.projects);
+      console.log(indexOfProject);
+      delete this.projects[indexOfProject];
+      this.currentProject;
     },
     saveItemsInStorage() {
       browser.storage.local
@@ -336,11 +360,16 @@ export default {
     loadFirstTime() {
       //for debug only
       browser.storage.local.set({
+        info: {
+          lastLinkInsertedId: 11,
+          lastProjectInsertedId: 2
+        },
         projects: {
           current: 2,
           list: [
             { id: 1, name: "KanFF", links: [1, 3, 5, 8] },
-            { id: 2, name: "School", links: [2, 8] }
+            { id: 2, name: "School", links: [2, 8] },
+            { id: 4, name: "Sport", links: [4, 9, 1, 8] }
           ]
         },
         links: [
