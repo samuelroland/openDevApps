@@ -13,7 +13,7 @@
         </h3>
         <span class="text-xs italic flex items-end ml-1" :title="'Released the ' + versionDate + '.'">{{ version }}</span>
       </div>
-      <div class="flex items-end max-w-full overflow-hidden overflow-ellipsis ml-2">
+      <div class="flex items-end min-w-max overflow-hidden overflow-ellipsis ml-4">
       <img
           v-if="settingsEnabled && currentCategory != null"
           :class="{
@@ -56,6 +56,7 @@
         class="mb-4 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
       >
         <input
+          maxlength="15"
           type="text"
           v-model="inpCreateCategory"
           :placeholder="inpCreateCategoryPlaceholder"
@@ -72,7 +73,7 @@
           @click="resetTrashData"
           :href="'https://' + link.link"
           :title="link.link"
-          class="hover:text-white flex-1 w-full block flex px-1 text-base hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+          class="hover:text-white flex-1 w-full block flex px-1 text-base hover:border-blue-800 hover:bg-blue-400 rounded-sm border mt-1 border-solid border-blue-600"
         >
           <span class="flex-1 overflow-hidden overflow-ellipsis">{{
             link.name
@@ -173,7 +174,7 @@
     <div class="flex flex-1 mt-2 justify-end"
     ><img
         src="icons/code.svg"
-        class="w-6 hover:bg-blue-500 rounded hover:text-white px-1"
+        class="w-6 hover:bg-blue-500 rounded hover:text-white p-1"
         alt="code icon"
         title="Checkout the code on GitHub, it's opensource !"
         @click="goToSourceCode"
