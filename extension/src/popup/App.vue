@@ -1,5 +1,5 @@
 <template>
-  <Popup :version="version" />
+  <Popup :version="version" :versionDate="versionDate" />
 </template>
 
 <script>
@@ -9,7 +9,8 @@ export default {
   name: "App",
   data() {
     return {
-      version: "v0.1"
+      version: "v0.1",
+      versionDate: "xx.xx.2021"
     }
   },
   components: { Popup },

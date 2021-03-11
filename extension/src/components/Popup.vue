@@ -1,60 +1,35 @@
 <template>
   <div
-    class="bg-blue-300 w-64 overflow-hidden overscroll-none p-1"
+    class="bg-blue-300 w-80 overflow-hidden overscroll-none p-1"
     style="min-height: 75px"
   >
-    <div class="flex w-full">
-      <div class="flex flex-1">
+    <div class="flex w-full mb-2">
+      <div class="flex flex-1 min-w-max">
         <h3
           class="flex flex-row items-center m-0 text-lg"
           title="Open quickly in the browser some local or remote dev apps."
         >
           open <img src="icons/D.png" class="w-4" alt="D" />evD
         </h3>
-        <span class="text-xs italic flex items-end ml-1">{{ version }}</span>
+        <span class="text-xs italic flex items-end ml-1" :title="'Released the ' + versionDate + '.'">{{ version }}</span>
       </div>
-      <span class="flex"
-        ><img
-          src="icons/code.svg"
-          class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
-          alt="code icon"
-          title="Checkout the code on GitHub, it's opensource !"
-          @click="goToSourceCode"
-        />
-        <img
-          src="icons/help.svg"
-          alt="help icon"
-          title="I need help!"
-          class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
-          @click="loadFirstTime"
-        />
-        <img
-          src="icons/settings.svg"
-          alt="settings icon"
-          title="Settings"
-          class="w-8 hover:bg-blue-500 rounded hover:text-white px-1"
-          @click="openSettings"
-        />
-      </span>
-    </div>
-    <ul class="list-none">
-      <li class="text-base rounded-sm my-1 flex justify-end">
-        <img
-            v-if="settingsEnabled && currentCategory != null"
-            :class="{
+      <div class="flex items-end max-w-full overflow-hidden overflow-ellipsis ml-2">
+      <img
+          v-if="settingsEnabled && currentCategory != null"
+          :class="{
             'hover:bg-red-300': redTrashId === stepIndexForCategoryDeletion == 0,
             'bg-red-300': redTrashId == 'category-'+ currentCategory && stepIndexForCategoryDeletion == 1,
             'hover:bg-red-400': redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 1,
             'bg-red-400': (redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 2),
             'hover:bg-red-500': redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 2,
           }"
-            src="icons/trash.svg"
-            alt="trash icon"
-            title="Delete permanently the category (2 confirmations)."
-            class="inline-block max-w-6 mx-1 rounded hover:text-white"
-            @click="deleteCategory(currentCategory)"
-        />
-        <select
+          src="icons/trash.svg"
+          alt="trash icon"
+          title="Delete permanently the category (2 confirmations)."
+          class="inline-block max-w-6 mx-1 rounded hover:text-white"
+          @click="deleteCategory(currentCategory)"
+      />
+      <select
           name="category"
           id="sltCategory"
           ref="sltCategory"
@@ -62,18 +37,19 @@
           v-model="currentCategory"
           @change="saveItemsInStorage(); resetTrashData();"
           title="Choose a category or All."
-        >
-          <option :value="null">All</option>
-          <option
+      >
+        <option :value="null">All</option>
+        <option
             v-for="category in categories"
             :value="category.id"
             :key="category.id"
-          >
-            {{ category.name }}
-          </option>
-        </select>
-
-      </li>
+        >
+          {{ category.name }}
+        </option>
+      </select>
+      </div>
+    </div>
+    <ul class="list-none">
       <!-- Input to create a new category -->
       <li
         v-if="settingsEnabled"
@@ -194,6 +170,29 @@
         <span class="text-xs">10 links is the maximum</span>
       </li>
     </ul>
+    <div class="flex flex-1 mt-2 justify-end"
+    ><img
+        src="icons/code.svg"
+        class="w-6 hover:bg-blue-500 rounded hover:text-white px-1"
+        alt="code icon"
+        title="Checkout the code on GitHub, it's opensource !"
+        @click="goToSourceCode"
+    />
+        <img
+            src="icons/help.svg"
+            alt="help icon"
+            title="I need help!"
+            class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
+            @click="loadFirstTime"
+        />
+        <img
+            src="icons/settings.svg"
+            alt="settings icon"
+            title="Settings"
+            class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
+            @click="openSettings"
+        />
+      </div>
   </div>
 </template>
 
@@ -201,7 +200,8 @@
 export default {
   name: "Popup",
   props: {
-    version: String
+    version: String,
+    versionDate: String
   },
   data() {
     return {
