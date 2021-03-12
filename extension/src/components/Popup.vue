@@ -3,6 +3,7 @@
     class="bg-blue-300 w-80 overflow-hidden overscroll-none p-1"
     style="min-height: 75px"
   >
+    <!-- Header DIV -->
     <div class="flex w-full mb-2">
       <div class="flex flex-1 min-w-max">
         <h3
@@ -49,8 +50,9 @@
       </select>
       </div>
     </div>
+
+    <!-- Field to create a new category - Only if settings enabled -->
     <ul class="list-none">
-      <!-- Input to create a new category -->
       <li
         v-if="settingsEnabled"
         class="mb-4 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
@@ -67,6 +69,8 @@
         />
       </li>
     </ul>
+
+    <!-- The list of links for the current category - Always displayed (with icons at right if settings enabled) -->
     <ul class="list-none" v-if="links.length != 0">
       <li v-for="link in linksForCurrentCategory" :key="link.id" class="flex">
         <a
@@ -116,11 +120,15 @@
         />
       </li>
     </ul>
+
+    <!-- "No link" mention if there is no link -->
     <ul class="list-none" :hidden="!(this.links.length === 0)">
       <li class="text-base rounded-sm my-1 text-center italic text-gray-500">
-        No links<span class="text-xs"> -> Add in settings</span>
+        No link<span class="text-xs"> -> Add in settings</span>
       </li>
     </ul>
+
+    <!-- Add a link zone, with a list of links not added to the current category - Only if category is not "All" and settings enabled -->
     <ul class="list-none" :hidden="!settingsEnabled">
       <li
         v-if="settingsEnabled && currentCategory != null"
@@ -142,7 +150,6 @@
             {{ link.name }}
           </option>
         </select>
-
         <button
           class="px-1 border-solid border border-blue-100 mx-1 rounded-sm hover:border-blue-800 hover:bg-blue-400 border-solid border-blue-600"
           @click="addALinkToCurrentCategory(linkToAdd)"
@@ -150,6 +157,11 @@
           Add
         </button>
       </li>
+
+    </ul>
+
+    <!-- Create a link zone, with one input to fill 2 needed informations - Only if settings enabled -->
+    <ul class="list-none" :hidden="!settingsEnabled">
       <li
         v-if="links.length < NB_MAX_LINKS"
         class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
@@ -158,7 +170,7 @@
           type="text"
           v-model="inpCreate"
           :placeholder="inpCreatePlaceholder"
-          @keyup="nextStepOfLinkAdding"
+          @keyup="nextStepOfLinkCreation"
           class="w-full px-1 rounded-sm"
           ref="inpCreateInput"
           @click="resetTrashData"
@@ -171,6 +183,8 @@
         <span class="text-xs">the maximum is {{ NB_MAX_LINKS }} links in total</span>
       </li>
     </ul>
+
+    <!-- Footer with 3 icons: link to source code, link to manual and settings button - Always displayed -->
     <div class="flex flex-1 mt-2 justify-end"
     ><img
         src="icons/code.svg"
@@ -184,7 +198,7 @@
             alt="help icon"
             title="I need help!"
             class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
-            @click="loadFirstTime"
+            @click="goToManual"
         />
         <img
             src="icons/settings.svg"
@@ -194,6 +208,7 @@
             @click="openSettings"
         />
       </div>
+
   </div>
 </template>
 
@@ -201,6 +216,7 @@
 export default {
   name: "Popup",
   props: {
+    //Version information
     version: String,
     versionDate: String
   },
@@ -231,9 +247,11 @@ export default {
     };
   },
   computed: {
+    //Filtered list of this.links that are NOT added to the current category
     linksNotInCurrentCategory() {
       return this.getLinksNotInCurrentCategory();
     },
+    //Filtered list of this.links that ARE in the current category
     linksForCurrentCategory() {
       return this.getLinksForCurrentCategory();
     }
@@ -265,15 +283,18 @@ export default {
       }
       return []; //else, no links will be shown
     },
+    //Go to source code button (icon with anchor) on GitHub
     goToSourceCode() {
       window.open("https://github.com/samuelroland/openDevD", "_blank");
     },
+    //Go to manual of the extension (interrogation mark icon) on GitHub
     goToManual() {
       window.open(
-        "https://github.com/samuelroland/openDevD/blob/develop/manual.md",
+        "https://github.com/samuelroland/openDevD/blob/develop/manual.md#opendevd---manual",
         "_blank"
       );
     },
+    //Open settings and focus on create link input
     openSettings() {
       this.resetTrashData()
       this.settingsEnabled = !this.settingsEnabled; //invert settings status
@@ -285,34 +306,37 @@ export default {
         this.inpCreateStep = 1; //set the creation step to 1
       }
     },
-    nextStepOfLinkAdding(e) {
-      var key = e.key;
+    //Execute next step of link creation
+    nextStepOfLinkCreation(e) {
+      var key = e.key;  //get the key entered (that has launched the event)
       console.log(key);
       console.log(this.inpCreateStep);
-      if (key == "Enter" && (this.inpCreate != "" || this.inpCreateStep == 3)) {
-        //Depending on the step of the link creation, change placeholder, save value and go to next step
+      if (key == "Enter" && (this.inpCreate != "" || this.inpCreateStep == 3)) {  //key must be enter and input must not be empty (except for step 3)
+
+        //Depending on the step of the link creation, change placeholder, save value and go to next step. Values are saved in this.newLinkData.
         switch (this.inpCreateStep) {
           case 1: //link is entered
             this.newLinkData.id = this.config.lastLinkInsertedId + 1;
-
             this.newLinkData.link = this.inpCreate;
-            this.inpCreatePlaceholder = "Set a name + Enter";
+            this.inpCreatePlaceholder = "Set a name + Enter"; //placeholder for next step
             this.inpCreate = "";
             break;
           case 2: //placeholder is entered
             this.newLinkData.name = this.inpCreate;
             this.inpCreate = "";
-            this.inpCreatePlaceholder = "local ? default true";
+            this.inpCreatePlaceholder = "local ? default true"; //placeholder for next step
             break;
           case 3: //local or not is given
             this.newLinkData.local = this.inpCreate === "";
             this.inpCreate = "";
-            this.links.push(this.newLinkData);
+            this.links.push(this.newLinkData);  //create the link
             console.log(this.newLinkData);
-            this.config.lastLinkInsertedId++
+            this.config.lastLinkInsertedId++  //increment last inserted id
             this.saveItemsInStorage();
-            this.inpCreatePlaceholder = "New Link + Enter";
-            this.newLinkData = Object.assign({}, {});
+
+            //Final config
+            this.inpCreatePlaceholder = "New Link + Enter"; //placeholder for next step
+            this.newLinkData = Object.assign({}, {}); //destroy reference to the object
             this.inpCreateStep = 0; //0+1=1
             break;
         }
@@ -350,6 +374,7 @@ export default {
         this.resetTrashData()
       }
     },
+    //Save items from attributes in storage (config, links and categories)
     saveItemsInStorage() {
       browser.storage.local
         .set({
@@ -359,16 +384,9 @@ export default {
             current: this.currentCategory,
             list: JSON.parse(JSON.stringify(this.categories))
           }
-        })
-        .then(() => {
-          this.getItemsFromStorage();
-        });
+        }).then(console.log("Items saved in storage."))
     },
-    getItemsFromStorage() {
-      browser.storage.local.get().then(raw => {
-        return raw.categories.list;
-      });
-    },
+    //Load items from storage to attributes (config, links and categories)
     loadItemsFromStorage() {
       browser.storage.local.get().then(raw => {
         if (raw.links != null && raw.categories != null && raw.config != null) {
@@ -392,7 +410,8 @@ export default {
         console.log(this.config);
       });
     },
-    loadFirstTime() {
+    //Load fake test data, only for debug and development purpose...
+    loadFakeTestData() {
       //for debug only
       browser.storage.local.set({
         config: {
@@ -432,7 +451,6 @@ export default {
           { id: 11, name: "test8.org", link: "test8.org", local: false }
         ]
       });
-      console.log(this.getItemsFromStorage());
       this.loadItemsFromStorage();
     },
     //Delete a link given by id
