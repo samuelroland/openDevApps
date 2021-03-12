@@ -151,7 +151,7 @@
         </button>
       </li>
       <li
-        v-if="links.length < 10"
+        v-if="links.length < NB_MAX_LINKS"
         class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
       >
         <input
@@ -165,10 +165,10 @@
         />
       </li>
       <li
-        v-if="links.length >= 10"
+        v-if="links.length >= NB_MAX_LINKS"
         class="text-base rounded-sm my-1 text-center italic text-gray-500"
       >
-        <span class="text-xs">10 links is the maximum</span>
+        <span class="text-xs">the maximum is {{ NB_MAX_LINKS }} links in total</span>
       </li>
     </ul>
     <div class="flex flex-1 mt-2 justify-end"
@@ -206,6 +206,9 @@ export default {
   },
   data() {
     return {
+      //Constants:
+      NB_MAX_LINKS: 15,
+      //Attributes
       settingsEnabled: false,
       addingElementInRun: false,
       currentCategory: null,
@@ -274,7 +277,7 @@ export default {
     openSettings() {
       this.resetTrashData()
       this.settingsEnabled = !this.settingsEnabled; //invert settings status
-      if (this.settingsEnabled === true && this.links.length < 10) {
+      if (this.settingsEnabled === true && this.links.length < this.NB_MAX_LINKS) {
         //can focus the field only if displayed
         setTimeout(() => {
           this.$refs.inpCreateInput.focus();
