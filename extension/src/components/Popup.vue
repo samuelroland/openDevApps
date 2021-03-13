@@ -113,7 +113,7 @@
           @click="resetTrashData"
           :href="formatLink(link.link)"
           :title="link.link"
-          class="hover:text-white flex-1 w-full flex px-1 text-base hover:border-blue-800 hover:bg-blue-400 rounded-sm border mt-1 border-solid border-blue-600"
+          class="hover:text-white flex-1 w-full h-7 flex px-1 text-base overflow-hidden overflow-ellipsis hover:border-blue-800 hover:bg-blue-400 rounded-sm border mt-1 border-solid border-blue-600"
         >
           <span class="flex-1 overflow-hidden overflow-ellipsis">{{
             link.name
