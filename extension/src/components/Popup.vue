@@ -404,7 +404,7 @@ export default {
     },
     //Save items from attributes in storage (config, links and categories)
     saveItemsInStorage() {
-      browser.storage.local
+      browser.storage.sync
         .set({
           config: JSON.parse(JSON.stringify(this.config)),
           links: JSON.parse(JSON.stringify(this.links)), //Stringify and parse to have a new independent object
@@ -417,7 +417,7 @@ export default {
     },
     //Load items from storage to attributes (config, links and categories)
     loadItemsFromStorage() {
-      browser.storage.local.get().then(raw => {
+      browser.storage.sync.get().then(raw => {
         if (raw.links != null && raw.categories != null && raw.config != null) {
           this.links = raw.links;
           this.categories = raw.categories.list;
@@ -444,7 +444,7 @@ export default {
     //Load fake test data, only for debug and development purpose...
     loadFakeTestData() {
       //for debug only
-      browser.storage.local.set({
+      browser.storage.sync.set({
         config: {
           lang: "en",
           lastLinkInsertedId: 11,
