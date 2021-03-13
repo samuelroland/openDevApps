@@ -20,6 +20,25 @@
 1. Visit the manual to learn how configurations works.
 1. Automatic alert when a new version is available/released on GitHub or on AMO (addons.mozilla.org).
 
+
+## Credits
+### Librairies
+- TailwindCSS - [MIT](https://github.com/tailwindlabs/tailwindcss/blob/master/LICENSE)  
+Copyright (c) Adam Wathan <adam.wathan@gmail.com>  
+Copyright (c) Jonathan Reinink <jonathan@reinink.ca>  
+- VueJS - [MIT](https://github.com/vuejs/vue/blob/dev/LICENSE)  
+Copyright (c) 2013-present, Yuxi (Evan) You
+### Fonts
+- Jetbrains Mono - [OFL](https://github.com/JetBrains/JetBrainsMono/blob/master/OFL.txt)  
+Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
+### Icons
+Found with [iconduck.com](https://iconduck.com).
+- Fluent UI System Icons  [MIT](https://github.com/microsoft/fluentui-system-icons/blob/master/LICENSE)  
+Copyright (c) 2020 Microsoft Corporation
+- Material Design Icons - [Apache License 2.0](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE)
+- Majesticons Icons Set - [MIT](https://github.com/halfmage/majesticons/blob/main/LICENSE)  
+Copyright (c) 2021 Gerrit Halfmann
+
 --- 
 ## Goals of the project
 This is a very little project, only **to take in hand web extensions building**.
