@@ -93,7 +93,7 @@
       <li v-for="link in linksForCurrentCategory" :key="link.id" class="flex">
         <a
           @click="resetTrashData"
-          :href="'https://' + link.link"
+          :href="formatLink(link.link)"
           :title="link.link"
           class="hover:text-white flex-1 w-full block flex px-1 text-base hover:border-blue-800 hover:bg-blue-400 rounded-sm border mt-1 border-solid border-blue-600"
         >
@@ -275,6 +275,16 @@ export default {
     }
   },
   methods: {
+    formatLink(link) {
+      if (
+        link.toLowerCase().indexOf("http://") == 0 ||
+        link.toLowerCase().indexOf("https://") == 0
+      ) {
+        return link; //the link is already an absolute path
+      } else {
+        return "http://" + link; //prefix http to the start to say to the browser that it's not a relative path
+      }
+    },
     //reset all data concerning trash (id and steps):
     resetTrashData() {
       this.redTrashId = null;
@@ -332,19 +342,22 @@ export default {
       var key = e.key; //get the key entered (that has launched the event)
       console.log(key);
       console.log(this.inpCreateStep);
-      if (key == "Enter" && (this.inpCreate != "" || this.inpCreateStep == 3)) {
+      if (
+        key == "Enter" &&
+        (this.inpCreate.trim() != "" || this.inpCreateStep == 3)
+      ) {
         //key must be enter and input must not be empty (except for step 3)
 
         //Depending on the step of the link creation, change placeholder, save value and go to next step. Values are saved in this.newLinkData.
         switch (this.inpCreateStep) {
           case 1: //link is entered
             this.newLinkData.id = this.config.lastLinkInsertedId + 1;
-            this.newLinkData.link = this.inpCreate;
+            this.newLinkData.link = this.inpCreate.trim();
             this.inpCreatePlaceholder = "Set a name + Enter"; //placeholder for next step
             this.inpCreate = "";
             break;
           case 2: //placeholder is entered
-            this.newLinkData.name = this.inpCreate;
+            this.newLinkData.name = this.inpCreate.trim();
             this.inpCreate = "";
             this.inpCreatePlaceholder = "local ? default true"; //placeholder for next step
             break;
