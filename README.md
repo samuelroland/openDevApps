@@ -1,7 +1,7 @@
 # openDevD
 ![icon](icon.png)
 
-### Open quickly in the browser some local or remote dev apps.
+### Access quickly to local or remote development-related applications.
 
 `Model of the design planned:`  
 ![model](docs/main-model.png)
