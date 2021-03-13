@@ -461,49 +461,6 @@ export default {
         console.log(this.config);
       });
     },
-    //Load fake test data, only for debug and development purpose...
-    loadFakeTestData() {
-      //for debug only
-      browser.storage.sync.set({
-        config: {
-          lang: "en",
-          lastLinkInsertedId: 11,
-          lastCategoryInsertedId: 2
-        },
-        categories: {
-          current: 2,
-          list: [
-            { id: 1, name: "KanFF", links: [1, 3, 5, 8] },
-            { id: 2, name: "School", links: [2, 8] },
-            { id: 4, name: "Sport", links: [4, 9, 1, 8] }
-          ]
-        },
-        links: [
-          { id: 1, name: "DevDashboard", link: "localhost:8008", local: true },
-          {
-            id: 2,
-            name: "GitHub Profile",
-            link: "github.com/samuelroland",
-            local: false
-          },
-          {
-            id: 3,
-            name: "KanFF",
-            link: "localhost:8084/index.php",
-            local: true
-          },
-          { id: 4, name: "test.org", link: "test.org", local: false },
-          { id: 5, name: "test2.org", link: "test2.org", local: false },
-          { id: 6, name: "test3.org", link: "test3.org", local: false },
-          { id: 7, name: "test4.org", link: "test4.org", local: false },
-          { id: 8, name: "test5.org", link: "test5.org", local: false },
-          { id: 9, name: "test6.org", link: "test6.org", local: false },
-          { id: 10, name: "test7.org", link: "test7.org", local: false },
-          { id: 11, name: "test8.org", link: "test8.org", local: false }
-        ]
-      });
-      this.loadItemsFromStorage();
-    },
     //Delete a link given by id
     deleteALink(id) {
       console.log("delete item at id " + id);
