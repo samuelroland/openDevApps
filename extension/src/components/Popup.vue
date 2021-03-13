@@ -12,42 +12,60 @@
         >
           open <img src="icons/D.png" class="w-4" alt="D" />evD
         </h3>
-        <span class="text-xs italic flex items-end ml-1" :title="'Released the ' + versionDate + '.'">{{ version }}</span>
+        <span
+          class="text-xs italic flex items-end ml-1"
+          :title="'Released the ' + versionDate + '.'"
+          >{{ version }}</span
+        >
       </div>
-      <div class="flex items-end min-w-max overflow-hidden overflow-ellipsis ml-4">
-      <img
+      <div
+        class="flex items-end min-w-max overflow-hidden overflow-ellipsis ml-4"
+      >
+        <img
           v-if="settingsEnabled && currentCategory != null"
           :class="{
-            'hover:bg-red-300': redTrashId === stepIndexForCategoryDeletion == 0,
-            'bg-red-300': redTrashId == 'category-'+ currentCategory && stepIndexForCategoryDeletion == 1,
-            'hover:bg-red-400': redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 1,
-            'bg-red-400': (redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 2),
-            'hover:bg-red-500': redTrashId === 'category-'+ currentCategory && stepIndexForCategoryDeletion == 2,
+            'hover:bg-red-300':
+              (redTrashId === stepIndexForCategoryDeletion) == 0,
+            'bg-red-300':
+              redTrashId == 'category-' + currentCategory &&
+              stepIndexForCategoryDeletion == 1,
+            'hover:bg-red-400':
+              redTrashId === 'category-' + currentCategory &&
+              stepIndexForCategoryDeletion == 1,
+            'bg-red-400':
+              redTrashId === 'category-' + currentCategory &&
+              stepIndexForCategoryDeletion == 2,
+            'hover:bg-red-500':
+              redTrashId === 'category-' + currentCategory &&
+              stepIndexForCategoryDeletion == 2,
           }"
           src="icons/trash.svg"
           alt="trash icon"
           title="Delete permanently the category (2 confirmations)."
           class="inline-block max-w-6 mx-1 rounded hover:text-white"
           @click="deleteCategory(currentCategory)"
-      />
-      <select
+        />
+        <select
           name="category"
           id="sltCategory"
           ref="sltCategory"
           class="rounded-sm"
           v-model="currentCategory"
-          @change="saveItemsInStorage(); resetTrashData();"
+          @change="
+            saveItemsInStorage();
+            resetTrashData();
+          "
           title="Choose a category or All."
-      >
-        <option :value="null">All</option>
-        <option
+        >
+          <option :value="null">All</option>
+          <option
             v-for="category in categories"
             :value="category.id"
             :key="category.id"
-        >
-          {{ category.name }}
-        </option>
-      </select>
+          >
+            {{ category.name }}
+          </option>
+        </select>
       </div>
     </div>
 
@@ -101,9 +119,9 @@
           v-if="settingsEnabled"
           class="ml-1 w-8 p-1 cursor-pointer"
           :class="{
-            'bg-red-300': redTrashId == 'link-'+ link.id,
-            'hover:bg-red-400': redTrashId === 'link-'+ link.id,
-            'hover:bg-red-300': !(redTrashId === 'link-'+ link.id),
+            'bg-red-300': redTrashId == 'link-' + link.id,
+            'hover:bg-red-400': redTrashId === 'link-' + link.id,
+            'hover:bg-red-300': !(redTrashId === 'link-' + link.id),
           }"
           src="icons/trash.svg"
           alt="trash icon"
@@ -157,7 +175,6 @@
           Add
         </button>
       </li>
-
     </ul>
 
     <!-- Create a link zone, with one input to fill 2 needed informations - Only if settings enabled -->
@@ -180,35 +197,36 @@
         v-if="links.length >= NB_MAX_LINKS"
         class="text-base rounded-sm my-1 text-center italic text-gray-500"
       >
-        <span class="text-xs">the maximum is {{ NB_MAX_LINKS }} links in total</span>
+        <span class="text-xs"
+          >the maximum is {{ NB_MAX_LINKS }} links in total</span
+        >
       </li>
     </ul>
 
     <!-- Footer with 3 icons: link to source code, link to manual and settings button - Always displayed -->
-    <div class="flex flex-1 mt-2 justify-end"
-    ><img
+    <div class="flex flex-1 mt-2 justify-end">
+      <img
         src="icons/code.svg"
         class="w-6 hover:bg-blue-500 rounded hover:text-white p-1"
         alt="code icon"
         title="Checkout the code on GitHub, it's opensource !"
         @click="goToSourceCode"
-    />
-        <img
-            src="icons/help.svg"
-            alt="help icon"
-            title="I need help!"
-            class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
-            @click="goToManual"
-        />
-        <img
-            src="icons/settings.svg"
-            alt="settings icon"
-            title="Settings"
-            class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
-            @click="openSettings"
-        />
-      </div>
-
+      />
+      <img
+        src="icons/help.svg"
+        alt="help icon"
+        title="I need help!"
+        class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
+        @click="goToManual"
+      />
+      <img
+        src="icons/settings.svg"
+        alt="settings icon"
+        title="Settings"
+        class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
+        @click="openSettings"
+      />
+    </div>
   </div>
 </template>
 
@@ -258,9 +276,9 @@ export default {
   },
   methods: {
     //reset all data concerning trash (id and steps):
-    resetTrashData(){
-      this.redTrashId = null
-      this.stepIndexForCategoryDeletion = 0
+    resetTrashData() {
+      this.redTrashId = null;
+      this.stepIndexForCategoryDeletion = 0;
     },
     getLinksNotInCurrentCategory() {
       var linksIn = this.getLinksForCurrentCategory();
@@ -296,9 +314,12 @@ export default {
     },
     //Open settings and focus on create link input
     openSettings() {
-      this.resetTrashData()
+      this.resetTrashData();
       this.settingsEnabled = !this.settingsEnabled; //invert settings status
-      if (this.settingsEnabled === true && this.links.length < this.NB_MAX_LINKS) {
+      if (
+        this.settingsEnabled === true &&
+        this.links.length < this.NB_MAX_LINKS
+      ) {
         //can focus the field only if displayed
         setTimeout(() => {
           this.$refs.inpCreateInput.focus();
@@ -308,10 +329,11 @@ export default {
     },
     //Execute next step of link creation
     nextStepOfLinkCreation(e) {
-      var key = e.key;  //get the key entered (that has launched the event)
+      var key = e.key; //get the key entered (that has launched the event)
       console.log(key);
       console.log(this.inpCreateStep);
-      if (key == "Enter" && (this.inpCreate != "" || this.inpCreateStep == 3)) {  //key must be enter and input must not be empty (except for step 3)
+      if (key == "Enter" && (this.inpCreate != "" || this.inpCreateStep == 3)) {
+        //key must be enter and input must not be empty (except for step 3)
 
         //Depending on the step of the link creation, change placeholder, save value and go to next step. Values are saved in this.newLinkData.
         switch (this.inpCreateStep) {
@@ -329,9 +351,9 @@ export default {
           case 3: //local or not is given
             this.newLinkData.local = this.inpCreate === "";
             this.inpCreate = "";
-            this.links.push(this.newLinkData);  //create the link
+            this.links.push(this.newLinkData); //create the link
             console.log(this.newLinkData);
-            this.config.lastLinkInsertedId++  //increment last inserted id
+            this.config.lastLinkInsertedId++; //increment last inserted id
             this.saveItemsInStorage();
 
             //Final config
@@ -349,10 +371,14 @@ export default {
       console.log(this.inpCreateCategory.trim());
       if (key == "Enter" && this.inpCreateCategory.trim() != "") {
         var newId = this.config.lastCategoryInsertedId + 1; //get the next id
-        var newCategory = { id: newId, name: this.inpCreateCategory, links: [] };
+        var newCategory = {
+          id: newId,
+          name: this.inpCreateCategory,
+          links: []
+        };
         this.categories.push(newCategory);
-        this.config.lastCategoryInsertedId++
-        console.log(newCategory)
+        this.config.lastCategoryInsertedId++;
+        console.log(newCategory);
 
         this.inpCreateCategory = ""; //empty the field
         this.currentCategory = newId; //select the created category
@@ -362,16 +388,18 @@ export default {
     },
     //Delete a category
     deleteCategory(id) {
-      this.redTrashId = "category-" + id
-      if (this.stepIndexForCategoryDeletion < 2) { //increase step index for deletion (move from 0 to 2 = 2 confirmations)
-        this.stepIndexForCategoryDeletion++
-      } else {  //delete the category after the 2 confirmations
+      this.redTrashId = "category-" + id;
+      if (this.stepIndexForCategoryDeletion < 2) {
+        //increase step index for deletion (move from 0 to 2 = 2 confirmations)
+        this.stepIndexForCategoryDeletion++;
+      } else {
+        //delete the category after the 2 confirmations
         this.categories = this.categories.filter(function(cat) {
           return cat.id !== id;
         }); //deletion by filtering categories to exclude the category to delete
         this.currentCategory = null;
-        this.saveItemsInStorage()
-        this.resetTrashData()
+        this.saveItemsInStorage();
+        this.resetTrashData();
       }
     },
     //Save items from attributes in storage (config, links and categories)
@@ -384,7 +412,8 @@ export default {
             current: this.currentCategory,
             list: JSON.parse(JSON.stringify(this.categories))
           }
-        }).then(console.log("Items saved in storage."))
+        })
+        .then(console.log("Items saved in storage."));
     },
     //Load items from storage to attributes (config, links and categories)
     loadItemsFromStorage() {
@@ -393,16 +422,18 @@ export default {
           this.links = raw.links;
           this.categories = raw.categories.list;
           this.currentCategory = raw.categories.current;
-          this.config = raw.config
+          this.config = raw.config;
         } else {
           this.links = [];
           this.categories = [];
           this.currentCategory = null;
-          this.config = JSON.parse(JSON.stringify({
-            lang: "en",
-            lastLinkInsertedId: 0,
-            lastCategoryInsertedId: 0
-          }))
+          this.config = JSON.parse(
+            JSON.stringify({
+              lang: "en",
+              lastLinkInsertedId: 0,
+              lastCategoryInsertedId: 0
+            })
+          );
         }
         console.log(this.links);
         console.log(this.categories);
@@ -456,21 +487,23 @@ export default {
     //Delete a link given by id
     deleteALink(id) {
       console.log("delete item at id " + id);
-      if (this.redTrashId != 'link-' + id) {
-        this.redTrashId = 'link-'+ id; //put the current trash red
+      if (this.redTrashId != "link-" + id) {
+        this.redTrashId = "link-" + id; //put the current trash red
       } else {
         //if equal, the red trash is already red (so this is the confirmation click/second time)
         this.links = this.links.filter(function(item) {
           return item.id !== id;
-        });//Delete the link by filtering the list
+        }); //Delete the link by filtering the list
         this.saveItemsInStorage();
-        this.resetTrashData()
+        this.resetTrashData();
       }
     },
     //Add a link to a category
     addALinkToCurrentCategory(id) {
       if (id != null) {
-        console.log("add a link " + id + " at category " + this.currentCategory);
+        console.log(
+          "add a link " + id + " at category " + this.currentCategory
+        );
         var category = this.categories.filter(
           cat => cat.id == this.currentCategory
         )[0];
@@ -482,7 +515,9 @@ export default {
     },
     //Remove a link from a category
     removeALinkFromCurrentCategory(id) {
-      console.log("delete a link " + id + " at category " + this.currentCategory);
+      console.log(
+        "delete a link " + id + " at category " + this.currentCategory
+      );
       var category = this.categories.filter(
         cat => cat.id == this.currentCategory
       )[0];
