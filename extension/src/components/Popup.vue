@@ -354,6 +354,13 @@ export default {
             this.links.push(this.newLinkData); //create the link
             console.log(this.newLinkData);
             this.config.lastLinkInsertedId++; //increment last inserted id
+
+            //After creation, add the link to the current category:
+            if (this.currentCategory != null) {
+              this.addALinkToCurrentCategory(this.newLinkData.id);
+            }
+
+            //Save items after this action
             this.saveItemsInStorage();
 
             //Final config
