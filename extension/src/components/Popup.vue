@@ -73,7 +73,7 @@
     <ul class="list-none">
       <li
         v-if="settingsEnabled"
-        class="mb-4 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
+        class="mb-2 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
       >
         <input
           maxlength="15"
@@ -95,7 +95,7 @@
           @click="resetTrashData"
           :href="formatLink(link.link)"
           :title="link.link"
-          class="hover:text-white flex-1 w-full block flex px-1 text-base hover:border-blue-800 hover:bg-blue-400 rounded-sm border mt-1 border-solid border-blue-600"
+          class="hover:text-white flex-1 w-full flex px-1 text-base hover:border-blue-800 hover:bg-blue-400 rounded-sm border mt-1 border-solid border-blue-600"
         >
           <span class="flex-1 overflow-hidden overflow-ellipsis">{{
             link.name
@@ -131,7 +131,7 @@
         <img
           v-if="settingsEnabled && currentCategory != null"
           class="w-8 p-1 cursor-pointer hover:bg-red-300"
-          src="icons/removelink.svg"
+          src="icons/link-variant-remove.svg"
           alt="trash icon"
           title="Remove the link from this category."
           @click="removeALinkFromCurrentCategory(link.id)"
@@ -178,7 +178,7 @@
     </ul>
 
     <!-- Create a link zone, with one input to fill 2 needed informations - Only if settings enabled -->
-    <ul class="list-none" :hidden="!settingsEnabled">
+    <ul class="list-none mt-2" :hidden="!settingsEnabled">
       <li
         v-if="links.length < NB_MAX_LINKS"
         class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
@@ -206,14 +206,14 @@
     <!-- Footer with 3 icons: link to source code, link to manual and settings button - Always displayed -->
     <div class="flex flex-1 mt-2 justify-end">
       <img
-        src="icons/code.svg"
-        class="w-6 hover:bg-blue-500 rounded hover:text-white p-1"
+        src="icons/github.svg"
+        class="w-7 hover:bg-blue-500 rounded hover:text-white p-1"
         alt="code icon"
         title="Checkout the code on GitHub, it's opensource !"
         @click="goToSourceCode"
       />
       <img
-        src="icons/help.svg"
+        src="icons/help-circle-outline.svg"
         alt="help icon"
         title="I need help!"
         class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
