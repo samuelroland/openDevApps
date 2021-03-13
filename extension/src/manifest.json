@@ -4,7 +4,7 @@
   "version": "0.1",
   "author": "Samuel Roland",
   "homepage_url": "https://github.com/samuelroland/openDevApps",
-  "description": "Access quickly to local or remote development-related applications.",
+  "description": "Open quickly local or remote development-related apps, through a small list of links.",
   "default_locale": "en",
   "permissions": ["storage"],
   "icons": {
