@@ -313,12 +313,12 @@ export default {
     },
     //Go to source code button (icon with anchor) on GitHub
     goToSourceCode() {
-      window.open("https://github.com/samuelroland/openDevD", "_blank");
+      window.open("https://github.com/samuelroland/openDevApps", "_blank");
     },
     //Go to manual of the extension (interrogation mark icon) on GitHub
     goToManual() {
       window.open(
-        "https://github.com/samuelroland/openDevD/blob/develop/manual.md#opendevd---manual",
+        "https://github.com/samuelroland/openDevApps/blob/develop/manual.md#opendevapps---manual",
         "_blank"
       );
     },

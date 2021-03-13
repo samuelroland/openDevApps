@@ -1,10 +1,10 @@
 {
-  "name": "opendevd",
+  "name": "opendevapps",
   "version": "0.1.0",
   "private": true,
   "license": "AGPL-3.0-or-later",
   "description": "Access quickly to local or remote development-related applications.",
-  "homepage": "https://github.com/samuelroland/openDevD#readme",
+  "homepage": "https://github.com/samuelroland/openDevApps#readme",
   "scripts": {
     "serve": "vue-cli-service build --mode development --watch",
     "build": "vue-cli-service build",

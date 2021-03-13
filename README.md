@@ -1,7 +1,7 @@
-# openDevD
+# openDevApps
 ![icon](icon.png)
 
-### Access quickly to local or remote development-related applications.
+### Open quickly local or remote development-related apps, through a small list of links.
 
 `Model of the design planned:`  
 ![model](docs/main-model.png)
