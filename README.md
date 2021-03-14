@@ -21,7 +21,7 @@
 [Available HERE]
 
 ### Open quickly local or remote development-related apps, through a small list of links.
-This is an opensource **experimental web extension** licensed under **[GNU GPLv3 or later](/LICENSE.txt)**. It use VueJS and TailwindCSS and Jetbrains Mono.
+This is an opensource **experimental web extension** licensed under **[GNU GPLv3 or later](/LICENSE.txt)**. It's dedicated to developers who want to open their web apps faster. It use VueJS and TailwindCSS and Jetbrains Mono.
 
 ![example img](img/category-jobs-link.png) | ![example img](img/category-perso-ip.png)
 
