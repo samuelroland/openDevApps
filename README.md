@@ -22,6 +22,9 @@
 ### Open quickly local or remote development-related apps, through a small list of links.
 This is an opensource **experimental web extension** licensed under **[GNU GPLv3 or later](/LICENSE.txt)** and published on addons.mozilla.org (AMO) [here]. It use VueJS and TailwindCSS and Jetbrains Mono.
 
+![example img](img/category-jobs-link.png) | ![example img](img/category-perso-ip.png)
+
+
 `Model of the design planned:`  
 ![model](docs/main-model.png)
 
