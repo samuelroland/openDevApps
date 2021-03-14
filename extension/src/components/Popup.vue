@@ -199,7 +199,9 @@
         v-if="links.length < NB_MAX_LINKS"
         class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
       >
+        <!-- Text input to enter link and name at step 1 and 2 -->
         <input
+          v-if="inpCreateStep != 3"
           type="text"
           v-model="inpCreate"
           :placeholder="inpCreatePlaceholder"
@@ -208,6 +210,20 @@
           ref="inpCreateInput"
           @click="resetTrashData"
         />
+
+        <!-- Checkbox input to enter local at step 3 -->
+        <span class="flex w-full px-1" v-if="inpCreateStep == 3">
+          <span class="flex-1"
+            >Local ? <span class="text-xs">(Check + Enter)</span>
+          </span>
+          <input
+            type="checkbox"
+            class="mx-3 p-1"
+            ref="inpCreateCheckbox"
+            @keyup="nextStepOfLinkCreation"
+            v-model="inpCreateChecked"
+          />
+        </span>
       </li>
       <li
         v-if="links.length >= NB_MAX_LINKS"
@@ -264,6 +280,7 @@ export default {
       currentCategory: null,
       inpCreateCategory: "",
       inpCreate: "",
+      inpCreateChecked: true,
       linkToAdd: null,
       links: [],
       categories: [],
@@ -357,7 +374,8 @@ export default {
     nextStepOfLinkCreation(e) {
       var key = e.key; //get the key entered (that has launched the event)
       console.log(key);
-      console.log(this.inpCreateStep);
+      console.log(this.inpCreateChecked);
+      console.log(this.inpCreate);
       if (
         key == "Enter" &&
         (this.inpCreate.trim() != "" || this.inpCreateStep == 3)
@@ -374,12 +392,13 @@ export default {
             break;
           case 2: //placeholder is entered
             this.newLinkData.name = this.inpCreate.trim();
-            this.inpCreate = "";
-            this.inpCreatePlaceholder = "local ? default true"; //placeholder for next step
+            this.inpCreateChecked = true;
+            setTimeout(() => {
+              this.$refs.inpCreateCheckbox.focus();
+            }, 50);
             break;
           case 3: //local or not is given
-            this.newLinkData.local = this.inpCreate === "";
-            this.inpCreate = "";
+            this.newLinkData.local = this.inpCreateChecked;
             this.links.push(this.newLinkData); //create the link
             console.log(this.newLinkData);
             this.config.lastLinkInsertedId++; //increment last inserted id
@@ -394,6 +413,7 @@ export default {
 
             //Final config
             this.inpCreatePlaceholder = "New Link + Enter"; //placeholder for next step
+            this.inpCreate = "";
             this.newLinkData = Object.assign({}, {}); //destroy reference to the object
             this.inpCreateStep = 0; //0+1=1
             break;
