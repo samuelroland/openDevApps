@@ -9,7 +9,7 @@
   "default_locale": "en",
   "permissions": ["storage"],
   "icons": {
-    "19": "icons/16.png",
+    "19": "icons/19.png",
     "48": "icons/48.png"
   },
   "browser_action": {
@@ -23,7 +23,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "{4c2cbfac-a070-4061-8abf-b6bc0c926a1b}",
-      "strict_min_version": "42.0"
+      "strict_min_version": "57.0"
     }
   }
 }
