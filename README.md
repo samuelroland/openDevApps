@@ -26,9 +26,9 @@ This is an opensource **experimental web extension** licensed under **[GNU GPLv3
 ![example img](img/category-jobs-link.png) | ![example img](img/category-perso-ip.png)
 
 ## Features
-- Access quickly to local or remote apps. Actually all HTTP links are valid. (`localhost:8056`, `127.0.0.1`, `192.168.11.45`, `app.local`, `remote.com`).
-- Manage the links and categories (creation and deletion) and add or remove links from categories
-- Separate links by categories (categories can be project, life domains, ...) to keep the list short and not off-topic and to find easier the wanted app.
+- **Access quickly to the links** you have set. All HTTP links are valid. (`localhost:8056`, `127.0.0.1`, `192.168.11.45`, `app.local`, `remote.com`). Links like `about:addons` or `file:///C:\...` are not supported due to Firefox restrictions.
+- **Manage the links and categories** (creation and deletion).
+- **Separate links by categories** (categories can be projects, life domains, perso/pro, ...) to keep the lists short, on-topic and to find the links you are looking for more quickly.
 
 ## Planned features
 - Translations support (first to do a french translation)
