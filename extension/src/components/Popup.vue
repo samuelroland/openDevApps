@@ -108,7 +108,10 @@
     <ul class="list-none" v-if="links.length != 0">
       <li v-for="link in linksForCurrentCategory" :key="link.id" class="flex">
         <a
-          @click="resetTrashData"
+          @click="
+            resetTrashData();
+            closePopup();
+          "
           :href="formatLink(link.link)"
           :title="link.link"
           class="hover:text-white flex-1 w-full h-7 flex px-1 text-base overflow-hidden overflow-ellipsis hover:border-blue-800 hover:bg-blue-400 rounded-sm border mt-1 border-solid border-blue-600"
@@ -119,7 +122,7 @@
           <span>
             <img
               src="icons/home.svg"
-              class="w-4 mx-1 inline"
+              class="w-5 mx-1 inline"
               title="Hosted in local."
               v-if="link.local"
             />
@@ -317,6 +320,12 @@ export default {
       } else {
         return "http://" + link; //prefix http to the start to say to the browser that it's not a relative path
       }
+    },
+    //Close the popup, just after the link creation but not immediatly
+    closePopup() {
+      setInterval(() => {
+        window.close();
+      }, 10);
     },
     //reset all data concerning trash (id and steps):
     resetTrashData() {
