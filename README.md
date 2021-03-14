@@ -18,15 +18,15 @@
 
 # openDevApps
 ![icon](icon.png)
-[Available HERE]
+[AMO distribution coming soon]
 
 ### Open quickly local or remote development-related apps, through a small list of links.
-This is an opensource **experimental web extension** licensed under **[GNU GPLv3 or later](/LICENSE.txt)**. It's dedicated to developers who want to open their web apps faster. It use VueJS and TailwindCSS and Jetbrains Mono.
+This is an opensource **experimental web extension** licensed under **[GNU GPLv3 or later](/LICENSE.txt)**. It's dedicated to developers who want to open their web apps faster. It use VueJS, TailwindCSS and Jetbrains Mono. **Only available for Firefox Desktop 57.0+**.
 
 ![example img](img/category-jobs-link.png) | ![example img](img/category-perso-ip.png)
 
 ## Features
-- Access quickly to local or remote apps. Actually all HTTP links are valid. (`localhost:8056`, `127.0.0.1`, `192.168.11.45`, `app.local`, `remote.com`). Before using, the list of links must be entered.
+- Access quickly to local or remote apps. Actually all HTTP links are valid. (`localhost:8056`, `127.0.0.1`, `192.168.11.45`, `app.local`, `remote.com`).
 - Manage the links and categories (creation and deletion) and add or remove links from categories
 - Separate links by categories (categories can be project, life domains, ...) to keep the list short and not off-topic and to find easier the wanted app.
 
@@ -34,6 +34,7 @@ This is an opensource **experimental web extension** licensed under **[GNU GPLv3
 - Translations support (first to do a french translation)
 - Open all links in the current categories
 - Add the current tab link to the current category (fill the link and propose the name with the tab title)
+- Extension icon enhancement
 
 ## Contributions
 If you found a bug, have an idea for an enhancement or a new feature, or you just want to give a feedback, just open an issue and describe it and why you think it will be valuable ! (Write only in English please).
