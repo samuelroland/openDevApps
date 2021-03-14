@@ -21,7 +21,7 @@
 [Available HERE]
 
 ### Open quickly local or remote development-related apps, through a small list of links.
-This is an opensource **experimental web extension** licensed under **[GNU GPLv3 or later](/LICENSE.txt)** and published on addons.mozilla.org (AMO) [here]. It use VueJS and TailwindCSS and Jetbrains Mono.
+This is an opensource **experimental web extension** licensed under **[GNU GPLv3 or later](/LICENSE.txt)**. It use VueJS and TailwindCSS and Jetbrains Mono.
 
 ![example img](img/category-jobs-link.png) | ![example img](img/category-perso-ip.png)
 
@@ -34,7 +34,9 @@ This is an opensource **experimental web extension** licensed under **[GNU GPLv3
 - Translations support (first to do a french translation)
 - Open all links in the current categories
 - Add the current tab link to the current category (fill the link and propose the name with the tab title)
-If you have an idea for an enhancement or a new feature, just open an issue and describe it and why you think it will be valuable !
+
+## Contributions
+If you found a bug, have an idea for an enhancement or a new feature, or you just want to give a feedback, just open an issue and describe it and why you think it will be valuable ! (Write only in English please).
 
 ## Build
 If you want to build the extension from the source, you need:
@@ -57,6 +59,7 @@ The build is now available in the `dist` or as `.zip` file under `artifacts` (na
 1. Install Add-on from file
 1. Select the extension file
 1. Click `Add`
+
 --> The extension is correctly installed if you can open it as popup at the top right of your browser (you should the see the extension icon and click on it).
 
 ### Install from `.xpi` under a download link
@@ -70,7 +73,6 @@ All versions are published on GitHub under the [releases panel](https://github.c
 Names are built like that **MAJOR.MINOR** (for example `1.2` stand for v1.2).
 - **Beta** versions are only available on GitHub, and don't have automatic updates (at the moment). Suscribe to releases notifications to keep informed.  
 Names are built like that **MAJOR.MINOR.BETA-NUMBER** (for example `1.2.2` stand for v1.2 beta 2).
-
 
 ## Credits
 ### Librairies
