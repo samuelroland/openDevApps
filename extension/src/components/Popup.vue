@@ -26,19 +26,17 @@
       <div class="flex flex-1 min-w-max">
         <h3
           class="flex flex-row items-center m-0 text-lg"
-          title="Open quickly in the browser some local or remote dev apps."
+          title="Open quickly local or remote development-related apps, through a small list of links."
         >
-          open <img src="icons/D.png" class="w-4" alt="D" />evD
+          open <img src="icons/D.png" class="w-4" alt="D" />evApps
         </h3>
         <span
-          class="text-xs italic flex items-end ml-1"
+          class="text-xs italic flex items-end ml-1 w-10"
           :title="'Released the ' + versionDate + '.'"
           >{{ version }}</span
         >
       </div>
-      <div
-        class="flex items-end min-w-max overflow-hidden overflow-ellipsis ml-4"
-      >
+      <div class="flex items-end min-w-max overflow-hidden overflow-ellipsis">
         <img
           v-if="settingsEnabled && currentCategory != null"
           :class="{
