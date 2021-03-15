@@ -53,7 +53,7 @@ If you want to build the extension from the source, you need:
 
 The build is now available in the `dist` or as `.zip` file under `artifacts` (name like `opendevapps-v1.0.1-production.zip`). It's not signed by Mozilla so you can only install it temporarly.
 
-## Install unsigned `.zip` or .`xpi`
+## Install temporarly unsigned `.zip` or .`xpi`
 1. Go to `about:debugging`
 1. Under This Firefox, click Load a temporary module
 1. The module is available until you close Firefox.
@@ -71,6 +71,16 @@ The build is now available in the `dist` or as `.zip` file under `artifacts` (na
 ### Install from `.xpi` under a download link
 1. Click on the download link
 1. Follow step 5 in the precedent procedure
+
+## Develop
+If you want to develop to do changes:
+- `cd extension`
+- `npm install`
+- `npm run serve`
+- Follow procedure `Install temporarly unsigned .zip or .xpi` and select the file `extension/dist/manifest.json`.
+- Go to `about:debugging` and click `Inspect` for the extension.
+- Now you can start to develop in your IDE (`npm run serve` will build the code at each save) and to see changes just type F5 in the debugging tab. The extension will be reloaded. Look at [this article](https://extensionworkshop.com/documentation/develop/debugging/#debugging-popups).
+- When you want to build the extension, change `manifest.json` and `package.json` versions and follow the build process (`npm run build`).
 
 ## Versions
 All versions are published on GitHub under the [releases panel](https://github.com/samuelroland/openDevApps/releases), including the `.xpi` file and the source code. When browsing with Firefox, a simple click on the `.xpi` file is enough to launch the installation setup. The version names are the same in `package.json` and `manifest.json`.
