@@ -21,7 +21,7 @@
 [AMO distribution coming soon]
 
 ### Open quickly local or remote development-related apps, through a small list of links.
-This is an opensource **experimental web extension** licensed under **[GNU GPLv3 or later](/LICENSE.txt)**. It's dedicated to developers who want to open their web apps faster. It use VueJS, TailwindCSS and Jetbrains Mono. **Only available for Firefox Desktop 57.0+**.
+This is an **opensource web extension** licensed under **[GNU GPLv3 or later](/LICENSE.txt)**. It's dedicated to developers who want to open their web apps faster. It use VueJS, TailwindCSS and Jetbrains Mono. **Only available for Firefox Desktop 57.0+**.
 
 ![example img](img/category-jobs-link.png) | ![example img](img/category-perso-ip.png)
 
@@ -51,10 +51,15 @@ If you want to build the extension from the source, you need:
 - `npm install`
 - `npm run build`
 
-The build is now available in the `dist` or as `.zip` file under `artifacts` (name like `opendevapps-v1.0.1-production.zip`). You can now install it.
+The build is now available in the `dist` or as `.zip` file under `artifacts` (name like `opendevapps-v1.0.1-production.zip`). It's not signed by Mozilla so you can only install it temporarly.
 
-## Install beta versions
-### Install from `.xpi` or as `.zip` downloaded
+## Install unsigned `.zip` or .`xpi`
+1. Go to `about:debugging`
+1. Under This Firefox, click Load a temporary module
+1. The module is available until you close Firefox.
+
+## Install signed versions
+### Install with a `.xpi` or a `.zip` downloaded
 1. Go to `about:addons`
 1. Click on the settings icon
 1. Install Add-on from file
