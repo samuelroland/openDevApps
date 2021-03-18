@@ -37,7 +37,12 @@ This is an **opensource web extension** licensed under **[GNU GPLv3 or later](/L
 - Extension icon enhancement
 
 ## Contributions
-If you found a bug, have an idea for an enhancement or a new feature, or you just want to give a feedback, just open an issue and describe it and why you think it will be valuable ! (Write only in English please).
+If you want to contribute to make this extension better, you're very welcome. There are currently 4 manners to contribute:
+
+1. **Bugs/feedback/suggestions**: If you found a bug, have an idea for an enhancement or a new feature, or you just want to give a feedback, just open an issue and describe it and why you think it will be valuable ! **(Write only in English please)**. 
+1. **Contribute to reflections**: To contribute to reflections in progress about the new features to implement, look at [the issues labelled `help wanted`](https://github.com/samuelroland/openDevApps/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) and share your opinions or ideas ! You can thumb up the new features the most valuable to show your interest.  
+1. **Contribute with code**: If you know the VueJS framework (and/or HTML CSS Tailwindcss), search an issue that you find interesting, say that you want to work on the issue and we will organise before you start to code.  
+1. **Contribute with texts**: If you think the manual or some docs must be enhanced, or you want to add a new translation, open a new issue to describe what can be enhanced and how to think to will make it better, before starting to write content.
 
 ## Build
 If you want to build the extension from the source, you need:
