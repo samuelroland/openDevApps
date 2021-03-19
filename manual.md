@@ -12,7 +12,7 @@ As suggested, open the `Settings` by clicking on the settings icon:
 
 <img width="341" alt="image" src="https://user-images.githubusercontent.com/47849646/111702963-495ac480-883d-11eb-9cac-4b7a5b08bffc.png">
 
-  Okay, but before managing links and categories, how are these elements organised together ?
+    Okay, but before managing links and categories, how are these elements organised together ?
 
 There is an independant list of links that you will create. They don't depend on the categories. Each link contains a link string, a name and if it's local or not. These 3 information are entered at the link creation.
 
@@ -26,3 +26,18 @@ Then as suggested by the placeholder (`Set name + Enter`), let's enter the a nam
 <img width="356" alt="image" src="https://user-images.githubusercontent.com/47849646/111703421-e584cb80-883d-11eb-992c-c68ee3507c94.png">
 
 Then check or uncheck the checkbox. The checkbox answers to the question `Is the app hosted/running in local ?`. You can presse `Space` key to check or uncheck (or use the mouse obviously) then hit Enter. Then the link appear (you see the name and on hover you can see the link as popup).
+<img width="339" alt="image" src="https://user-images.githubusercontent.com/47849646/111823119-dad14180-88e4-11eb-8635-3ddd81e72c0b.png">
+
+Our link has been created ! We can click on its name to open a new tab to the website set.
+
+## Create a category
+After having created several links, it's maybe the time to organise them inside categories to have only one part of the links that have something in common. So let's create a first category:
+
+On the first input at the top, as suggested by the placeholder (`New category + Enter`) we only need to enter a name. Here our 3 links are the apps that we use in our job, so we name it `Job apps`:
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/47849646/111823672-824e7400-88e5-11eb-9337-05f5ade6bc60.png">
+
+When the category exists, it is directly selected and a new zone to add a link has appeared.
+<img width="335" alt="image" src="https://user-images.githubusercontent.com/47849646/111823966-e1ac8400-88e5-11eb-9301-aed69e0ea64b.png">
+
+*You have no idea about naming categories ? Think about separating links by project, by pro/perso, by activities, or anything else you want.*
+
