@@ -4,6 +4,7 @@ This a the manual... Coming when the extension will be available as `v1.0`.
 **Work in Progress**.
 
 When you just installed the extension for the first time, you got a interface like this:
+
 <img width="352" alt="image" src="https://user-images.githubusercontent.com/47849646/111702249-414e5500-883c-11eb-820f-a41abac89033.png">
 
 As you can see, there is no link and no category (`All` is not a category, it just the view with all existing links).
@@ -44,3 +45,8 @@ When the category exists, it is directly selected and a new zone to add a link h
 
 *You have no idea about naming categories ? Think about separating links by projects, by pro/perso, by activities, or anything else you want.*
 
+## Add links to a category
+When you have categories created, you can add links to them. As links are independant of any categories, they can be added from 0 to several categories.
+
+Here we add the link `E-commerce Alina` (e-commerce that we are working at our job office) to the `Job apps` category:
+![image](https://user-images.githubusercontent.com/47849646/111880304-0b7bae80-89ab-11eb-8edc-ea8db4c1a413.png)
