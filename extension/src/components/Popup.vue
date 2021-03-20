@@ -175,11 +175,16 @@
     </ul>
 
     <!-- Add a link zone, with a list of links not added to the current category - Only if category is not "All" and settings enabled -->
-    <ul class="list-none" :hidden="!settingsEnabled">
-      <div v-if="settingsEnabled && currentCategory != null">
+    <ul class="list-none" :hidden="!settingsEnabled || currentCategory == null">
+      <div class="">
         <hr class="mt-2" />
-        <span class="text-xs text-blue-700 flex mt-2 mb-1"
-          >Add a link to <span class="italic">{{ currentCategoryName }}</span>
+        <span class="text-xs text-blue-700 whitespace-nowrap flex mt-2 mb-1">
+          <span
+            class="text-xs text-blue-700 overflow-hidden overflow-ellipsis"
+            :title="'Add a link to ' + currentCategoryName"
+            >Add a link to
+            <span class="italic">{{ currentCategoryName }}</span></span
+          >
         </span>
       </div>
       <li v-if="settingsEnabled && currentCategory != null" class="flex">
@@ -308,8 +313,8 @@ export default {
       linkToAdd: null,
       links: [],
       categories: [],
-      inpCreateCategoryPlaceholder: "New Category + Enter",
-      inpCreatePlaceholder: "New Link + Enter",
+      inpCreateCategoryPlaceholder: "Category name + Enter",
+      inpCreatePlaceholder: "HTTP Link + Enter",
       inpCreateStep: 0,
       stepIndexForCategoryDeletion: 0,
       newLinkData: {},
@@ -450,7 +455,7 @@ export default {
             this.saveItemsInStorage();
 
             //Final config
-            this.inpCreatePlaceholder = "New Link + Enter"; //placeholder for next step
+            this.inpCreatePlaceholder = "HTTP Link + Enter"; //placeholder for next step
             this.inpCreate = "";
             this.newLinkData = Object.assign({}, {}); //destroy reference to the object
             this.inpCreateStep = 0; //0+1=1
