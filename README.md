@@ -41,8 +41,8 @@ If you want to contribute to make this extension better, you're very welcome. Th
 
 1. **Bugs/feedback/suggestions**: If you found a bug, have an idea for an enhancement or a new feature, or you just want to give a feedback, just open an issue and describe it and why you think it will be valuable ! **(Write only in English please)**. 
 1. **Contribute to reflections**: To contribute to reflections in progress about the new features to implement, look at [the issues labelled `help wanted`](https://github.com/samuelroland/openDevApps/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) and share your opinions or ideas ! You can thumb up the new features the most valuable to show your interest.  
-1. **Contribute with code**: If you know the VueJS framework (and/or HTML CSS Tailwindcss), search an issue that you find interesting, say that you want to work on the issue and we will organise before you start to code.  
-1. **Contribute with texts**: If you think the manual or some docs must be enhanced, or you want to add a new translation, open a new issue to describe what can be enhanced and how to think to will make it better, before starting to write content.
+1. **Contribute with code**: If you know the VueJS framework (and/or HTML CSS Tailwindcss), search an issue that you find interesting, say that you want to work on the issue and we will organise before you start to code. Then you can fork the repos, code and open a new PR.  
+1. **Contribute with texts**: If you think the manual or some docs must be enhanced, or you want to add a new translation, open a new issue to describe what can be enhanced and how to think to will make it better, before starting to write content. Then you can fork the repos, code and open a new PR.
 
 ## Build
 If you want to build the extension from the source, you need:
@@ -60,7 +60,7 @@ The build is now available in the `dist` or as `.zip` file under `artifacts` (na
 
 ## Install temporarly unsigned `.zip` or .`xpi`
 1. Go to `about:debugging`
-1. Under This Firefox, click Load a temporary module
+1. Under This Firefox, click Load a temporary module and select the file
 1. The module is available until you close Firefox.
 
 ## Install signed versions
@@ -78,11 +78,11 @@ The build is now available in the `dist` or as `.zip` file under `artifacts` (na
 1. Follow step 5 in the precedent procedure
 
 ## Develop
-If you want to develop to do changes:
+If you want to develop the extension:
 - `cd extension`
 - `npm install`
 - `npm run serve`
-- Follow procedure `Install temporarly unsigned .zip or .xpi` and select the file `extension/dist/manifest.json`.
+- Follow the procedure `Install temporarly unsigned .zip or .xpi` and select the file `extension/dist/manifest.json`. The `dist` folder contains the extension code transpiled by webpack.
 - Go to `about:debugging` and click `Inspect` for the extension.
 - Now you can start to develop in your IDE (`npm run serve` will build the code at each save) and to see changes just type F5 in the debugging tab. The extension will be reloaded. Look at [this article](https://extensionworkshop.com/documentation/develop/debugging/#debugging-popups).
 - When you want to build the extension, change `manifest.json` and `package.json` versions and follow the build process (`npm run build`).
