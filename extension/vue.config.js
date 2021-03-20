@@ -13,7 +13,7 @@ module.exports = {
       //Configurations to keep the same content in the generated manifest.json than in src/manifest.json
       manifestSync: [], //remove version sync (between package.json and generated manifest.json) (default value is ['version'])
       manifestTransformer: (manifest) => {
-        delete manifest.content_security_policy; //remove the key in generated manifest.json to leave the default content security policy
+        //delete manifest.content_security_policy; //remove the key in generated manifest.json to leave the default content security policy
         return manifest;
       },
       componentOptions: {},

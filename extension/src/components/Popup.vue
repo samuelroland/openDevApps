@@ -53,7 +53,7 @@
               stepIndexForCategoryDeletion == 2,
             'hover:bg-red-500':
               redTrashId === 'category-' + currentCategory &&
-              stepIndexForCategoryDeletion == 2,
+              stepIndexForCategoryDeletion == 2
           }"
           src="icons/trash.svg"
           alt="trash icon"
@@ -65,7 +65,8 @@
           name="category"
           id="sltCategory"
           ref="sltCategory"
-          class="rounded-sm"
+          class="rounded-sm overflow-hidden overflow-ellipsis"
+          style="max-width: 110px"
           v-model="currentCategory"
           @change="
             saveItemsInStorage();
@@ -87,17 +88,20 @@
 
     <!-- Field to create a new category - Only if settings enabled -->
     <ul class="list-none">
-      <li
-        v-if="settingsEnabled"
-        class="mb-2 text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
-      >
+      <div v-if="settingsEnabled">
+        <hr class="mt-2" />
+        <span class="text-xs text-blue-700 flex mt-2 mb-1"
+          >Create a new category</span
+        >
+      </div>
+      <li v-if="settingsEnabled" class="mb-2 text-base flex my-1">
         <input
           maxlength="15"
           type="text"
           v-model="inpCreateCategory"
           :placeholder="inpCreateCategoryPlaceholder"
           @keyup="createCategory($event.key)"
-          class="w-full px-1 rounded-sm"
+          class="input-standard"
           ref="inpCreateCategory"
           @click="resetTrashData"
         />
@@ -140,7 +144,7 @@
           :class="{
             'bg-red-300': redTrashId == 'link-' + link.id,
             'hover:bg-red-400': redTrashId === 'link-' + link.id,
-            'hover:bg-red-300': !(redTrashId === 'link-' + link.id),
+            'hover:bg-red-300': !(redTrashId === 'link-' + link.id)
           }"
           src="icons/trash.svg"
           alt="trash icon"
@@ -159,26 +163,34 @@
     </ul>
 
     <!-- "No link" mention if there is no link -->
-    <ul class="list-none" :hidden="!(this.links.length === 0)">
-      <li class="text-base rounded-sm my-1 text-center italic text-gray-500">
-        No link<span class="text-xs"> -> Add in settings</span>
+    <ul
+      class="list-none"
+      :hidden="!(this.linksForCurrentCategory.length === 0)"
+    >
+      <li class="text-sm rounded-sm my-1 text-center italic text-gray-500">
+        No link here...<span class="text-xs"
+          ><span v-if="settingsEnabled == false"> -> Open settings</span></span
+        >
       </li>
     </ul>
 
     <!-- Add a link zone, with a list of links not added to the current category - Only if category is not "All" and settings enabled -->
     <ul class="list-none" :hidden="!settingsEnabled">
-      <li
-        v-if="settingsEnabled && currentCategory != null"
-        class="text-base flex rounded-sm my-1"
-      >
+      <div v-if="settingsEnabled && currentCategory != null">
+        <hr class="mt-2" />
+        <span class="text-xs text-blue-700 flex mt-2 mb-1"
+          >Add a link to <span class="italic">{{ currentCategoryName }}</span>
+        </span>
+      </div>
+      <li v-if="settingsEnabled && currentCategory != null" class="flex">
         <select
           name="sltAddLink"
-          class="rounded-sm flex-1"
+          class="input-standard"
           ref="inpCreateInput"
           @click="resetTrashData"
           v-model="linkToAdd"
         >
-          <option :value="null">Add a link...</option>
+          <option :value="null" class="italic text-gray-500">Choose...</option>
           <option
             v-for="link in linksNotInCurrentCategory"
             :value="link.id"
@@ -197,11 +209,20 @@
     </ul>
 
     <!-- Create a link zone, with one input to fill 2 needed informations - Only if settings enabled -->
-    <ul class="list-none mt-2" :hidden="!settingsEnabled">
-      <li
-        v-if="links.length < NB_MAX_LINKS"
-        class="text-base flex hover:border-blue-800 hover:bg-blue-400 rounded-sm border my-1 border-solid border-blue-600"
-      >
+    <ul class="list-none" :hidden="!settingsEnabled">
+      <div class="">
+        <hr class="mt-2" />
+        <span class="text-xs text-blue-700 whitespace-nowrap flex mt-2 mb-1">
+          <span class="text-xs text-blue-700 overflow-hidden overflow-ellipsis"
+            >Create a new link
+            <span v-if="currentCategory != null">
+              and add to
+              <span class="italic">{{ currentCategoryName }}</span></span
+            ></span
+          >
+        </span>
+      </div>
+      <li v-if="links.length < NB_MAX_LINKS" class="text-base flex mb-1">
         <!-- Text input to enter link and name at step 1 and 2 -->
         <input
           v-if="inpCreateStep != 3"
@@ -209,7 +230,7 @@
           v-model="inpCreate"
           :placeholder="inpCreatePlaceholder"
           @keyup="nextStepOfLinkCreation"
-          class="w-full px-1 rounded-sm"
+          class="input-standard"
           ref="inpCreateInput"
           @click="resetTrashData"
         />
@@ -278,7 +299,7 @@ export default {
       //Constants:
       NB_MAX_LINKS: 15,
       //Attributes
-      settingsEnabled: false,
+      settingsEnabled: true,
       addingElementInRun: false,
       currentCategory: null,
       inpCreateCategory: "",
@@ -308,6 +329,14 @@ export default {
     //Filtered list of this.links that ARE in the current category
     linksForCurrentCategory() {
       return this.getLinksForCurrentCategory();
+    },
+    currentCategoryName() {
+      if (this.currentCategory != null) {
+        return this.categories.filter(cat => {
+          return cat.id == this.currentCategory;
+        })[0].name;
+      }
+      return " no category...";
     }
   },
   methods: {

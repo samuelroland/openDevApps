@@ -3,3 +3,7 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.input-standard {
+    @apply w-full px-1 rounded-sm text-blue-800 border-solid border border-blue-500 focus:border-blue-800 outline-none;
+}
