@@ -110,6 +110,12 @@
 
     <!-- The list of links for the current category - Always displayed (with icons at right if settings enabled) -->
     <ul class="list-none" v-if="links.length != 0">
+      <div v-if="settingsEnabled">
+        <hr class="mt-2" />
+        <span class="text-xs text-blue-700 flex mt-2 mb-1"
+          >Manage links added to the current category</span
+        >
+      </div>
       <li v-for="link in linksForCurrentCategory" :key="link.id" class="flex">
         <a
           @click="
