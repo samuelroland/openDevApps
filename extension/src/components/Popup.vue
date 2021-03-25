@@ -112,10 +112,13 @@
     <ul class="list-none" v-if="links.length != 0">
       <div v-if="settingsEnabled">
         <hr class="mt-2" />
-        <span class="text-xs text-blue-700 flex mt-2 mb-1"
-          >Manage links added to
-          <span class="italic ml-1">{{ currentCategoryName }}</span></span
-        >
+        <span class="text-xs text-blue-700 flex mt-2 mb-1">
+          <span v-if="currentCategory != null">
+            Manage links added to
+            <span class="italic ml-1">{{ currentCategoryName }}</span>
+          </span>
+          <span v-else>Manage all links</span>
+        </span>
       </div>
       <li v-for="link in linksForCurrentCategory" :key="link.id" class="flex">
         <a
@@ -354,6 +357,9 @@ export default {
   },
   methods: {
     formatLink(link) {
+      if (link == undefined) {
+        return null;
+      }
       if (
         link.toLowerCase().indexOf("http://") == 0 ||
         link.toLowerCase().indexOf("https://") == 0
