@@ -198,7 +198,7 @@
         <select
           name="sltAddLink"
           class="input-standard"
-          ref="inpCreateInput"
+          ref="inpCreateLink"
           @click="resetTrashData"
           v-model="linkToAdd"
         >
@@ -243,7 +243,7 @@
           :placeholder="inpCreatePlaceholder"
           @keyup="nextStepOfLinkCreation"
           class="input-standard"
-          ref="inpCreateInput"
+          ref="inpCreateLink"
           @click="resetTrashData"
         />
 
@@ -416,7 +416,7 @@ export default {
       ) {
         //can focus the field only if displayed
         setTimeout(() => {
-          this.$refs.inpCreateInput.focus();
+          this.$refs.inpCreateLink.focus();
         }, 50); //leave the component the time to load before focus
         this.inpCreateStep = 1; //set the creation step to 1
       }
@@ -467,7 +467,7 @@ export default {
 
             //Focus the input for next link creation
             setTimeout(() => {
-              this.$refs.inpCreateInput.focus();
+              this.$refs.inpCreateLink.focus();
             }, 50);
             break;
         }
