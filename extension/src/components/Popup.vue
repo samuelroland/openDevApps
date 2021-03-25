@@ -113,7 +113,7 @@
       <div v-if="settingsEnabled">
         <hr class="mt-2" />
         <span class="text-xs text-blue-700 flex mt-2 mb-1"
-          >Manage links added to the current category</span
+          >Manage links added to {{ currentCategoryName }}</span
         >
       </div>
       <li v-for="link in linksForCurrentCategory" :key="link.id" class="flex">
@@ -422,9 +422,6 @@ export default {
     //Execute next step of link creation
     nextStepOfLinkCreation(e) {
       var key = e.key; //get the key entered (that has launched the event)
-      console.log(key);
-      console.log(this.inpCreateChecked);
-      console.log(this.inpCreate);
       if (
         key == "Enter" &&
         (this.inpCreate.trim() != "" || this.inpCreateStep == 3)
@@ -472,8 +469,6 @@ export default {
     },
     //Create a new category
     createCategory(key) {
-      console.log(key);
-      console.log(this.inpCreateCategory.trim());
       if (key == "Enter" && this.inpCreateCategory.trim() != "") {
         var newId = this.config.lastCategoryInsertedId + 1; //get the next id
         var newCategory = {
@@ -483,7 +478,6 @@ export default {
         };
         this.categories.push(newCategory);
         this.config.lastCategoryInsertedId++;
-        console.log(newCategory);
 
         this.inpCreateCategory = ""; //empty the field
         this.currentCategory = newId; //select the created category
@@ -577,9 +571,6 @@ export default {
     },
     //Remove a link from a category
     removeALinkFromCurrentCategory(id) {
-      console.log(
-        "delete a link " + id + " at category " + this.currentCategory
-      );
       var category = this.categories.filter(
         cat => cat.id == this.currentCategory
       )[0];
