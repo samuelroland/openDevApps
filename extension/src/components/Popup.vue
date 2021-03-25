@@ -113,7 +113,8 @@
       <div v-if="settingsEnabled">
         <hr class="mt-2" />
         <span class="text-xs text-blue-700 flex mt-2 mb-1"
-          >Manage links added to {{ currentCategoryName }}</span
+          >Manage links added to
+          <span class="italic ml-1">{{ currentCategoryName }}</span></span
         >
       </div>
       <li v-for="link in linksForCurrentCategory" :key="link.id" class="flex">
