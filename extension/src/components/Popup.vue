@@ -86,6 +86,16 @@
       </div>
     </div>
 
+    <!-- Message zone -->
+    <div>
+      <Message
+        @messageclose="msg.open = false"
+        :message="msg.text"
+        :open="msg.open"
+        :success="msg.success"
+      ></Message>
+    </div>
+
     <!-- Field to create a new category - Only if settings enabled -->
     <ul class="list-none">
       <div v-if="settingsEnabled">
@@ -303,6 +313,7 @@
 </template>
 
 <script>
+import Message from "@/components/Message.vue";
 export default {
   name: "Popup",
   props: {
@@ -334,6 +345,12 @@ export default {
         lang: "en",
         lastLinkInsertedId: 0,
         lastCategoryInsertedId: 0
+      },
+      msg: {
+        open: true,
+        success: false,
+        text:
+          "aasdfksladfjksakljsafsafjdéklsjafkldésajklféjsakfjkslaéfafaasdfksladfjksakljsafsafjdéklsjafkldésajklféjsakfjkslaéfafaasdfksladfjksakljsafsafjdéklsjafkldésajklféjsakfjkslaéfaf saf  saf sa f saf dsafd  sdaf"
       }
     };
   },
@@ -592,6 +609,7 @@ export default {
       this.saveItemsInStorage();
     }
   },
+  components: { Message },
   mounted() {
     this.loadItemsFromStorage(); //when open extension, load saved data
   }
