@@ -464,6 +464,11 @@ export default {
             this.inpCreate = "";
             this.newLinkData = Object.assign({}, {}); //destroy reference to the object
             this.inpCreateStep = 0; //0+1=1
+
+            //Focus the input for next link creation
+            setTimeout(() => {
+              this.$refs.inpCreateInput.focus();
+            }, 50);
             break;
         }
         this.inpCreateStep++;
