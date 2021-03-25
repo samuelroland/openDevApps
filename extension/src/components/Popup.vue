@@ -256,6 +256,7 @@
             class="mx-3 p-1"
             ref="inpCreateCheckbox"
             @keyup="nextStepOfLinkCreation"
+            @click="$refs.inpCreateCheckbox.focus()"
             v-model="inpCreateChecked"
           />
         </span>
