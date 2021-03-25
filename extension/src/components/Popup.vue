@@ -323,7 +323,7 @@ export default {
       categories: [],
       inpCreateCategoryPlaceholder: "Category name + Enter",
       inpCreatePlaceholder: "HTTP Link + Enter",
-      inpCreateStep: 0,
+      inpCreateStep: 1,
       stepIndexForCategoryDeletion: 0,
       newLinkData: {},
       redTrashId: null,
