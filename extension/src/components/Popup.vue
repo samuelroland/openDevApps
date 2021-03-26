@@ -325,6 +325,10 @@ export default {
     return {
       //Constants:
       NB_MAX_LINKS: 15,
+      //Regex to validate links
+      //Source of the Regex: https://regexr.com/3grae --> modified to add possibility to have nothing before domain or IP
+      LINK_REGEX:
+        "^(((https?:\\/\\/)|(www\\.)|())((([A-Z\\d_-]+\\.)+)([A-Z\\d_-]+)|(localhost))((:\\d{2,4})?))$",
       //Attributes
       settingsEnabled: true,
       addingElementInRun: false,
@@ -387,6 +391,10 @@ export default {
         this.msg.open = false;
         this.text = "??";
       }, 4000);
+    },
+    validateLink(link) {
+      var pattern = new RegExp(this.LINK_REGEX, "i"); //flag "i" for case insentitive
+      return pattern.test(link);
     },
     //Format a link (add http prefix) before rendering in <a> markup
     formatLink(link) {
@@ -462,6 +470,7 @@ export default {
     },
     //Execute next step of link creation
     nextStepOfLinkCreation(e) {
+      var error = false;
       var key = e.key; //get the key entered (that has launched the event)
       if (
         key == "Enter" &&
@@ -472,10 +481,16 @@ export default {
         //Depending on the step of the link creation, change placeholder, save value and go to next step. Values are saved in this.newLinkData.
         switch (this.inpCreateStep) {
           case 1: //link is entered
-            this.newLinkData.id = this.config.lastLinkInsertedId + 1;
-            this.newLinkData.link = this.inpCreate.trim();
-            this.inpCreatePlaceholder = "Set a name + Enter"; //placeholder for next step
-            this.inpCreate = "";
+            if (this.validateLink(this.inpCreate.trim())) {
+              this.newLinkData.id = this.config.lastLinkInsertedId + 1;
+              this.newLinkData.link = this.inpCreate.trim();
+              this.inpCreatePlaceholder = "Set a name + Enter"; //placeholder for next step
+              this.inpCreate = "";
+            } else {
+              this.openMessage("The URL is not valid...", false);
+              error = true;
+            }
+
             break;
           case 2: //placeholder is entered
             this.newLinkData.name = this.inpCreate.trim();
@@ -510,7 +525,11 @@ export default {
             }, 50);
             break;
         }
-        this.inpCreateStep++;
+
+        //Go to next step only if no error has been found
+        if (error == false) {
+          this.inpCreateStep++;
+        }
       }
     },
     //Create a new category
