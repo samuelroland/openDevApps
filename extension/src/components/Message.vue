@@ -5,11 +5,11 @@ Description: a message displayed to inform the user about the last action succes
 
 <template>
   <div
-    class="text-sm max-h-5 transition-opacity duration-400 ease-out flex px-2 mt-1 rounded-sm w-full"
+    class="text-sm max-h-5 transition-opacity duration-400 ease-out flex px-1 mt-1 rounded-sm w-full"
     :class="{
       'bg-blue-200': success,
       'bg-red-200': !success,
-      invisible: !open
+      hidden: !open
     }"
   >
     <span class="flex-1 overflow-hidden overflow-ellipsis">{{ message }}</span>

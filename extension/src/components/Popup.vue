@@ -347,10 +347,9 @@ export default {
         lastCategoryInsertedId: 0
       },
       msg: {
-        open: true,
+        open: false,
         success: false,
-        text:
-          "aasdfksladfjksakljsafsafjdéklsjafkldésajklféjsakfjkslaéfafaasdfksladfjksakljsafsafjdéklsjafkldésajklféjsakfjkslaéfafaasdfksladfjksakljsafsafjdéklsjafkldésajklféjsakfjkslaéfaf saf  saf sa f saf dsafd  sdaf"
+        text: "??"
       }
     };
   },
@@ -373,6 +372,23 @@ export default {
     }
   },
   methods: {
+    //Open a message and plan closing after 4 seconds
+    openMessage(text, success) {
+      if (text == "") {
+        text = "...";
+      }
+      //Set given values for the message and open it
+      this.msg.text = text;
+      this.msg.success = success;
+      this.msg.open = true;
+
+      //Plan closing in 4 seconds
+      setTimeout(() => {
+        this.msg.open = false;
+        this.text = "??";
+      }, 4000);
+    },
+    //Format a link (add http prefix) before rendering in <a> markup
     formatLink(link) {
       if (link == undefined) {
         return null;
@@ -392,7 +408,7 @@ export default {
         window.close();
       }, 10);
     },
-    //reset all data concerning trash (id and steps):
+    //Reset all data concerning trash (id and steps):
     resetTrashData() {
       this.redTrashId = null;
       this.stepIndexForCategoryDeletion = 0;
