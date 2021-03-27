@@ -454,7 +454,7 @@ export default {
     //Go to manual of the extension (interrogation mark icon) on GitHub
     goToManual() {
       window.open(
-        "https://github.com/samuelroland/openDevApps/blob/develop/manual.md#opendevapps---manual",
+        "https://github.com/samuelroland/openDevApps/blob/develop/manual/manual-en.md#opendevapps---manual",
         "_blank"
       );
     },
