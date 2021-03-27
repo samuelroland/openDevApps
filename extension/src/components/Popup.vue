@@ -392,6 +392,11 @@ export default {
         this.text = "??";
       }, 4000);
     },
+    //Close the message
+    closeMessage() {
+      this.msg.open = false;
+    },
+    //Validate a link with a Regex
     validateLink(link) {
       var pattern = new RegExp(this.LINK_REGEX, "i"); //flag "i" for case insentitive
       return pattern.test(link);
@@ -482,6 +487,7 @@ export default {
         switch (this.inpCreateStep) {
           case 1: //link is entered
             if (this.validateLink(this.inpCreate.trim())) {
+              this.closeMessage(); //close to message to remove last message
               this.newLinkData.id = this.config.lastLinkInsertedId + 1;
               this.newLinkData.link = this.inpCreate.trim();
               this.inpCreatePlaceholder = "Set a name + Enter"; //placeholder for next step
