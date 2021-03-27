@@ -1,7 +1,27 @@
+<!--
+    openDevApps - Open quickly local or remote development-related apps, through a small list of links.
+    Copyright (C) 2021 Samuel Roland
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
 # openDevApps - Manual
-Up-to-date for v0. - Version 0.0 
-This a the manual... Coming when the extension will be available as `v1.0`.
-**Work in Progress**.
+
+    Manual version 1.0
+    Up-to-date for openDevApps v1.0-beta1  
+*Open a **PR** to improve it, add/update a translation or just fix a typo!* **Writing in Progress**.
+
+---
 
 When you just installed the extension for the first time, you got a interface like this:
 
