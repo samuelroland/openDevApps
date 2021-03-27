@@ -328,9 +328,9 @@ export default {
       //Regex to validate links
       //Source of the Regex: https://regexr.com/3grae --> modified to add possibility to have nothing before domain or IP
       LINK_REGEX:
-        "^(((https?:\\/\\/)|(www\\.)|())((([A-Z\\d_-]+\\.)+)([A-Z\\d_-]+)|(localhost))((:\\d{2,4})?))$",
+        "^(((https?:\\/\\/)|(www\\.)|())((([A-Z\\d_-]+\\.)+)([A-Z\\d_-]{2,})|(localhost))((:\\d{2,4})?))$",
       //Attributes
-      settingsEnabled: true,
+      settingsEnabled: false,
       addingElementInRun: false,
       currentCategory: null,
       inpCreateCategory: "",
