@@ -25,13 +25,13 @@
     <div class="flex w-full mb-2">
       <div class="flex flex-1 min-w-max">
         <h3
-          class="flex flex-row items-center m-0 text-lg"
+          class="flex flex-row items-center m-0 text-lg cursor-help"
           title="Open quickly local or remote development-related apps, through a small list of links. An opensource web extension licensed under GPLv3."
         >
           open <img src="icons/D.png" class="w-4" alt="D" />evApps
         </h3>
         <span
-          class="text-xs italic flex items-end ml-1 w-10"
+          class="text-xs cursor-help italic flex items-end ml-1 w-10"
           :title="'Released the ' + versionDate + '.'"
           >{{ version }}</span
         >
@@ -226,7 +226,7 @@
           </option>
         </select>
         <button
-          class="px-1 border-solid border border-blue-100 mx-1 rounded-sm hover:border-blue-800 hover:bg-blue-400 border-solid border-blue-600"
+          class="px-1 border-solid border border-blue-100 mx-1 rounded-sm hover:border-blue-800 hover:bg-blue-400"
           @click="addALinkToCurrentCategory(linkToAdd)"
         >
           Add
@@ -298,14 +298,14 @@
       <img
         src="icons/help-circle-outline.svg"
         alt="help icon"
-        title="I need help! I want to see the manual."
+        title="See the manual."
         class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
         @click="goToManual"
       />
       <img
         src="icons/settings.svg"
         alt="settings icon"
-        title="Settings"
+        title="Open/Close settings"
         class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
         @click="openSettings"
       />
