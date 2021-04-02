@@ -50,13 +50,6 @@ export default {
     //Message can be closed with the cross
     closeMessage() {
       this.$emit("messageclose");
-    },
-    //Message is automatically closed after 4 seconds - WIP
-    closeIn4Seconds() {
-      setTimeout(() => {
-        console.log("emitted closeIn4Seconds");
-        this.$emit("messageclose");
-      }, 4000);
     }
   }
 };

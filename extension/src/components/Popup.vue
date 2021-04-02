@@ -26,7 +26,7 @@
       <div class="flex flex-1 min-w-max">
         <h3
           class="flex flex-row items-center m-0 text-lg"
-          title="Open quickly local or remote development-related apps, through a small list of links."
+          title="Open quickly local or remote development-related apps, through a small list of links. An opensource web extension licensed under GPLv3."
         >
           open <img src="icons/D.png" class="w-4" alt="D" />evApps
         </h3>
@@ -188,7 +188,8 @@
       :hidden="!(this.linksForCurrentCategory.length === 0)"
     >
       <li class="text-sm rounded-sm my-1 text-center italic text-gray-500">
-        No link here...<span class="text-xs"
+        No link {{ currentCategory == null ? "at all" : "here" }}...<span
+          class="text-xs"
           ><span v-if="settingsEnabled == false"> -> Open settings</span></span
         >
       </li>
@@ -386,12 +387,6 @@ export default {
       this.msg.text = text;
       this.msg.success = success;
       this.msg.open = true;
-
-      //Plan closing in 4 seconds
-      setTimeout(() => {
-        this.msg.open = false;
-        this.text = "??";
-      }, 4000);
     },
     //Close the message
     closeMessage() {
