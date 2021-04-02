@@ -70,3 +70,9 @@ When you have categories created, you can add links to them. As links are indepe
 
 Here we add the link `E-commerce Alina` (e-commerce that we are working at our job office) to the `Job apps` category:
 ![image](https://user-images.githubusercontent.com/47849646/111880304-0b7bae80-89ab-11eb-8edc-ea8db4c1a413.png)
+
+## Links validation
+A basic validation of each link is made with a Regex at the link creation. This is not perfect, especially for IP addresses and port range. I preferred to keep it not to restrictive finally. You can test and edit the Regex on [regexr.com](https://regexr.com/5pus0). The Regex is currently:
+```
+^(((https?:\/\/)|(www\.)|())((([A-Z\d_-]+\.)+)([A-Z\d]+)|(localhost))((:\d{1,4})?))(([\/\?].*)?)$
+```
