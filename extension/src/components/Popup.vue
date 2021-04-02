@@ -297,7 +297,7 @@
       <img
         src="icons/help-circle-outline.svg"
         alt="help icon"
-        title="I need help!"
+        title="I need help! I want to see the manual."
         class="w-7 hover:bg-blue-500 rounded hover:text-white px-1"
         @click="goToManual"
       />

@@ -13,9 +13,14 @@ Description: a message displayed to inform the user about the last action succes
     }"
   >
     <span class="flex-1 overflow-hidden overflow-ellipsis">{{ message }}</span>
+    <a
+      href="https://github.com/samuelroland/openDevApps/blob/develop/manual/manual-en.md#links-validation"
+      class="text-center mx-1 cursor-pointer hover:underline rounded-full "
+      >?
+    </a>
     <span @click="closeMessage" class="flex ml-1 items-center cursor-pointer"
-      >X</span
-    >
+      >X
+    </span>
   </div>
 </template>
 
