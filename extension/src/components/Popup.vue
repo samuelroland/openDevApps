@@ -633,7 +633,7 @@ export default {
         console.log(category.links);
         category.links.push(id);
         this.saveItemsInStorage();
-        this.linkToAdd = null; //set again to "Add a link..." because the item has disappear
+        this.linkToAdd = null; //set again to "Choose..." because the item has disappear
       }
     },
     //Remove a link from a category
