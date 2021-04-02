@@ -327,8 +327,9 @@ export default {
       NB_MAX_LINKS: 15,
       //Regex to validate links
       //Source of the Regex: https://regexr.com/3grae --> modified to add possibility to have nothing before domain or IP
+      //Versions managed here: https://regexr.com/5pus0
       LINK_REGEX:
-        "^(((https?:\\/\\/)|(www\\.)|())((([A-Z\\d_-]+\\.)+)([A-Z\\d_-]{2,})|(localhost))((:\\d{2,4})?))$",
+        "^(((https?:\\/\\/)|(www\\.)|())((([A-Z\\d_-]+\\.)+)([A-Z\\d]+)|(localhost))((:\\d{1,4})?))(([\\/\\?].*)?)$",
       //Attributes
       settingsEnabled: false,
       addingElementInRun: false,
