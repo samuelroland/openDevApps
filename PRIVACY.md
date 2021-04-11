@@ -16,7 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 # openDevApps - Privacy notice
-    V1.0 - Concern openDevApps v1.0 and higher (until another version of this notice is created).
+    V1.0 Work In Progress - Concern openDevApps v1.0 and higher (until another version of this notice is created).
 The goal of this little notice is to inform you about the data used by the extension to be fully transparent (it's opensource and you can inspect stored data). Your data belongs to you and none of them are shared with the author of the extension. They are stored locally and syncronised between your devices if you have a Firefox Sync account and that you have ticked the box "Extensions" in the list of synced information.
 
 ## Complete list
