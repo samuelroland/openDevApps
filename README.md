@@ -18,7 +18,8 @@
 
 # openDevApps
 ![icon](icon.png)
-[AMO distribution coming soon]
+
+<a href="https://addons.mozilla.org/addon/opendevapps"><img src="https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg" height="55" /></a>
 
 ### Open quickly local or remote development-related apps, through a small list of links.
 This is an **opensource web extension** licensed under **[GNU GPLv3 or later](/LICENSE.txt)**. It's dedicated to developers who want to open their web apps faster. It use VueJS, TailwindCSS and Jetbrains Mono. **Only available for Firefox Desktop 57.0+**.
@@ -26,15 +27,14 @@ This is an **opensource web extension** licensed under **[GNU GPLv3 or later](/L
 ![example img](img/category-jobs-link.png) | ![example img](img/category-perso-ip.png)
 
 ## Features
-- **Access quickly to the links** you have set. All HTTP links are valid. (`localhost:8056`, `127.0.0.1`, `192.168.11.45`, `app.local`, `remote.com`). Links like `about:addons` or `file:///C:\...` are not supported due to Firefox restrictions.
-- **Manage the links and categories** (creation and deletion).
+- **Open quickly the links you have set.** All HTTP links are valid. (`localhost:8056`, `127.0.0.1`, `192.168.11.45:80/app`, `app.local`, `https://github.com/about`). 
+- **Manage the links and categories** (to create and delete).
 - **Separate links by categories** (categories can be projects, life domains, perso/pro, ...) to keep the lists short, on-topic and to find the links you are looking for more quickly.
 
 ## Planned features
 - Translations support (first to do a french translation)
 - Open all links in the current categories
 - Add the current tab link to the current category (fill the link and propose the name with the tab title)
-- Extension icon enhancement
 
 ## Contributions
 If you want to contribute to make this extension better, you're very welcome. There are currently 4 manners to contribute:
@@ -46,8 +46,8 @@ If you want to contribute to make this extension better, you're very welcome. Th
 
 ## Build
 If you want to build the extension from the source, you need:
-- Windows 10 (other OS have not been tested but will work probably)
-- NPM v6.13.4^
+- Windows 10, MacOS, Linux
+- NPM v6^
 
 ### Process
 - Clone the repos, open a shell
@@ -60,7 +60,7 @@ The build is now available in the `dist` or as `.zip` file under `artifacts` (na
 
 ## Install temporarly unsigned `.zip` or .`xpi`
 1. Go to `about:debugging`
-1. Under This Firefox, click Load a temporary module and select the file
+1. Under This Firefox, click `Load a temporary module` and select the file
 1. The module is available until you close Firefox.
 
 ## Install signed versions
@@ -90,7 +90,7 @@ If you want to develop the extension:
 ## Versions
 All versions are published on GitHub under the [releases panel](https://github.com/samuelroland/openDevApps/releases), including the `.xpi` file and the source code. When browsing with Firefox, a simple click on the `.xpi` file is enough to launch the installation setup. The version names are the same in `package.json` and `manifest.json`.
 
-- **Production** versions are available on GitHub et on addons.mozilla.org.  
+- **Production** versions are available on GitHub et on [addons.mozilla.org](https://addons.mozilla.org/addon/opendevapps).  
 Names are built like that **MAJOR.MINOR** (for example `1.2` stand for v1.2).
 - **Beta** versions are only available on GitHub, and don't have automatic updates (at the moment). Suscribe to releases notifications to keep informed.  
 Names are built like that **MAJOR.MINOR.BETA-NUMBER** (for example `1.2.2` stand for v1.2 beta 2).
