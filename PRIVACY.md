@@ -17,15 +17,15 @@
 -->
 # openDevApps - Privacy notice
     V1.0 Work In Progress - Concern openDevApps v1.0 and higher (until another version of this notice is created).
-The goal of this little notice is to inform you about the data used by the extension to be fully transparent (it's opensource and you can inspect stored data). Your data belongs to you and none of them are shared with the author of the extension. They are stored locally and syncronised between your devices if you have a Firefox Sync account and that you have ticked the box "Extensions" in the list of synced information.
+The goal of this notice is to be fully transparent about the data used by openDevApps. Your data belongs to you and none of them are shared with the author of openDevApps. They are stored locally and syncronised between your devices if you have a Firefox Sync account and have choosed to sync extensions information.
 
 ## Complete list
-The data stored are the ones you have provided (they contain some default values and the generated identifiers called `id`):
+It contain the information you have provided, some default values and some generated identifiers `id`:
 - **links** (id, link, name, local)
 - **categories** (id, name, list id of links included)
 - **config** (default language, last id inserted for categories and links).
 
-As you can see, there is no analytics data, and there will never have. There is only what the extension really need to work. As the extension can evolve and grow in term of functionnalities, the number of functionnal data will logically increase. This notice will always be up-to-date with the exact list of data are stored and the release notes will mentions changes of this notice.
+As you can see, there is no analytics data, and there will never have. There is only what openDevApps really need to work. As openDevApps can evolve and grow in term of functionnalities, the number of functionnal data will logically increase (e.g new parameter in configuration). This notice will always keep up-to-date the exact list of data stored. The release notes will mentions changes of this notice.
 
 ## How to inspect or delete my data:
 You can inspect and/or delete your data at any moment. First you need to go in the debugging console for this extension:
