@@ -17,7 +17,7 @@
 -->
 # openDevApps - Privacy policy
     V1.0 Work In Progress - Concern openDevApps v1.0 and higher (until another version of this policy is created).
-Your data belongs to you, you have the control on them and none of them are shared/sold/rent with the author of openDevApps. They are stored locally and on your Firefox Sync account (if you have one and have choosed to sync extensions information with your account). If your Firefox account is logged to different devices, the data are syncronised between these devices.
+Your data belong to you, you have the control on them and none of them are shared/sold/rent with the author of openDevApps. They are stored locally and on your Firefox Sync account (if you have one and have choosed to sync extensions information with your account). If your Firefox account is logged to different devices, the data are syncronized between these devices.
 
 ## Data list
 It contains the information you have provided, some default values and some generated identifiers `id`:
@@ -25,7 +25,7 @@ It contains the information you have provided, some default values and some gene
 - a list of **categories** (id, name, list of id of included links) with the current category id
 - **config** (default language, last id inserted for categories and links).
 
-As you can see, there is no analytics data, and there will never be any. There is only what the extension really need to work. As openDevApps can evolve and grow in term of functionnalities, the number of functionnal data will logically increase (e.g. new parameter in configuration). This policy will always keep up-to-date the exact list of data stored. The release notes will mentions changes of this policy.
+As you can see, there is no analytic data, and there will never be any. There is only what the extension really need to work. As openDevApps can evolve and grow in term of functionnalities, the number of functionnal data will logically increase (e.g. new parameter in configuration). This policy will always be kept up to date at each release with the list of data stored. The release notes will mentions changes in this policy.
 
 ## How to inspect or delete my data:
 You can inspect and/or delete your data at any moment. First you need to go in the debugging console for this extension:
@@ -52,4 +52,7 @@ browser.storage.sync.get().then((data) => {
 **Warning!** This action is irreversible and deletes all data created by the extension.
 - Type `browser.storage.sync.clear()`
 - Type Enter
-- Then if you inspect, you can see that data has been deleted.
+- Then if you inspect, you can see that your data have been deleted.
+
+#### All versions of this policy:
+[v1.0](https://github.com/samuelroland/openDevApps/blob/v1.0/PRIVACY.md)
