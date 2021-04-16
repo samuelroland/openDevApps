@@ -15,17 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
-# openDevApps - Privacy notice
-    V1.0 Work In Progress - Concern openDevApps v1.0 and higher (until another version of this notice is created).
-Your data belongs to you and none of them are shared/sold/rent with the author of openDevApps. They are stored locally and on your Firefox Sync account (if you have one and have choosed to sync extensions information with your account). If your Firefox account is logged to different devices, the data arre syncronised between your devices.
+# openDevApps - Privacy policy
+    V1.0 Work In Progress - Concern openDevApps v1.0 and higher (until another version of this policy is created).
+Your data belongs to you, you have the control on them and none of them are shared/sold/rent with the author of openDevApps. They are stored locally and on your Firefox Sync account (if you have one and have choosed to sync extensions information with your account). If your Firefox account is logged to different devices, the data are syncronised between these devices.
 
 ## Data list
 It contains the information you have provided, some default values and some generated identifiers `id`:
-- **links** (id, link, name, local)
-- **categories** (id, name, list of id of included links)
+- a list of **links** (id, link, name, local)
+- a list of **categories** (id, name, list of id of included links) with the current category id
 - **config** (default language, last id inserted for categories and links).
 
-As you can see, there is no analytics data, and there will never be any. There is only what the extension really need to work. As openDevApps can evolve and grow in term of functionnalities, the number of functionnal data will logically increase (e.g. new parameter in configuration). This notice will always keep up-to-date the exact list of data stored. The release notes will mentions changes of this notice.
+As you can see, there is no analytics data, and there will never be any. There is only what the extension really need to work. As openDevApps can evolve and grow in term of functionnalities, the number of functionnal data will logically increase (e.g. new parameter in configuration). This policy will always keep up-to-date the exact list of data stored. The release notes will mentions changes of this policy.
 
 ## How to inspect or delete my data:
 You can inspect and/or delete your data at any moment. First you need to go in the debugging console for this extension:
@@ -33,13 +33,23 @@ You can inspect and/or delete your data at any moment. First you need to go in t
 1. Scroll to find openDevApps in the list
 1. Click on `Inspect`
 1. Go under `Console`
+1. Click on `...` and `Disable Popup Auto-Hide`
+1. Click on the extension to open it (leave it open during the inspection or deletion, else commands will not work).
 
 ### Show the current data
-- Type `browser.storage.sync`
+- Copy paste this code in the Console:
+```javascript
+browser.storage.sync.get().then((data) => {
+  console.log("Your data: ");
+  console.log(data);
+});
+```
 - Type Enter
-- The data appear in a JSON format
+- The data appear in a JSON format (something like `Object { config: {…}, links: (6) […], categories: {…} }`)
+- Click on it and you will see the complete data structure with your data.
 
 ### Delete all extension data
 **Warning!** This action is irreversible and deletes all data created by the extension.
 - Type `browser.storage.sync.clear()`
 - Type Enter
+- Then if you inspect, you can see that data has been deleted.
