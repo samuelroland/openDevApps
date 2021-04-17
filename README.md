@@ -36,12 +36,22 @@ This is an **opensource web extension** licensed under **[GNU GPLv3 or later](/L
 - Open all links in the current categories
 - Add the current tab link to the current category (fill the link and propose the name with the tab title)
 
+
+**What if I'm not a developer?**  
+You can use it if you feel comfortable with computers, else this extension is probably not for you. The main features should not be a problem to use, but sometimes the little functionalities are specific to web development (for example "hosted in local" link option), so maybe you will not know what to do with them (don't forget about the manual if needed).
+
+**Limitations**  
+- Links like `about:addons` or `file:///C:\...` are not supported due to Firefox restrictions.
+- For the moment only HTTP links are valid and links are validated in a basic manner.
+- Ordering links within categories is currently not possible. (I will implement it in future versions).
+- Maximum amount of links has been set to 15. It will probably change in the future. Currently the goal is to avoid vertical and horizontal scroll bars when the extension reaches its maximum size.
+
 ## Contributions
 If you want to contribute to make this extension better, you're very welcome. There are currently 4 manners to contribute:
 
 1. **Bugs/feedback/suggestions**: If you found a bug, have an idea for an enhancement or a new feature, or you just want to give a feedback, just open an issue and describe it and why you think it will be valuable ! **(Write only in English please)**. 
 1. **Contribute to reflections**: To contribute to reflections in progress about the new features to implement, look at [the issues labelled `help wanted`](https://github.com/samuelroland/openDevApps/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) and share your opinions or ideas ! You can thumb up the new features the most valuable to show your interest.  
-1. **Contribute with code**: If you know the VueJS framework (and/or HTML CSS Tailwindcss), search an issue that you find interesting, say that you want to work on the issue and we will organise before you start to code. Then you can fork the repos, code and open a new PR.  
+1. **Contribute with code**: If you know VueJS (and/or HTML CSS Tailwindcss), search an issue that you find interesting, say that you want to work on the issue and we will organise before you start to code. Then you can fork the repos, code and open a new PR.  
 1. **Contribute with texts**: If you think the manual or some docs must be enhanced, or you want to add a new translation, open a new issue to describe what can be enhanced and how to think to will make it better, before starting to write content. Then you can fork the repos, code and open a new PR.
 
 ## Build
