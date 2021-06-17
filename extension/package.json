@@ -2,7 +2,7 @@
   "name": "opendevapps",
   "version": "1.0.0",
   "private": true,
-  "license": "AGPL-3.0-or-later",
+  "license": "GPL-3.0-or-later",
   "description": "Open quickly local or remote development-related apps, through a small list of links.",
   "homepage": "https://github.com/samuelroland/openDevApps#readme",
   "scripts": {
