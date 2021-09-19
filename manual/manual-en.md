@@ -75,6 +75,19 @@ Here, in addition to `Great Project at Company`, we would like to add the link `
 
 **To remove a link** from a category, just click on the "unlink" icon.
 
+## Basic usage
+When link or category are created, deleted, added, or removed, this is saved in local memory (synced across your browsers if you use Firefox Sync).
+
+When closing preferences or closing/reopening the extension, the links are displayed and you click on them to open URLs.
+![image](https://user-images.githubusercontent.com/47849646/133945260-66cdcb05-3624-44f9-a2e5-0a8b07b352bb.png)
+**Bottom icons**:
+- Repository to find source code
+- Link to this manual, in case you need it later
+- Settings icon to open/close settings
+
+**Top tricks**:
+You can always hover option to see the purpose with the title info displayed after 1 second. Version number hover displays release date of the installed version.
+
 ## Deletion
 - To delete links: click on the little trash 2 times
 - To delete categories: click on the little trash 3 times (relations to links are deleted, but links themself are not).
