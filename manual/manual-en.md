@@ -18,8 +18,8 @@
 # openDevApps - Manual
 
     Manual version 1.0
-    Up-to-date for openDevApps v1.0-beta1  
-*Open a **PR** to improve it, add/update a translation or just fix a typo!* **Writing in Progress**.
+    Up-to-date for openDevApps v1.0  
+*Open a **PR** to improve it, add/update a translation or just fix a typo!*.
 
 ---
 
