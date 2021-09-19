@@ -27,7 +27,7 @@ When you just installed the extension for the first time, you got a interface li
 
 <img alt="image" src="https://user-images.githubusercontent.com/47849646/133944442-585081e4-c16a-4151-b78e-6874ba6b897e.png">
 
-As you can see, there is no link and no category (`All` is just the view with all existing links).
+As you can see, there is no link and no category.
 
 As suggested, open the `Settings` by clicking on the settings icon:
 
@@ -35,7 +35,7 @@ As suggested, open the `Settings` by clicking on the settings icon:
 
 *Okay, but before managing links and categories, how are these elements organised together ?*
 
-You can create links (with URL, name and if it's local or not) and then add them to 0, 1 or n categories. Each category can have 0, 1, or multiple links (but not several times the same).
+You can create links (with URL, name and if it's local or not) and then add them to 0, 1 or n categories. Each category can have 0, 1, or multiple links (but not several times the same). `All` is just the view with all existing links.
 
 ### Create a link
 Let's create a first link pointing on `github.com/company/greatproject`. Enter the link (in the bottom text input `New link + Enter`) and hit enter.
@@ -52,6 +52,8 @@ Then check or uncheck the checkbox depending if the app is hosted/running in loc
 
 Our link has been created ! We can click on its name to open a new tab to the website set.
 
+**Mention**: Currently there is a maximum limit of 15 links.
+
 ## Create a category
 After having created several links, it's the time to organise them inside categories. So let's create a first category:
 
@@ -67,8 +69,8 @@ The new category is directly selected and a new zone to add a link has appeared.
 
 ## Add/Remove links to a category
 
-Here we add the link `Alina Repository` (that is an app made by our company) to the `Job apps` category:
-![image](https://user-images.githubusercontent.com/47849646/111880304-0b7bae80-89ab-11eb-8edc-ea8db4c1a413.png)
+Here, in addition to `Great Project at Company`, we would like to add the link `Alina Repository` (that is an app made by our company) to the `Job apps` category (choose and click `Add`):
+
 ![image](https://user-images.githubusercontent.com/47849646/133944978-a908d2a8-46db-43d2-b7a7-f3631c32542e.png)
 
 **To remove a link** from a category, just click on the "unlink" icon.
