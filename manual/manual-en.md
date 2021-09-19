@@ -25,51 +25,57 @@
 
 When you just installed the extension for the first time, you got a interface like this:
 
-<img width="352" alt="image" src="https://user-images.githubusercontent.com/47849646/111702249-414e5500-883c-11eb-820f-a41abac89033.png">
+<img alt="image" src="https://user-images.githubusercontent.com/47849646/133944442-585081e4-c16a-4151-b78e-6874ba6b897e.png">
 
-As you can see, there is no link and no category (`All` is not a category, it just the view with all existing links).
+As you can see, there is no link and no category (`All` is just the view with all existing links).
 
 As suggested, open the `Settings` by clicking on the settings icon:
 
-<img width="341" alt="image" src="https://user-images.githubusercontent.com/47849646/111702963-495ac480-883d-11eb-9cac-4b7a5b08bffc.png">
+<img alt="image" src="https://user-images.githubusercontent.com/47849646/133944463-1f25fec6-4090-4f16-90f4-fc96b83d6703.png">
 
-    Okay, but before managing links and categories, how are these elements organised together ?
+*Okay, but before managing links and categories, how are these elements organised together ?*
 
-There is an independant list of links that you will create. They don't depend on the categories. Each link contains a link string, a name and if it's local or not. These 3 information are entered at the link creation.
+You can create links (with URL, name and if it's local or not) and then add them to 0, 1 or n categories. Each category can have 0, 1, or multiple links (but not several times the same).
 
 ### Create a link
-Let's create a first link pointing on `github.com`. On the bottom text input, as suggested by the placeholder (`New link + Enter`), let's enter the link and hit enter.
+Let's create a first link pointing on `github.com/company/greatproject`. Enter the link (in the bottom text input `New link + Enter`) and hit enter.
 
-<img width="355" alt="image" src="https://user-images.githubusercontent.com/47849646/111703131-832bcb00-883d-11eb-9796-2799b9bb2352.png">
+<img alt="image" src="https://user-images.githubusercontent.com/47849646/133944576-1d820abc-8042-439f-a079-ee98185790c8.png">
 
-Then as suggested by the placeholder (`Set name + Enter`), let's enter the a name and hit Enter.
+Then as suggested by the placeholder (`Set name + Enter`), set a name and hit Enter.
 
-<img width="356" alt="image" src="https://user-images.githubusercontent.com/47849646/111703421-e584cb80-883d-11eb-992c-c68ee3507c94.png">
+<img alt="image" src="https://user-images.githubusercontent.com/47849646/133944656-e7f74f59-8e7b-427a-800d-355a47323414.png">
 
-Then check or uncheck the checkbox. The checkbox answers to the question `Is the app hosted/running in local ?`. You can presse `Space` key to check or uncheck (or use the mouse obviously) then hit Enter. Then the link appear (you see the name and on hover you can see the link as popup).
+Then check or uncheck the checkbox depending if the app is hosted/running in local ? You can presse `Space` key to check or uncheck (or use the mouse obviously) then hit Enter. Then the link appear (you see the name and on hover you can see the link as popup title).
 
-<img width="339" alt="image" src="https://user-images.githubusercontent.com/47849646/111823119-dad14180-88e4-11eb-8635-3ddd81e72c0b.png">
+<img alt="image" src="https://user-images.githubusercontent.com/47849646/133944731-f9da233c-95a2-47b7-ad72-6a7348d334c8.png">
 
 Our link has been created ! We can click on its name to open a new tab to the website set.
 
 ## Create a category
-After having created several links, it's maybe the time to organise them inside categories to have only one part of the links that have something in common. So let's create a first category:
+After having created several links, it's the time to organise them inside categories. So let's create a first category:
 
-On the first input at the top, as suggested by the placeholder (`New category + Enter`) we only need to enter a name. Here our 3 links are the apps that we use in our job, so we name it `Job apps`:
+Enter a name in the top input (`New category + Enter`) and hit `Enter`. We are going to create a category for `Job apps`:
 
-<img width="350" alt="image" src="https://user-images.githubusercontent.com/47849646/111823672-824e7400-88e5-11eb-9337-05f5ade6bc60.png">
+<img alt="image" src="https://user-images.githubusercontent.com/47849646/133944804-4ca26854-d622-42e6-96fa-da472d24db33.png">
 
-When the category exists, it is directly selected and a new zone to add a link has appeared.
+The new category is directly selected and a new zone to add a link has appeared.
 
-<img width="335" alt="image" src="https://user-images.githubusercontent.com/47849646/111823966-e1ac8400-88e5-11eb-9301-aed69e0ea64b.png">
+<img alt="image" src="https://user-images.githubusercontent.com/47849646/133944851-54c0d35d-9154-4c9c-a765-0ce5126933ca.png">
 
-*You have no idea about naming categories ? Think about separating links by projects, by pro/perso, by activities, or anything else you want.*
+*No idea about naming categories ? Think about separating links by projects, domains, by pro/perso, by activities, or anything else you want.*
 
-## Add links to a category
-When you have categories created, you can add links to them. As links are independant of any categories, they can be added from 0 to several categories.
+## Add/Remove links to a category
 
-Here we add the link `E-commerce Alina` (e-commerce that we are working at our job office) to the `Job apps` category:
+Here we add the link `Alina Repository` (that is an app made by our company) to the `Job apps` category:
 ![image](https://user-images.githubusercontent.com/47849646/111880304-0b7bae80-89ab-11eb-8edc-ea8db4c1a413.png)
+![image](https://user-images.githubusercontent.com/47849646/133944978-a908d2a8-46db-43d2-b7a7-f3631c32542e.png)
+
+**To remove a link** from a category, just click on the "unlink" icon.
+
+## Deletion
+- To delete links: click on the little trash 2 times
+- To delete categories: click on the little trash 3 times (relations to links are deleted, but links themself are not).
 
 ## Links validation
 A basic validation of each link is made with a Regex at the link creation. This is not perfect, especially for IP addresses and port range. I preferred to keep it not to restrictive finally. You can test and edit the Regex on [regexr.com](https://regexr.com/5pus0). The Regex is currently:
